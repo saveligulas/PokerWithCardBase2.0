@@ -1,23 +1,30 @@
 package FileIO;
 
-import Table.Models.*;
+import Table.Models.Player;
 import com.opencsv.CSVWriter;
 
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileWriter {
+public class FileWriterIO {
     private final String CasinoDataSheetPath = "src/main/resources/CasinoDataSheet.csv";
     private final String PlayerSheetPath = "src/main/resources/PlayerSheet.csv";
     private final String TableSheetPath = "src/main/resources/TableSheet.csv";
     public void PlayerWriter(Player player){
+        String path = PlayerSheetPath;
+        CSVWriter writer = null;
+
         try{
-            CSVWriter writer = new CSVWriter(new FileWriter(PlayerSheetPath), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER);
+            writer = new CSVWriter(new FileWriter(path),
+                    CSVWriter.DEFAULT_SEPARATOR,
+                    CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                    CSVWriter.RFC4180_LINE_END);
             String[] values = new String[3];
             values[0] = player.Name();
             values[1] = String.valueOf(player.Stack());
             values[2] = String.valueOf(player.ID());
-            writer.writeNext(values,false);
+            writer.writeNext(values);
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);

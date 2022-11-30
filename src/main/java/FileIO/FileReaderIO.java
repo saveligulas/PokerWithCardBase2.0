@@ -1,6 +1,6 @@
 package FileIO;
 
-public class FileReader {
+public class FileReaderIO {
     public void ReadPlayers(){
 
     }
