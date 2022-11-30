@@ -7,9 +7,10 @@ import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class FileReaderIO {
-    public Player ReadPlayer(){
+public final class FileReaderIO {
+    public static Player ReadPlayer(){
         CSVReader reader = null;
         String path = FileIOPath.PLAYER.getPATH();
         try {
@@ -20,6 +21,30 @@ public class FileReaderIO {
                 int Stack = Integer.parseInt(values[1]);
                 int ID = Integer.parseInt(values[2]);
                 return new Player(Name,Stack,ID);
+            } catch (IOException | CsvValidationException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static ArrayList<Player> ReadAllPlayers() {
+        CSVReader reader = null;
+        String path = FileIOPath.PLAYER.getPATH();
+        ArrayList<Player> playerArrayList = new ArrayList<>();
+        try {
+            reader = new CSVReader(new FileReader(path));
+            String[] line;
+            try {
+                while((line = reader.readNext()) != null) {
+                    String[] values = reader.readNext();
+                    String Name = values[0];
+                    int Stack = Integer.parseInt(values[1]);
+                    int ID = Integer.parseInt(values[2]);
+                    Player player = new Player(Name,Stack,ID);
+                    playerArrayList.add(player);
+                }
+                return(playerArrayList);
             } catch (IOException | CsvValidationException e) {
                 throw new RuntimeException(e);
             }
