@@ -7,11 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileWriterIO {
-    private final String CasinoDataSheetPath = "src/main/resources/CasinoDataSheet.csv";
-    private final String PlayerSheetPath = "src/main/resources/PlayerSheet.csv";
-    private final String TableSheetPath = "src/main/resources/TableSheet.csv";
+
     public void PlayerWriter(Player player){
-        String path = PlayerSheetPath;
+        String path = FileIOPath.PLAYER.getPATH();
         CSVWriter writer = null;
 
         try{
