@@ -1,4 +1,6 @@
 package Table.Models;
 
-public record Player(String Name,int Stack,int ID) {
+import java.io.Serializable;
+
+public record Player(String Name, int Stack, int ID) implements Serializable {
 }
