@@ -26,6 +26,14 @@
             <artifactId>javafaker</artifactId>
             <version>0.12</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jeasy/easy-random -->
+        <dependency>
+            <groupId>org.jeasy</groupId>
+            <artifactId>easy-random</artifactId>
+            <version>5.0.0</version>
+            <type>pom</type>
+        </dependency>
+
 
     </dependencies>
 
