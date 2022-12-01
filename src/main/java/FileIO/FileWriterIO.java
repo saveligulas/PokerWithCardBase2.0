@@ -21,7 +21,6 @@ public class FileWriterIO {
             String[] values = new String[3];
             values[0] = player.Name();
             values[1] = String.valueOf(player.Stack());
-            values[2] = String.valueOf(player.ID());
             writer.writeNext(values);
             writer.close();
         } catch (IOException e) {
