@@ -1,6 +1,7 @@
 package Table.Enums;
 
 public enum Status {
+    STANDBY,
     FOLDED,
     CHECKED,
     CAN_RAISE,
