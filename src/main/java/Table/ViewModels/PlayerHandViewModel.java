@@ -7,7 +7,7 @@ import Table.Models.PlayerHand;
 public class PlayerHandViewModel {
     Card[] DealtHand = new Card[2];
     public static PlayerHand getEmptyHand(){
-        return new PlayerHand(new Card[2], Status.STANDBY);
+        return new PlayerHand(new Card[2], Status.STANDBY,new PlayerHandViewModel());
     }
     public void printHand(){
         if(!(DealtHand == null)) {
