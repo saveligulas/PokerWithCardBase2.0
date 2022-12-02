@@ -1,6 +1,8 @@
 package Casino.ID;
 
 import Table.Models.Player;
+import Table.ViewModels.PlayerHandViewModel;
+import Table.ViewModels.PlayerViewModel;
 import com.github.javafaker.Faker;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class RandomDataBaseCreator {
             String name = faker.name().firstName();
             int stack = rand.nextInt(100, 50000);
             int ID = IDCreator.getUniquePlayerID();
-            Player player = new Player(name,stack,ID);
+            Player player = new Player(name,stack,ID, PlayerHandViewModel.getEmptyHand(),new PlayerViewModel());
             playerArrayList.add(player);
         }
         return playerArrayList;

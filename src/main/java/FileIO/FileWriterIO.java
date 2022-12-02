@@ -6,14 +6,14 @@ import com.opencsv.CSVWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileWriterIO {
+public final class FileWriterIO {
 
-    public void PlayerWriter(Player player){
+    public static void PlayerWriter(Player player){
         String path = FileIOPath.PLAYER.getPATH();
         CSVWriter writer = null;
 
         try{
-            writer = new CSVWriter(new FileWriter(path),
+            writer = new CSVWriter(new FileWriter(path,true),
                     CSVWriter.DEFAULT_SEPARATOR,
                     CSVWriter.NO_QUOTE_CHARACTER,
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
