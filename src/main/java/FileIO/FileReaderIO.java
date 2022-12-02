@@ -1,9 +1,7 @@
+
 package FileIO;
 
-import Casino.ID.IDCreator;
-import Table.Models.Player;
-import Table.ViewModels.PlayerHandViewModel;
-import Table.ViewModels.PlayerViewModel;
+import SuperClasses.Player;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
@@ -22,8 +20,7 @@ public final class FileReaderIO {
                 String[] values = reader.readNext();
                 String Name = values[0];
                 int Stack = Integer.parseInt(values[1]);
-                int ID = Integer.parseInt(values[2]);
-                return new Player(Name,Stack,ID,PlayerHandViewModel.getEmptyHand(),new PlayerViewModel());
+                return new Player(Name,Stack);
             } catch (IOException | CsvValidationException e) {
                 throw new RuntimeException(e);
             }
@@ -42,7 +39,7 @@ public final class FileReaderIO {
                 while((line = reader.readNext()) != null) {
                     String Name = line[0];
                     int Stack = Integer.parseInt(line[1]);
-                    Player player = new Player(Name,Stack,IDCreator.getUniquePlayerID(),PlayerHandViewModel.getEmptyHand(),new PlayerViewModel());
+                    Player player = new Player(Name,Stack);
                     playerArrayList.add(player);
                 }
                 return(playerArrayList);

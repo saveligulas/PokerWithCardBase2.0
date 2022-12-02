@@ -1,7 +1,7 @@
 package Casino.Data;
 
 import FileIO.FileReaderIO;
-import Table.Models.Player;
+import SuperClasses.Player;
 
 import java.util.ArrayList;
 

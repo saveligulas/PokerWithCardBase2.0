@@ -2,12 +2,12 @@ package Table.ViewModels;
 
 import CardBase.Card;
 import Table.Enums.Status;
-import Table.Models.PlayerHand;
+import Table.Models.PlayerHandModel;
 
 public class PlayerHandViewModel {
     Card[] DealtHand = new Card[2];
-    public static PlayerHand getEmptyHand(){
-        return new PlayerHand(new Card[2], Status.STANDBY,new PlayerHandViewModel());
+    public static PlayerHandModel getEmptyHand(){
+        return new PlayerHandModel(new Card[2], Status.STANDBY,new PlayerHandViewModel());
     }
     public void printHand(){
         if(!(DealtHand == null)) {
