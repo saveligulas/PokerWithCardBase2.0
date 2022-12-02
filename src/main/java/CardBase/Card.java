@@ -1,8 +1,5 @@
 package CardBase;
 
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class Card {
     private final Rank Rank;
     private final Suit Suit;
@@ -12,9 +9,6 @@ public class Card {
         this.Rank = Rank;
         this.Suit = Suit;
         Name = Rank.getName(Rank)+" of "+Suit.getSuitName();
-        switch(Suit){
-
-        }
     }
 
     public String getName() {
