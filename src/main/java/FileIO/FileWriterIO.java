@@ -1,6 +1,6 @@
 package FileIO;
 
-import Table.Models.Player;
+import SuperClasses.Player;
 import com.opencsv.CSVWriter;
 
 import java.io.FileWriter;
@@ -19,8 +19,8 @@ public final class FileWriterIO {
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.RFC4180_LINE_END);
             String[] values = new String[3];
-            values[0] = player.Name();
-            values[1] = String.valueOf(player.Stack());
+            values[0] = player.Model.Name();
+            values[1] = String.valueOf(player.Model.Stack());
             writer.writeNext(values);
             writer.close();
         } catch (IOException e) {
