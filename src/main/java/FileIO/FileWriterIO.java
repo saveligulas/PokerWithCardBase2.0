@@ -11,7 +11,6 @@ public final class FileWriterIO {
     public static void PlayerWriter(Player player){
         String path = FileIOPath.PLAYER.getPATH();
         CSVWriter writer = null;
-
         try{
             writer = new CSVWriter(new FileWriter(path,true),
                     CSVWriter.DEFAULT_SEPARATOR,
@@ -19,8 +18,8 @@ public final class FileWriterIO {
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.RFC4180_LINE_END);
             String[] values = new String[3];
-            values[0] = player.Model.Name();
-            values[1] = String.valueOf(player.Model.Stack());
+            values[0] = player.getName();
+            values[1] = String.valueOf(player.getStack());
             writer.writeNext(values);
             writer.close();
         } catch (IOException e) {
