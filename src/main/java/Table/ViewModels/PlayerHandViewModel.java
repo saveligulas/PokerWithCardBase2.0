@@ -12,7 +12,7 @@ public class PlayerHandViewModel {
         if(!(handModel.Hand().length == 0)) {
             return handModel.Hand()[0].getName()+", "+handModel.Hand()[1].getName();
         } else {
-            return "Hand is empty";
+            return "*Hand is empty*";
         }
     }
 }
