@@ -7,7 +7,7 @@ public class MainCasino {
     public static void main(String[] args) {
         ArrayList<Player> list = FileReaderIO.ReadAllPlayers();
         for(Player player:list) {
-
+            player.printInfo();
         }
     }
 }
