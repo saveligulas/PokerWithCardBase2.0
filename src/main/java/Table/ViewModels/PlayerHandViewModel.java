@@ -8,12 +8,11 @@ public class PlayerHandViewModel {
     public static PlayerHandModel getEmptyHand(){
         return new PlayerHandModel(new Card[2], Status.STANDBY);
     }
-    public static void printHand(PlayerHandModel handModel){
+    public String getHand(PlayerHandModel handModel){
         if(!(handModel.Hand() == null)) {
-            System.out.println(handModel.Hand()[0].getName());
-            System.out.println(handModel.Hand()[1].getName());
+            return handModel.Hand()[0].getName()+", "+handModel.Hand()[1].getName();
         } else {
-            System.out.println("Hand is empty.");
+            return "Hand is empty";
         }
     }
 }
