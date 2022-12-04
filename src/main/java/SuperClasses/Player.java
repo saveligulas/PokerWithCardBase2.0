@@ -17,7 +17,18 @@ public class Player {
         HandModel = PlayerHandViewModel.getEmptyHand();
     }
 
-    public printInfo() {
+    public String getName() {
+        return Model.Name();
+    }
 
+    public int getStack() {
+        return Model.Stack();
+    }
+
+    public void printInfo() {
+        PrintMethods.printFiller(25,"-");
+        System.out.println();
+        System.out.println(ViewModel.getInfo(Model));
+        System.out.println(HandViewModel.getHand(HandModel));
     }
 }
