@@ -5,14 +5,13 @@ import Table.Enums.Status;
 import Table.Models.PlayerHandModel;
 
 public class PlayerHandViewModel {
-    Card[] DealtHand = new Card[2];
     public static PlayerHandModel getEmptyHand(){
-        return new PlayerHandModel(new Card[2], Status.STANDBY,new PlayerHandViewModel());
+        return new PlayerHandModel(new Card[2], Status.STANDBY);
     }
-    public void printHand(){
-        if(!(DealtHand == null)) {
-            System.out.println(DealtHand[0].getName());
-            System.out.println(DealtHand[1].getName());
+    public static void printHand(PlayerHandModel handModel){
+        if(!(handModel.Hand() == null)) {
+            System.out.println(handModel.Hand()[0].getName());
+            System.out.println(handModel.Hand()[1].getName());
         } else {
             System.out.println("Hand is empty.");
         }

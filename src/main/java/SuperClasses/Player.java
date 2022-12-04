@@ -1,16 +1,15 @@
 package SuperClasses;
 
 import Casino.ID.IDCreator;
-import Table.Enums.Status;
 import Table.Models.PlayerHandModel;
+import Table.Models.PlayerModel;
 import Table.ViewModels.PlayerHandViewModel;
-import Table.ViewModels.PlayerViewModel;
 
 public class Player {
-    public Table.Models.Player Model;
-    PlayerViewModel ViewModel;
+    public PlayerModel Model;
+    public PlayerHandModel HandModel;
     public Player(String Name, int Stack) {
-        Model = new Table.Models.Player(Name,Stack, IDCreator.getUniquePlayerID(),new PlayerHandModel(PlayerHandViewModel.getEmptyHand()));
-        ViewModel = new PlayerViewModel();
+        Model = new PlayerModel(Name,Stack, IDCreator.getUniquePlayerID());
+        HandModel = PlayerHandViewModel.getEmptyHand();
     }
 }

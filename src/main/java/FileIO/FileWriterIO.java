@@ -11,7 +11,6 @@ public final class FileWriterIO {
     public static void PlayerWriter(Player player){
         String path = FileIOPath.PLAYER.getPATH();
         CSVWriter writer = null;
-
         try{
             writer = new CSVWriter(new FileWriter(path,true),
                     CSVWriter.DEFAULT_SEPARATOR,
