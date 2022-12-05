@@ -1,10 +1,10 @@
 package SuperClasses;
 
 import Casino.ID.IDCreator;
-import Table.Models.PlayerHandModel;
-import Table.Models.PlayerModel;
-import Table.ViewModels.PlayerHandViewModel;
-import Table.ViewModels.PlayerViewModel;
+import TablePlayerData.Models.PlayerHandModel;
+import TablePlayerData.Models.PlayerModel;
+import TablePlayerData.ViewModels.PlayerHandViewModel;
+import TablePlayerData.ViewModels.PlayerViewModel;
 
 public class Player {
     private final PlayerModel Model;
