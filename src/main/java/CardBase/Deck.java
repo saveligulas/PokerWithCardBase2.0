@@ -1,13 +1,14 @@
 package CardBase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Deck {
     private final Suit[] Suits = Suit.values();
     private final Rank[] Ranks = Rank.values();
-    private final ArrayList<Card> CardArrayList = new ArrayList<Card>();
+    public final ArrayList<Card> CardArrayList = new ArrayList<Card>();
     HashMap<Rank,AtomicInteger> atomicIntegerHashMap = new HashMap<>();
     {
         for (Rank rank : Ranks) {
@@ -45,5 +46,13 @@ public class Deck {
             System.out.println(card.getName());
             System.out.println(card.ID);
         }
+    }
+    public Card drawTopCard() {
+        Card placeholder = CardArrayList.get(0);
+        CardArrayList.remove(0);
+        return placeholder;
+    }
+    public void shuffleDeck() {
+        Collections.shuffle(CardArrayList);
     }
 }
