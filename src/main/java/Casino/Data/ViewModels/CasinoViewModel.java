@@ -1,5 +1,5 @@
 package Casino.Data.ViewModels;
 
-public class CasinoTables {
+public class CasinoViewModel {
 
 }
