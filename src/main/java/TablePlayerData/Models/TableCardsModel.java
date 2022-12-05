@@ -1,7 +1,7 @@
-package Table.Models;
+package TablePlayerData.Models;
 
 import CardBase.Card;
-import Table.ViewModels.TableCardsViewModel;
+import TablePlayerData.ViewModels.TableCardsViewModel;
 
 public record TableCardsModel(Card[] Flop, Card Turn, Card River, TableCardsViewModel ViewModel) {
 }

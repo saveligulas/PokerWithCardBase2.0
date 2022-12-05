@@ -1,4 +1,4 @@
-package Table.Models;
+package TablePlayerData.Models;
 
 import java.io.Serializable;
 

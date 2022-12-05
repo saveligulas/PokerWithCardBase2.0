@@ -1,4 +1,4 @@
-package Table.Enums;
+package TablePlayerData.Enums;
 
 public enum Status {
     STANDBY,

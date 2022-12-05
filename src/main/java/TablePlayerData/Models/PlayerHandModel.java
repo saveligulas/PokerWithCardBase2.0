@@ -1,7 +1,7 @@
-package Table.Models;
+package TablePlayerData.Models;
 
 import CardBase.Card;
-import Table.Enums.Status;
+import TablePlayerData.Enums.Status;
 
 public record PlayerHandModel(Card[] Hand, Status PlayerStatus) {
 }

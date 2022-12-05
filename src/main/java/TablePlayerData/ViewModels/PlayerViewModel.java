@@ -1,6 +1,6 @@
-package Table.ViewModels;
+package TablePlayerData.ViewModels;
 
-import Table.Models.PlayerModel;
+import TablePlayerData.Models.PlayerModel;
 
 public class PlayerViewModel {
     public String getInfo(PlayerModel Model) {

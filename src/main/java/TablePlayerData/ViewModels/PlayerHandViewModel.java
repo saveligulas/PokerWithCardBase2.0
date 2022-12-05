@@ -1,8 +1,8 @@
-package Table.ViewModels;
+package TablePlayerData.ViewModels;
 
 import CardBase.Card;
-import Table.Enums.Status;
-import Table.Models.PlayerHandModel;
+import TablePlayerData.Enums.Status;
+import TablePlayerData.Models.PlayerHandModel;
 
 public class PlayerHandViewModel {
     public static PlayerHandModel getEmptyHand(){

@@ -1,4 +1,4 @@
-package Table.ViewModels;
+package TablePlayerData.ViewModels;
 
 public class TableCardsViewModel {
 }
