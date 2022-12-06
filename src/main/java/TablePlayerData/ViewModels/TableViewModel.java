@@ -13,6 +13,7 @@ public class TableViewModel {
         System.out.println();
         PrintMethods.printFiller(25,"-");
         System.out.println("Table-ID: "+Model.TableID());
+        System.out.println("Table Capacity: "+Model.PlayerList().size()+"/"+Model.TableCapacity());
         for(Player player:Model.PlayerList()) {
             player.printInfo();
         }

@@ -10,7 +10,7 @@ import TablePlayerData.ViewModels.TableViewModel;
 import java.util.ArrayList;
 
 public class Table {
-    private final TableModel Model;
+    public final TableModel Model;
     private final TableViewModel ViewModel;
     private TableCardsModel CardsModel;
     private final TableCardsViewModel CardsViewModel;
@@ -28,5 +28,9 @@ public class Table {
     public void printInfo() {
         ViewModel.printInfo(Model);
         CardsViewModel.printCards(CardsModel);
+    }
+
+    public void addPlayer(Player player) {
+        Model.PlayerList().add(player);
     }
 }
