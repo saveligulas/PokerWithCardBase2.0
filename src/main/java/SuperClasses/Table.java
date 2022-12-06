@@ -12,12 +12,21 @@ import java.util.ArrayList;
 public class Table {
     private final TableModel Model;
     private final TableViewModel ViewModel;
-    private final TableCardsModel CardsModel;
+    private TableCardsModel CardsModel;
     private final TableCardsViewModel CardsViewModel;
-    public Table() {
-        Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),new Deck());
+    public Table(int Capacity) {
+        Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),new Deck(),Capacity);
         ViewModel = new TableViewModel();
         CardsViewModel = new TableCardsViewModel();
         CardsModel = CardsViewModel.getNewTableCards(Model,ViewModel);
+    }
+
+    public void resetCards() {
+        CardsModel = CardsViewModel.getNewTableCards(Model,ViewModel);
+    }
+
+    public void printInfo() {
+        ViewModel.printInfo(Model);
+        CardsViewModel.printCards(CardsModel);
     }
 }

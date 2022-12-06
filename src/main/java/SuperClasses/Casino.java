@@ -9,8 +9,12 @@ public class Casino {
     private final CasinoModel Model;
     private final CasinoViewModel ViewModel;
 
-    public Casino() {
-        Model = new CasinoModel("Starlet-Casino",new ArrayList<>());
+    public Casino(String Name) {
+        Model = new CasinoModel(Name,new ArrayList<>());
         ViewModel = new CasinoViewModel();
+    }
+
+    public void printInfo() {
+        ViewModel.printInfo(Model);
     }
 }
