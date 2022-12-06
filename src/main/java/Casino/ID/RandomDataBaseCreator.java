@@ -1,6 +1,7 @@
 package Casino.ID;
 
 import SuperClasses.Player;
+import SuperClasses.Table;
 import com.github.javafaker.Faker;
 
 import java.util.ArrayList;
@@ -20,5 +21,17 @@ public class RandomDataBaseCreator {
             playerArrayList.add(player);
         }
         return playerArrayList;
+    }
+
+    public ArrayList<Table> createRandomTablesList(int amount, int capMin, int capMax) {
+        ArrayList<Table> placeholderList = new ArrayList<>();
+        for(int i = 0; i<amount; i++) {
+            placeholderList.add(new Table(rnd.nextInt(capMin,capMax)));
+        }
+        return placeholderList;
+    }
+
+    public String getRandomCasinoName() {
+        return faker.hacker().adjective()+" Casino";
     }
 }
