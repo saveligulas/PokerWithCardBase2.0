@@ -1,8 +1,8 @@
 package Casino.Data.Models;
 
-import TablePlayerData.Models.TableModel;
+import SuperClasses.Table;
 
 import java.util.ArrayList;
 
-public record CasinoModel(String Name, ArrayList<TableModel> TableArrayList) {
+public record CasinoModel(String Name, ArrayList<Table> TableArrayList) {
 }

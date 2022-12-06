@@ -6,6 +6,7 @@ public final class PrintMethods {
         for(int j = 0; j<i; j++) {
             System.out.print(s);
         }
+        System.out.println();
     }
     public static void clearScreen() {
         for(int i = 0; i<20; i++) {
