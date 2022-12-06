@@ -17,4 +17,8 @@ public class Casino {
     public void printInfo() {
         ViewModel.printInfo(Model);
     }
+
+    public void addTable(Table table) {
+        Model.TableArrayList().add(table);
+    }
 }
