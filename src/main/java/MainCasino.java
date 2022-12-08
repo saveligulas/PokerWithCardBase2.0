@@ -10,7 +10,7 @@ public class MainCasino {
         ArrayList<Player> list = FileReaderIO.ReadAllPlayers();
         System.out.println(list);
         Casino casino = new Casino(RandomDataBaseCreator.getRandomCasinoName());
-        casino.initializeCasino(100,5,100);
+        casino.initializeCasino(100,5,10);
         casino.printInfo();
     }
 }
