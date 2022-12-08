@@ -15,4 +15,8 @@ public class PlayerHandViewModel {
             return "*Hand is empty*";
         }
     }
+
+    public void drawNewCards() {
+
+    }
 }
