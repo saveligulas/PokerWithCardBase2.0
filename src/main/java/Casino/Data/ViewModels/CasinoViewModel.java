@@ -23,13 +23,16 @@ public class CasinoViewModel {
     }
     public void createCasinoWithTablesAndLoadPlayerDataSheet(Casino casino,int tables,int tableCapMin,int tableCapMax) {
         ArrayList<Player> list = playerArrayList;
+        int listLength = playerArrayList.size();
+        int counter = 0;
         ArrayList<Table> tableArrayList = RandomDataBaseCreator.createRandomTablesList(tables, tableCapMin, tableCapMax);
         for (int i = 0; i<tableArrayList.size(); i++) {
-            if (!list.isEmpty()) {
+            if (!list.isEmpty() && list.size()>tableArrayList.get(i).Model.TableCapacity()) {
                 for (int j = 0; j < tableArrayList.get(i).Model.TableCapacity(); j++) {
                     System.out.println(i);
                     tableArrayList.get(i).addPlayer(list.get(0));
                     list.remove(0);
+                    counter += 1;
                 }
             }
         }
