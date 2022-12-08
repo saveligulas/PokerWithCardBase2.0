@@ -50,6 +50,7 @@ public class CasinoViewModel {
             }
             if (answer == 1) {
                 casino.addPlayersWithoutTable(list);
+                System.out.println(list);
             }
         }
         for (Table table : tableArrayList) {
