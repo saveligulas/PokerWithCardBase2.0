@@ -25,10 +25,10 @@ public class CasinoViewModel {
         ArrayList<Player> list = playerArrayList;
         ArrayList<Table> tableArrayList = RandomDataBaseCreator.createRandomTablesList(tables, tableCapMin, tableCapMax);
         for (int i = 0; i<tableArrayList.size(); i++) {
-            if (list.isEmpty()) {
+            if (!list.isEmpty()) {
                 for (int j = 0; j < tableArrayList.get(i).Model.TableCapacity(); j++) {
                     System.out.println(i);
-                    tableArrayList.get(0).addPlayer(list.get(0));
+                    tableArrayList.get(i).addPlayer(list.get(0));
                     list.remove(0);
                 }
             }

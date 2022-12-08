@@ -26,7 +26,7 @@ public final class RandomDataBaseCreator {
     public static ArrayList<Table> createRandomTablesList(int amount, int capMin, int capMax) {
         ArrayList<Table> placeholderList = new ArrayList<>();
         for(int i = 0; i<amount; i++) {
-            placeholderList.add(new Table(rnd.nextInt(capMin,capMax)));
+            placeholderList.add(new Table(rnd.nextInt((capMax-capMin))+capMin));
         }
         return placeholderList;
     }
