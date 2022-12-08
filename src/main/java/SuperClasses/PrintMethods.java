@@ -7,6 +7,14 @@ public final class PrintMethods {
             System.out.print(s);
         }
         System.out.println();
+
+    }
+    public static void printFiller() {
+        System.out.println();
+        for(int j = 0; j<25; j++) {
+            System.out.print("-");
+        }
+        System.out.println();
     }
     public static void clearScreen() {
         for(int i = 0; i<20; i++) {

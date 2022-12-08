@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Casino {
     private final CasinoModel Model;
     private final CasinoViewModel ViewModel;
+    private final ArrayList<Player> PlayersWithoutTableList = new ArrayList<>();
 
     public Casino(String Name) {
         Model = new CasinoModel(Name,new ArrayList<>());
@@ -21,4 +22,12 @@ public class Casino {
     public void addTable(Table table) {
         Model.TableArrayList().add(table);
     }
+    public void addPlayersWithoutTable(ArrayList<Player> list) {
+        PlayersWithoutTableList.addAll(list);
+    }
+
+    public void initializeCasino(int tableAmount,int tableCapacityRangeMin,int tableCapacityRangeMax) {
+        ViewModel.createCasinoWithTablesAndLoadPlayerDataSheet(this,tableAmount,tableCapacityRangeMin,tableCapacityRangeMax);
+    }
+
 }

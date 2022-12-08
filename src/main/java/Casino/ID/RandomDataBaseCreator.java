@@ -7,11 +7,11 @@ import com.github.javafaker.Faker;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class RandomDataBaseCreator {
-    private final Random rnd = new Random();
-    private final Faker faker = new Faker();
-    private final Random rand = new Random();
-    public ArrayList<Player> createRandomPlayerList(int amount) {
+public final class RandomDataBaseCreator {
+    private static final Random rnd = new Random();
+    private static final Faker faker = new Faker();
+    private static final Random rand = new Random();
+    public static ArrayList<Player> createRandomPlayerList(int amount) {
         ArrayList<Player> playerArrayList = new ArrayList<>();
         for(int i = 0; i<amount; i++) {
             String name = faker.name().firstName();
@@ -23,7 +23,7 @@ public class RandomDataBaseCreator {
         return playerArrayList;
     }
 
-    public ArrayList<Table> createRandomTablesList(int amount, int capMin, int capMax) {
+    public static ArrayList<Table> createRandomTablesList(int amount, int capMin, int capMax) {
         ArrayList<Table> placeholderList = new ArrayList<>();
         for(int i = 0; i<amount; i++) {
             placeholderList.add(new Table(rnd.nextInt(capMin,capMax)));
@@ -31,7 +31,7 @@ public class RandomDataBaseCreator {
         return placeholderList;
     }
 
-    public String getRandomCasinoName() {
+    public static String getRandomCasinoName() {
         return faker.hacker().adjective()+" Casino";
     }
 }
