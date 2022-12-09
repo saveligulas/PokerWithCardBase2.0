@@ -11,6 +11,7 @@ public class MainCasino {
         System.out.println(list);
         Casino casino = new Casino(RandomDataBaseCreator.getRandomCasinoName());
         casino.initializeCasino(100,5,10);
+        casino.startNewRoundAtAllTables();
         casino.printInfo();
     }
 }

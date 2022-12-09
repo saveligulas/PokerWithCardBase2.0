@@ -32,12 +32,14 @@ public class Table {
     }
 
     public void startNewRound() {
-
+        CardsModel.TableDeck().shuffleDeck();
+        CardsViewModel.dealTableCards(CardsModel);
+        dealCardsToAllPlayers();
     }
 
     public void dealCardsToAllPlayers() {
         for(Player player:Model.PlayerList()) {
-            CardsViewModel.dealCards(CardsModel,player);
+            player.setHand(CardsViewModel.dealCards(CardsModel,player));
         }
     }
 }

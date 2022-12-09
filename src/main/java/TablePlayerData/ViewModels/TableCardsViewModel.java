@@ -27,8 +27,7 @@ public class TableCardsViewModel {
         Model.River()[0] = Model.TableDeck().drawTopCard();
     }
 
-    public void dealCards(TableCardsModel cardsModel, Player player) {
-        Card[] HandFromDeck = new Card[]{cardsModel.TableDeck().drawTopCard(),cardsModel.TableDeck().drawTopCard()};
-        player.setHand(HandFromDeck);
+    public Card[] dealCards(TableCardsModel cardsModel, Player player) {
+        return new Card[]{cardsModel.TableDeck().drawTopCard(),cardsModel.TableDeck().drawTopCard()};
     }
 }
