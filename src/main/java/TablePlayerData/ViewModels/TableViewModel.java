@@ -18,4 +18,11 @@ public class TableViewModel {
             player.printInfo();
         }
     }
+
+    public void dealCards(TableModel Model) {
+        for(Player player: Model.PlayerList()) {
+
+            player.setHand();
+        }
+    }
 }

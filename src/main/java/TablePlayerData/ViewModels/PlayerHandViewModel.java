@@ -16,7 +16,7 @@ public class PlayerHandViewModel {
         }
     }
 
-    public void drawNewCards() {
-
+    public void setCard(Card card, int index, PlayerHandModel Model) {
+        Model.Hand()[index] = card;
     }
 }

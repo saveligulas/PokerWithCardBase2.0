@@ -1,5 +1,6 @@
 package SuperClasses;
 
+import CardBase.Card;
 import Casino.ID.IDCreator;
 import TablePlayerData.Models.PlayerHandModel;
 import TablePlayerData.Models.PlayerModel;
@@ -9,7 +10,7 @@ import TablePlayerData.ViewModels.PlayerViewModel;
 public class Player {
     private final PlayerModel Model;
     private final PlayerViewModel ViewModel = new PlayerViewModel();
-    private final PlayerHandModel HandModel;
+    public final PlayerHandModel HandModel;
     private final PlayerHandViewModel HandViewModel = new PlayerHandViewModel();
 
     public Player(String Name, int Stack) {
@@ -30,5 +31,10 @@ public class Player {
         System.out.println();
         System.out.println(ViewModel.getInfo(Model));
         System.out.println(HandViewModel.getHand(HandModel));
+    }
+
+    public void setHand(Card[] DealtHand) {
+        HandViewModel.setCard(DealtHand[0],0,HandModel);
+        HandViewModel.setCard(DealtHand[1],1,HandModel);
     }
 }
