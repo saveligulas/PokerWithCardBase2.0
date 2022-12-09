@@ -30,5 +30,9 @@ public class Casino {
         ViewModel.createCasinoWithTablesAndLoadPlayerDataSheet(this,tableAmount,tableCapacityRangeMin,tableCapacityRangeMax);
     }
 
-
+    public void startNewRoundAtAllTables() {
+        for(Table table:Model.TableArrayList()) {
+            ViewModel.startNewRoundAtTable(table);
+        }
+    }
 }

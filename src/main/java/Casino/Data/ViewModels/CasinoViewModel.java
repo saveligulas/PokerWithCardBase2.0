@@ -57,4 +57,8 @@ public class CasinoViewModel {
             casino.addTable(table);
         }
     }
+
+    public void startNewRoundAtTable(Table table) {
+        table.startNewRound();
+    }
 }
