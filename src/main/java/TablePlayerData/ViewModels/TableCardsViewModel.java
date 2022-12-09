@@ -1,27 +1,11 @@
 package TablePlayerData.ViewModels;
 
 import CardBase.Card;
+import SuperClasses.Player;
 import SuperClasses.PrintMethods;
 import TablePlayerData.Models.TableCardsModel;
-import TablePlayerData.Models.TableModel;
 
 public class TableCardsViewModel {
-    public TableCardsModel getNewTableCards(TableModel TableModel, TableViewModel TableViewModel) {
-        TableViewModel.shuffleDeck(TableModel);
-        Card[] Flop = new Card[3];
-        for(int i = 0; i<3; i++) {
-            Card card = TableModel.TableDeck().drawTopCard();
-            Flop[i] = card;
-        }
-        burnCard(TableModel);
-        Card Turn = TableModel.TableDeck().drawTopCard();
-        burnCard(TableModel);
-        Card River = TableModel.TableDeck().drawTopCard();
-        return new TableCardsModel(Flop,Turn,River);
-    }
-    public void burnCard(TableModel TableModel) {
-        TableModel.TableDeck().drawTopCard();
-    }
 
     public void printCards(TableCardsModel Model) {
         PrintMethods.printFiller(25,"-");
@@ -30,8 +14,20 @@ public class TableCardsViewModel {
             System.out.println(card.getName());
         }
         System.out.println("Turn: ");
-        System.out.println(Model.Turn().getName());
+        System.out.println(Model.Turn()[0].getName());
         System.out.println("River: ");
-        System.out.println(Model.River().getName());
+        System.out.println(Model.River()[0].getName());
+    }
+
+    public void dealTableCards(TableCardsModel Model) {
+        for(int i = 0; i<Model.Flop().length; i++) {
+            Model.Flop()[i] = Model.TableDeck().drawTopCard();
+        }
+        Model.Turn()[0] = Model.TableDeck().drawTopCard();
+        Model.River()[0] = Model.TableDeck().drawTopCard();
+    }
+
+    public Card[] dealCards(TableCardsModel cardsModel, Player player) {
+        return new Card[]{cardsModel.TableDeck().drawTopCard(),cardsModel.TableDeck().drawTopCard()};
     }
 }

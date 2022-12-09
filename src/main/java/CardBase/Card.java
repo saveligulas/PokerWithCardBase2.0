@@ -26,4 +26,10 @@ public class Card {
     public int getID() {
         return ID;
     }
+
+    public Card() {
+        this.Rank = CardBase.Rank.ACE;
+        this.Suit = CardBase.Suit.SPADES;
+        Name = Rank.getName(CardBase.Rank.ACE)+" of "+CardBase.Suit.SPADES.getSuitName();
+    }
 }

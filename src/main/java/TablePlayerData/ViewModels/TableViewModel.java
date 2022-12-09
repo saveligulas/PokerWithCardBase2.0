@@ -2,11 +2,14 @@ package TablePlayerData.ViewModels;
 
 import SuperClasses.Player;
 import SuperClasses.PrintMethods;
+import TablePlayerData.Models.TableCardsModel;
 import TablePlayerData.Models.TableModel;
 
+import java.util.Collections;
+
 public class TableViewModel {
-    public void shuffleDeck(TableModel Model) {
-        Model.TableDeck().shuffleDeck();
+    public void shuffleDeck(TableCardsModel Model) {
+        Collections.shuffle(Model.TableDeck().CardArrayList);
     }
 
     public void printInfo(TableModel Model) {
@@ -18,4 +21,6 @@ public class TableViewModel {
             player.printInfo();
         }
     }
+
+
 }
