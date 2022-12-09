@@ -9,13 +9,15 @@ import TablePlayerData.ViewModels.PlayerViewModel;
 
 public class Player {
     private final PlayerModel Model;
-    private final PlayerViewModel ViewModel = new PlayerViewModel();
+    private final PlayerViewModel ViewModel;
     public final PlayerHandModel HandModel;
-    private final PlayerHandViewModel HandViewModel = new PlayerHandViewModel();
+    private final PlayerHandViewModel HandViewModel;
 
     public Player(String Name, int Stack) {
         Model = new PlayerModel(Name,Stack, IDCreator.getUniquePlayerID());
         HandModel = PlayerHandViewModel.getEmptyHand();
+        HandViewModel = new PlayerHandViewModel();
+        ViewModel = new PlayerViewModel();
     }
 
     public String getName() {
@@ -34,7 +36,6 @@ public class Player {
     }
 
     public void setHand(Card[] DealtHand) {
-        HandViewModel.setCard(DealtHand[0],0,HandModel);
-        HandViewModel.setCard(DealtHand[1],1,HandModel);
+        HandViewModel.setCard(DealtHand,HandModel);
     }
 }

@@ -6,7 +6,7 @@ import TablePlayerData.Models.PlayerHandModel;
 
 public class PlayerHandViewModel {
     public static PlayerHandModel getEmptyHand(){
-        return new PlayerHandModel(new Card[0], Status.STANDBY);
+        return new PlayerHandModel(new Card[2], Status.STANDBY);
     }
     public String getHand(PlayerHandModel handModel){
         if(!(handModel.Hand().length == 0)) {
@@ -16,7 +16,8 @@ public class PlayerHandViewModel {
         }
     }
 
-    public void setCard(Card card, int index, PlayerHandModel Model) {
-        Model.Hand()[index] = card;
+    public void setCard(Card[] cards,PlayerHandModel Model) {
+                           Model.Hand()[0] = cards[0];
+        Model.Hand()[1] = cards[1];
     }
 }
