@@ -19,7 +19,7 @@ public class Table {
         Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity);
         ViewModel = new TableViewModel();
         CardsViewModel = new TableCardsViewModel();
-        CardsModel = new TableCardsModel(new Card[2],new Card(),new Card(),new Deck());
+        CardsModel = new TableCardsModel(new Card[3],new Card[1],new Card[1],new Deck());
     }
 
     public void printInfo() {
@@ -29,6 +29,10 @@ public class Table {
 
     public void addPlayer(Player player) {
         Model.PlayerList().add(player);
+    }
+
+    public void startNewRound() {
+
     }
 
     public void dealCardsToAllPlayers() {

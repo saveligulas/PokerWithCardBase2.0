@@ -30,4 +30,5 @@ public class Casino {
         ViewModel.createCasinoWithTablesAndLoadPlayerDataSheet(this,tableAmount,tableCapacityRangeMin,tableCapacityRangeMax);
     }
 
+
 }
