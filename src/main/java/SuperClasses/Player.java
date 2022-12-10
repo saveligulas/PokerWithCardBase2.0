@@ -12,6 +12,7 @@ public class Player {
     private final PlayerViewModel ViewModel;
     public final PlayerHandModel HandModel;
     private final PlayerHandViewModel HandViewModel;
+    public Table assignedTable;
 
     public Player(String Name, int Stack) {
         Model = new PlayerModel(Name,Stack, IDCreator.getUniquePlayerID());
