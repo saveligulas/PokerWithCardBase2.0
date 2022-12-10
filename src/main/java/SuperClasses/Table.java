@@ -9,6 +9,7 @@ import TablePlayerData.ViewModels.TableCardsViewModel;
 import TablePlayerData.ViewModels.TableViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Table {
     public TableModel Model;
@@ -41,5 +42,11 @@ public class Table {
         for(Player player:Model.PlayerList()) {
             player.setHand(CardsViewModel.dealCards(CardsModel,player));
         }
+    }
+    public ArrayList<Card> getAllCards() {
+        ArrayList<Card> placeholder = new ArrayList<>(Arrays.asList(CardsModel.Flop()));
+        placeholder.add(CardsModel.Flop()[0]);
+        placeholder.add(CardsModel.River()[0]);
+        return placeholder;
     }
 }
