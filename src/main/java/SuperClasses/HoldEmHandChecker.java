@@ -8,10 +8,12 @@ import java.util.Arrays;
 
 public class HoldEmHandChecker {
     private final HoldEmHandCheckerViewModel ViewModel;
-    private final ArrayList<Card> cardArrayList;
+    private final ArrayList<Player> PlayerList = new ArrayList<>();
     public HoldEmHandChecker(Table table, Player player) {
-        cardArrayList = new ArrayList<>(Arrays.asList(player.HandModel.Hand()));
-        cardArrayList.addAll(table.getAllCards());
         ViewModel = new HoldEmHandCheckerViewModel();
+    }
+
+    public Player checkForWinner() {
+
     }
 }
