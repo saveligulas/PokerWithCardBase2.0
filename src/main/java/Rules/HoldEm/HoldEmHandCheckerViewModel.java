@@ -3,12 +3,14 @@ package Rules.HoldEm;
 import CardBase.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HoldEmHandCheckerViewModel {
     private int value;
     private ArrayList<Card> cardList = new ArrayList<Card>();
 
     public int checkAndGetHandValue(ArrayList<Card> cardArrayList) {
+        Collections.sort();
         return 0;
     }
 
