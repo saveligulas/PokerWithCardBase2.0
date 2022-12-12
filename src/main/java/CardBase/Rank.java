@@ -15,6 +15,9 @@ public enum Rank {
         }
         return cardValue;
     }
+    public int getValue() {
+        return cardValue;
+    }
     public String getName(Rank card) {
         String str = "";
         if (card.cardValue > 1 && card.cardValue < 10) {

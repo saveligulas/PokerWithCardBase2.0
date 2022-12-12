@@ -9,7 +9,7 @@ public class HoldEmHandCheckerViewModel {
     private ArrayList<Card> cardList = new ArrayList<Card>();
 
     public int checkAndGetHandValue(ArrayList<Card> cardArrayList) {
-
+        return 0;
     }
 
     public void getHand(ArrayList<Card> cardArrayList) {

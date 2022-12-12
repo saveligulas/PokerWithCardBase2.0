@@ -1,10 +1,8 @@
 package SuperClasses;
 
-import CardBase.Card;
 import Rules.HoldEm.HoldEmHandCheckerViewModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HoldEmHandChecker {
     private final HoldEmHandCheckerViewModel ViewModel;
@@ -14,6 +12,6 @@ public class HoldEmHandChecker {
     }
 
     public Player checkForWinner() {
-
+        return new Player("Test",5555);
     }
 }
