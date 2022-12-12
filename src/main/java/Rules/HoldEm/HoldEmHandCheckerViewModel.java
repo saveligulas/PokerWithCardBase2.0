@@ -6,11 +6,50 @@ import java.util.ArrayList;
 
 public class HoldEmHandCheckerViewModel {
     private int value;
-    public ArrayList<Card> cardList = new ArrayList<Card>();
+    private ArrayList<Card> cardList = new ArrayList<Card>();
 
-    public int checkAndGetHandValue() {
+    public int checkAndGetHandValue(ArrayList<Card> cardArrayList) {
 
     }
 
+    public void getHand(ArrayList<Card> cardArrayList) {
+        cardList = cardArrayList;
+    }
+
+    public void checkForPair() {
+
+    }
+
+    public void checkForTwoPair() {
+
+    }
+
+    public void checkForThreeOfAKind() {
+
+    }
+
+    public void checkForStraight() {
+
+    }
+
+    public void checkForFlush() {
+
+    }
+
+    public void checkForFullHouse() {
+
+    }
+
+    public void checkForFourOfAKind() {
+
+    }
+
+    public void checkForStraightFlush() {
+
+    }
+
+    public void checkForRoyalFlush() {
+
+    }
 
 }

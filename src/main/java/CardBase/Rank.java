@@ -9,7 +9,10 @@ public enum Rank {
     private Rank(Integer cardValue) {
         this.cardValue = cardValue;
     }
-    public int getValue() {
+    public int getValue(boolean getAceHigh) {
+        if(cardValue == 1 && getAceHigh) {
+            return  14;
+        }
         return cardValue;
     }
     public String getName(Rank card) {
