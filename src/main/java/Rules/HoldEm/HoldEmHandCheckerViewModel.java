@@ -18,7 +18,7 @@ public class HoldEmHandCheckerViewModel {
     public int checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
         int value = 0;
-        return checkForTwoPair();
+        return checkForThreeOfAKind();
     }
 
     public void getHandAndInitializeLists(Player player, Table table) {
@@ -69,8 +69,17 @@ public class HoldEmHandCheckerViewModel {
         return 0;
     }
 
-    public void checkForThreeOfAKind() {
-
+    public int checkForThreeOfAKind() {
+        Rank placeholder = rankList.get(0);
+        int counter = 0;
+        for(int i = 0; i<rankList.size(); i++) {
+            if(rankList.get(i).getValue() == placeholder.getValue() && counter != 0 && rankList.get(i+1).getValue() == placeholder.getValue()) {
+                return rankList.get(i).getValue();
+            }
+            counter += 1;
+            placeholder = rankList.get(i);
+        }
+        return 0;
     }
 
     public void checkForStraight() {
