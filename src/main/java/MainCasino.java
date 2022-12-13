@@ -1,3 +1,5 @@
+import CardBase.Rank;
+import CardBase.Suit;
 import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import SuperClasses.Player;
 import SuperClasses.Table;
@@ -15,6 +17,8 @@ public class MainCasino {
         table.addPlayer(player);
         table.startNewRound();
         HoldEmHandCheckerViewModel test = new HoldEmHandCheckerViewModel();
+        player.setHandAdmin(Rank.KING, Suit.SPADES,Rank.QUEEN,Suit.SPADES);
+        table.setCardsAdmin(Rank.KING,Suit.SPADES,Rank.QUEEN,Suit.SPADES,Rank.TEN,Suit.CLUBS,Rank.NINE,Suit.CLUBS,Rank.JACK,Suit.DIAMONDS);
         table.printInfo();
         System.out.println(test.checkAndGetHandValue(player,table));
     }
