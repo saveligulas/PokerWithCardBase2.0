@@ -1,6 +1,8 @@
 package SuperClasses;
 
 import CardBase.Card;
+import CardBase.Rank;
+import CardBase.Suit;
 import Casino.ID.IDCreator;
 import TablePlayerData.Models.PlayerHandModel;
 import TablePlayerData.Models.PlayerModel;
@@ -47,5 +49,9 @@ public class Player {
         placeholder.add(HandModel.Hand()[0]);
         placeholder.add(HandModel.Hand()[1]);
         return placeholder;
+    }
+
+    public void setHandAdmin(Rank rank, Suit suit,Rank rank2, Suit suit2) {
+        HandViewModel.setCard(new Card[]{new Card(rank,suit),new Card(rank2,suit2)},HandModel);
     }
 }
