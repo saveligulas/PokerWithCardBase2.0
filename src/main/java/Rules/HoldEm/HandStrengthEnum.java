@@ -1,6 +1,6 @@
 package Rules.HoldEm;
 
-public enum HandStrength {
+public enum HandStrengthEnum {
     HIGH_CARD(1),
     PAIR(2),
     TWO_PAIR(3),
@@ -14,7 +14,7 @@ public enum HandStrength {
 
     private final int Value;
 
-    private HandStrength(int Value) {
+    private HandStrengthEnum(int Value) {
         this.Value = Value;
     }
 
