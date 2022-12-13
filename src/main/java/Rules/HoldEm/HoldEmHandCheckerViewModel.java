@@ -18,6 +18,10 @@ public class HoldEmHandCheckerViewModel {
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
         int value = 0;
+        value = checkForStraight();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.STRAIGHT);
+        }
         value = checkForThreeOfAKind();
         if(value != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.THREE_OF_A_KIND);
@@ -85,11 +89,8 @@ public class HoldEmHandCheckerViewModel {
         Rank placeholder = rankList.get(0);
         int counter = 0;
         for(int i = 0; i<rankList.size(); i++) {
-            try {
-                if (rankList.get(i).getValue() == placeholder.getValue() && counter != 0 && rankList.get(i + 1).getValue() == placeholder.getValue()) {
-                    return rankList.get(i).getValue();
-                }
-            }catch(IndexOutOfBoundsException ignored) {
+            if (rankList.get(i).getValue() == placeholder.getValue() && counter != 0 && rankList.get(i + 1).getValue() == placeholder.getValue() && counter != rankList.size()-1) {
+                return rankList.get(i).getValue();
             }
             counter += 1;
             placeholder = rankList.get(i);
@@ -97,8 +98,20 @@ public class HoldEmHandCheckerViewModel {
         return 0;
     }
 
-    public void checkForStraight() {
-
+    public int checkForStraight() {
+        for(int i = 0; i<(rankList.size()-4); i++) {
+            int value = rankList.get(i).getValue();
+            if(rankList.get(i+1).getValue() == value-1) {
+                if(rankList.get(i+2).getValue() == value-2) {
+                    if(rankList.get(i+3).getValue() == value-3) {
+                        if(rankList.get(i+4).getValue() == value-4) {
+                            return value;
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
     }
 
     public void checkForFlush() {
