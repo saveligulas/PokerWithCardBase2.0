@@ -45,7 +45,7 @@ public class Table {
     }
     public ArrayList<Card> getAllCards() {
         ArrayList<Card> placeholder = new ArrayList<>(Arrays.asList(CardsModel.Flop()));
-        placeholder.add(CardsModel.Flop()[0]);
+        placeholder.add(CardsModel.Turn()[0]);
         placeholder.add(CardsModel.River()[0]);
         return placeholder;
     }
