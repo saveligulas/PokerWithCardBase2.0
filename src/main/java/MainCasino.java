@@ -1,8 +1,6 @@
-import CardBase.Rank;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import Rules.HoldEm.HoldEmHandCheckerViewModel;
+import SuperClasses.Player;
+import SuperClasses.Table;
 
 public class MainCasino {
     public static void main(String[] args) {
@@ -12,10 +10,12 @@ public class MainCasino {
 //        casino.initializeCasino(100,5,10);
 //        casino.startNewRoundAtAllTables();
 //        casino.printInfo();
-        ArrayList<Rank> list = new ArrayList<>(Arrays.asList(Rank.values()));
-        Collections.shuffle(list);
-        System.out.println(list);
-        Collections.sort(list);
-        System.out.println(list);
+        Table table = new Table(5);
+        Player player = new Player("Iva",5000);
+        table.addPlayer(player);
+        table.startNewRound();
+        HoldEmHandCheckerViewModel test = new HoldEmHandCheckerViewModel();
+        table.printInfo();
+        System.out.println(test.checkAndGetHandValue(player,table));
     }
 }
