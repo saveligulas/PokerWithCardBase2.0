@@ -3,6 +3,8 @@ package Rules.HoldEm;
 import CardBase.Card;
 import CardBase.Rank;
 import CardBase.Suit;
+import SuperClasses.Player;
+import SuperClasses.Table;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,24 +15,36 @@ public class HoldEmHandCheckerViewModel {
     private ArrayList<Rank> rankList = new ArrayList<>();
     private ArrayList<Suit> suitList = new ArrayList<Suit>();
 
-    public int checkAndGetHandValue(ArrayList<Card> cardArrayList) {
-
-
-        return 0;
+    public int checkAndGetHandValue(Player player, Table table) {
+        getHandAndInitializeLists(player,table);
+        return checkForPair();
     }
 
-    public void getHandAndInitializeLists(ArrayList<Card> cardArrayList) {
-        cardList = cardArrayList;
-        for(Card card:cardArrayList) {
+    public void getHandAndInitializeLists(Player player, Table table) {
+        cardList = table.getAllCards();
+        cardList.addAll(player.getHand());
+        for(Card card:cardList) {
             rankList.add(card.getRank());
             suitList.add(card.getSuit());
         }
         Collections.sort(rankList);
+        Collections.reverse(rankList);
+        System.out.println(rankList);
         Collections.sort(suitList);
+        System.out.println(suitList);
     }
 
-    public void checkForPair() {
-
+    public int checkForPair() {
+        Rank placeholder = rankList.get(0);
+        int counter = 0;
+        for(Rank rank:rankList) {
+            if(rank.getValue() == placeholder.getValue() && counter!= 0) {
+                return rank.getValue();
+            }
+            counter += 1;
+            placeholder = rank;
+        }
+        return 0;
     }
 
     public void checkForTwoPair() {
