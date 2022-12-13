@@ -30,4 +30,10 @@ public class TableCardsViewModel {
     public Card[] dealCards(TableCardsModel cardsModel, Player player) {
         return new Card[]{cardsModel.TableDeck().drawTopCard(),cardsModel.TableDeck().drawTopCard()};
     }
+
+    public void setTableCards(Card[] cards,TableCardsModel Model) {
+        System.arraycopy(cards, 0, Model.Flop(), 0, Model.Flop().length);
+        Model.Turn()[0] = cards[3];
+        Model.River()[0] = cards[4];
+    }
 }

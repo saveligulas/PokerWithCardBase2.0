@@ -2,6 +2,8 @@ package SuperClasses;
 
 import CardBase.Card;
 import CardBase.Deck;
+import CardBase.Rank;
+import CardBase.Suit;
 import Casino.ID.IDCreator;
 import TablePlayerData.Models.TableCardsModel;
 import TablePlayerData.Models.TableModel;
@@ -48,5 +50,9 @@ public class Table {
         placeholder.add(CardsModel.Turn()[0]);
         placeholder.add(CardsModel.River()[0]);
         return placeholder;
+    }
+
+    public void setCardsAdmin(Rank rank1, Suit suit1, Rank rank2, Suit suit2, Rank rank3, Suit suit3, Rank rank4, Suit suit4, Rank rank5, Suit suit5) {
+        CardsViewModel.setTableCards(new Card[]{new Card(rank1,suit1),new Card(rank2,suit2),new Card(rank3,suit3),new Card(rank4,suit4),new Card(rank5,suit5)},CardsModel);
     }
 }
