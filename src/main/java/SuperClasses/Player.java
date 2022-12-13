@@ -7,6 +7,8 @@ import TablePlayerData.Models.PlayerModel;
 import TablePlayerData.ViewModels.PlayerHandViewModel;
 import TablePlayerData.ViewModels.PlayerViewModel;
 
+import java.util.ArrayList;
+
 public class Player {
     private final PlayerModel Model;
     private final PlayerViewModel ViewModel;
@@ -38,5 +40,12 @@ public class Player {
 
     public void setHand(Card[] DealtHand) {
         HandViewModel.setCard(DealtHand,HandModel);
+    }
+
+    public ArrayList<Card> getHand() {
+        ArrayList<Card> placeholder = new ArrayList<>();
+        placeholder.add(HandModel.Hand()[0]);
+        placeholder.add(HandModel.Hand()[1]);
+        return placeholder;
     }
 }
