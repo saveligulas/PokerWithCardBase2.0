@@ -15,10 +15,22 @@ public class HoldEmHandCheckerViewModel {
     private ArrayList<Rank> rankList = new ArrayList<>();
     private ArrayList<Suit> suitList = new ArrayList<Suit>();
 
-    public int checkAndGetHandValue(Player player, Table table) {
+    public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
         int value = 0;
-        return checkForThreeOfAKind();
+        value = checkForThreeOfAKind();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.THREE_OF_A_KIND);
+        }
+        value = checkForTwoPair();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.TWO_PAIR);
+        }
+        value = checkForPair();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.PAIR);
+        }
+        return new HandStrengthModel(rankList.get(0).getValue(),HandStrengthEnum.HIGH_CARD);
     }
 
     public void getHandAndInitializeLists(Player player, Table table) {
@@ -73,8 +85,11 @@ public class HoldEmHandCheckerViewModel {
         Rank placeholder = rankList.get(0);
         int counter = 0;
         for(int i = 0; i<rankList.size(); i++) {
-            if(rankList.get(i).getValue() == placeholder.getValue() && counter != 0 && rankList.get(i+1).getValue() == placeholder.getValue()) {
-                return rankList.get(i).getValue();
+            try {
+                if (rankList.get(i).getValue() == placeholder.getValue() && counter != 0 && rankList.get(i + 1).getValue() == placeholder.getValue()) {
+                    return rankList.get(i).getValue();
+                }
+            }catch(IndexOutOfBoundsException ignored) {
             }
             counter += 1;
             placeholder = rankList.get(i);
