@@ -45,6 +45,11 @@ public class Table {
             player.setHand(CardsViewModel.dealCards(CardsModel,player));
         }
     }
+
+    public void checkForWinner() {
+
+
+    }
     public ArrayList<Card> getAllCards() {
         ArrayList<Card> placeholder = new ArrayList<>(Arrays.asList(CardsModel.Flop()));
         placeholder.add(CardsModel.Turn()[0]);
