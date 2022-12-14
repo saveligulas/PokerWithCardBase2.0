@@ -21,6 +21,10 @@ public class HoldEmHandCheckerViewModel {
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
         int value = 0;
+        value = checkForFullHouse();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.FULL_HOUSE);
+        }
         value = checkForFlush();
         if(value != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.FLUSH);
@@ -160,8 +164,25 @@ public class HoldEmHandCheckerViewModel {
         return 0;
     }
 
-    public void checkForFullHouse() {
-
+    public int checkForFullHouse() {
+        ArrayList<Rank> placeholder = new ArrayList<>();
+        if(checkForThreeOfAKind() != 0) {
+            int value = checkForThreeOfAKind();
+            for(int i = 0; i<3; i++) {
+                placeholder.add(Rank.getEnum(value));
+                rankList.remove(Rank.getEnum(value));
+            }
+            rankList.remove(Rank.getEnum(value));
+            System.out.println(rankList);
+            if(checkForPair() != 0) {
+                rankList.addAll(placeholder);
+                Collections.sort(rankList);
+                Collections.reverse(rankList);
+                System.out.println(rankList);
+                return value;
+            }
+        }
+        return 0;
     }
 
     public void checkForFourOfAKind() {
