@@ -21,6 +21,14 @@ public class HoldEmHandCheckerViewModel {
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
         int value = 0;
+        value = checkForFullHouse();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.FULL_HOUSE);
+        }
+        value = checkForFlush();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.FLUSH);
+        }
         value = checkForStraight();
         if(value != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.STRAIGHT);
@@ -37,7 +45,7 @@ public class HoldEmHandCheckerViewModel {
         if(value != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.PAIR);
         }
-        return new HandStrengthModel(rankList.get(0).getValue(),HandStrengthEnum.HIGH_CARD);
+        return new HandStrengthModel(rankList.get(0).getValue(true),HandStrengthEnum.HIGH_CARD);
     }
 
     public void getHandAndInitializeLists(Player player, Table table) {
@@ -52,11 +60,17 @@ public class HoldEmHandCheckerViewModel {
         rankListWithoutDuplicates.addAll(rankSetList);
         Collections.sort(rankListWithoutDuplicates);
         Collections.reverse(rankListWithoutDuplicates);
+        if(rankListWithoutDuplicates.contains(Rank.ACE)) {
+            rankListWithoutDuplicates.remove(Rank.ACE);
+            rankListWithoutDuplicates.add(Rank.ACE);
+            rankListWithoutDuplicates.add(0,Rank.ACE);
+        }
         Collections.sort(rankList);
         Collections.reverse(rankList);
         System.out.println(rankList);
         Collections.sort(suitList);
         System.out.println(suitList);
+        System.out.println(rankListWithoutDuplicates);
     }
 
     public int checkForPair() {
@@ -64,7 +78,7 @@ public class HoldEmHandCheckerViewModel {
         int counter = 0;
         for(Rank rank:rankList) {
             if(rank.getValue() == placeholder.getValue() && counter!= 0) {
-                return rank.getValue();
+                return rank.getValue(true);
             }
             counter += 1;
             placeholder = rank;
@@ -80,7 +94,7 @@ public class HoldEmHandCheckerViewModel {
         for(Rank rank: rankList) {
             if(rank.getValue() == placeholder.getValue() && counter!= 0) {
                 if(PairCounter == 0) {
-                    highestPairValue = rank.getValue();
+                    highestPairValue = rank.getValue(true);
                 }
                 PairCounter += 1;
                 if(PairCounter == 2) {
@@ -98,8 +112,8 @@ public class HoldEmHandCheckerViewModel {
         int counter = 0;
         for(int i = 0; i<rankList.size(); i++) {
             if(counter != rankList.size()-1) {
-                if (rankList.get(i).getValue() == placeholder.getValue() && counter != 0 && rankList.get(i + 1).getValue() == placeholder.getValue()) {
-                    return rankList.get(i).getValue();
+                if (rankList.get(i).getValue(true) == placeholder.getValue(true) && counter != 0 && rankList.get(i + 1).getValue(true) == placeholder.getValue(true)) {
+                    return rankList.get(i).getValue(true);
                 }
                 counter += 1;
                 placeholder = rankList.get(i);
@@ -111,11 +125,11 @@ public class HoldEmHandCheckerViewModel {
     public int checkForStraight() {
         if(rankListWithoutDuplicates.size()>=5) {
             for (int i = 0; i < (rankListWithoutDuplicates.size() - 4); i++) {
-                int value = rankListWithoutDuplicates.get(i).getValue();
-                if (rankListWithoutDuplicates.get(i + 1).getValue() == value - 1) {
-                    if (rankListWithoutDuplicates.get(i + 2).getValue() == value - 2) {
-                        if (rankListWithoutDuplicates.get(i + 3).getValue() == value - 3) {
-                            if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4) {
+                int value = rankListWithoutDuplicates.get(i).getValue(true);
+                if (rankListWithoutDuplicates.get(i + 1).getValue() == (value - 1) || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 12)) {
+                    if (rankListWithoutDuplicates.get(i + 2).getValue() == value - 2 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 11)) {
+                        if (rankListWithoutDuplicates.get(i + 3).getValue() == value - 3 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 10)) {
+                            if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 9)) {
                                 return value;
                             }
                         }
@@ -126,12 +140,71 @@ public class HoldEmHandCheckerViewModel {
         return 0;
     }
 
-    public void checkForFlush() {
+    public int checkForFlush() {
+        int counter = 0;
+        for(int i = 0; i<suitList.size()-4; i++) {
+            Suit placeholder = suitList.get(i);
+            if(suitList.get(i+1) == placeholder) {
+                if(suitList.get(i+2) == placeholder) {
+                    if(suitList.get(i+3) == placeholder) {
+                        if(suitList.get(i+4) == placeholder) {
+                            int maxValue = 0;
+                            for(Card card : cardList) {
+                                if(card.getSuit() == placeholder && card.getRank().getValue(true) > maxValue) {
+                                    maxValue = card.getRank().getValue(true);
+                                }
+                            }
+                            return maxValue;
+                        }
+                    }
+                }
+            }
 
+        }
+        return 0;
     }
 
-    public void checkForFullHouse() {
+    public int checkForFullHouseValueWithTwos() {
+        ArrayList<Rank> placeholder = new ArrayList<>();
+        if(checkForThreeOfAKind() != 0) {
+            int value = checkForThreeOfAKind();
+            for(int i = 0; i<3; i++) {
+                placeholder.add(Rank.getEnum(value));
+                rankList.remove(Rank.getEnum(value));
+            }
+            rankList.remove(Rank.getEnum(value));
+            System.out.println(rankList);
+            if(checkForPair() != 0) {
+                value += checkForPair();
+                rankList.addAll(placeholder);
+                Collections.sort(rankList);
+                Collections.reverse(rankList);
+                System.out.println(rankList);
+                return value;
+            }
+        }
+        return 0;
+    }
 
+    public int checkForFullHouse() {
+        ArrayList<Rank> placeholder = new ArrayList<>();
+        if(checkForThreeOfAKind() != 0) {
+            int value = checkForThreeOfAKind();
+            for(int i = 0; i<3; i++) {
+                placeholder.add(Rank.getEnum(value));
+                rankList.remove(Rank.getEnum(value));
+            }
+            rankList.remove(Rank.getEnum(value));
+            System.out.println(rankList);
+            if(checkForPair() != 0) {
+                rankList.addAll(placeholder);
+                Collections.sort(rankList);
+                Collections.reverse(rankList);
+                System.out.println(rankList);
+                return value;
+            }
+        }
+        return 0;
     }
 
     public void checkForFourOfAKind() {
