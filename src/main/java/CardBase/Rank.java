@@ -9,6 +9,25 @@ public enum Rank {
     private Rank(Integer cardValue) {
         this.cardValue = cardValue;
     }
+
+    public static Rank getEnum(int value) {
+        return switch(value) {
+            case 2 -> TWO;
+            case 3 -> THREE;
+            case 4 -> FOUR;
+            case 5 -> FIVE;
+            case 6 -> SIX;
+            case 7 -> SEVEN;
+            case 8 -> EIGHT;
+            case 9 -> NINE;
+            case 10 -> TEN;
+            case 11 -> JACK;
+            case 12 -> QUEEN;
+            case 13 -> KING;
+            default -> ACE;
+        };
+    }
+
     public int getValue(boolean getAceHigh) {
         if(cardValue == 1 && getAceHigh) {
             return  14;
