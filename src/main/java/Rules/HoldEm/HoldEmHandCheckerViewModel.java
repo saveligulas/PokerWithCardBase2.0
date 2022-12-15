@@ -6,10 +6,7 @@ import CardBase.Suit;
 import SuperClasses.Player;
 import SuperClasses.Table;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class HoldEmHandCheckerViewModel {
     private int value;
@@ -17,10 +14,15 @@ public class HoldEmHandCheckerViewModel {
     private ArrayList<Rank> rankList = new ArrayList<>();
     private ArrayList<Suit> suitList = new ArrayList<Suit>();
     private ArrayList<Rank> rankListWithoutDuplicates = new ArrayList<>();
+    private HashMap<Rank,Card> rankCardHashMap = new HashMap<>();
 
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
         int value = 0;
+        value = checkForFourOfAKind();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.FOUR_OF_A_KIND);
+        }
         value = checkForFullHouse();
         if(value != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.FULL_HOUSE);
@@ -207,12 +209,25 @@ public class HoldEmHandCheckerViewModel {
         return 0;
     }
 
-    public void checkForFourOfAKind() {
-
+    public int checkForFourOfAKind() {
+        Rank placeholder = rankList.get(0);
+        int counter = 0;
+        for(int i = 0; i<rankList.size(); i++) {
+            if(counter != rankList.size()-1) {
+                if (rankList.get(i).getValue(true) == placeholder.getValue(true) && counter != 0 && rankList.get(i + 1).getValue(true) == placeholder.getValue(true) && rankList.get(i+2).getValue(true) == placeholder.getValue(true)) {
+                    return rankList.get(i).getValue(true);
+                }
+                counter += 1;
+                placeholder = rankList.get(i);
+            }
+        }
+        return 0;
     }
 
     public void checkForStraightFlush() {
+        if(checkForFlush() != 0 && checkForStraight() != 0) {
 
+        }
     }
 
     public void checkForRoyalFlush() {
