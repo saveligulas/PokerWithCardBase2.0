@@ -20,7 +20,7 @@ public class HoldEmHandCheckerViewModel {
     private HashMap<Integer,Rank> integerRankHashMap = new HashMap<>();
     private HashMap<Integer,Suit> integerSuitHashMap = new HashMap<>();
     private AtomicInteger atomicInteger = new AtomicInteger(100);
-    private HashMap<Rank,Integer[]> idsForRanksHashMaps = new HashMap<>();
+    private HashMap<Rank,ArrayList<Integer>> idsForRanksHashMaps = new HashMap<>();
 
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
@@ -67,7 +67,11 @@ public class HoldEmHandCheckerViewModel {
             integerCardHashMap.put(id,card);
             integerRankHashMap.put(id,card.getRank());
             integerSuitHashMap.put(id,card.getSuit());
-            if(id)
+            if(idsForRanksHashMaps.containsKey(card.getRank())) {
+
+            } else {
+
+            }
         }
         Set<Rank> rankSetList = new HashSet<>(rankList);
         rankListWithoutDuplicates.clear();
