@@ -5,6 +5,7 @@ import CardBase.Deck;
 import CardBase.Rank;
 import CardBase.Suit;
 import Casino.ID.IDCreator;
+import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import TablePlayerData.Models.TableCardsModel;
 import TablePlayerData.Models.TableModel;
 import TablePlayerData.ViewModels.TableCardsViewModel;
@@ -18,11 +19,13 @@ public class Table {
     private TableViewModel ViewModel;
     private TableCardsModel CardsModel;
     private TableCardsViewModel CardsViewModel;
+    private HoldEmHandCheckerViewModel HandCheckerViewModel;
     public Table(int Capacity) {
         Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity);
         ViewModel = new TableViewModel();
         CardsViewModel = new TableCardsViewModel();
         CardsModel = new TableCardsModel(new Card[3],new Card[1],new Card[1],new Deck());
+        HandCheckerViewModel = new HoldEmHandCheckerViewModel();
     }
 
     public void printInfo() {
