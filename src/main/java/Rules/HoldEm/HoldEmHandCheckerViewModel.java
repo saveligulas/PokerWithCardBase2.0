@@ -7,6 +7,7 @@ import SuperClasses.Player;
 import SuperClasses.Table;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HoldEmHandCheckerViewModel {
     private int value;
@@ -14,7 +15,12 @@ public class HoldEmHandCheckerViewModel {
     private ArrayList<Rank> rankList = new ArrayList<>();
     private ArrayList<Suit> suitList = new ArrayList<Suit>();
     private ArrayList<Rank> rankListWithoutDuplicates = new ArrayList<>();
-    private HashMap<Rank,Card> rankCardHashMap = new HashMap<>();
+    private HashMap<Integer, Card> integerCardHashMap = new HashMap<>();
+    private HashMap<Card,Integer> cardIntegerHashMap = new HashMap<>();
+    private HashMap<Integer,Rank> integerRankHashMap = new HashMap<>();
+    private HashMap<Integer,Suit> integerSuitHashMap = new HashMap<>();
+    private AtomicInteger atomicInteger = new AtomicInteger(100);
+    private HashMap<Rank,Integer[]> idsForRanksHashMaps = new HashMap<>();
 
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
@@ -56,6 +62,12 @@ public class HoldEmHandCheckerViewModel {
         for(Card card:cardList) {
             rankList.add(card.getRank());
             suitList.add(card.getSuit());
+            int id = atomicInteger.incrementAndGet();
+            cardIntegerHashMap.put(card,id);
+            integerCardHashMap.put(id,card);
+            integerRankHashMap.put(id,card.getRank());
+            integerSuitHashMap.put(id,card.getSuit());
+            if(id)
         }
         Set<Rank> rankSetList = new HashSet<>(rankList);
         rankListWithoutDuplicates.clear();
