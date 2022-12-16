@@ -17,8 +17,8 @@ public class MainCasino {
         table.addPlayer(player);
         table.startNewRound();
         HoldEmHandCheckerViewModel test = new HoldEmHandCheckerViewModel();
-        player.setHandAdmin(Rank.ACE, Suit.HEARTS,Rank.FIVE,Suit.HEARTS);
-        table.setCardsAdmin(Rank.TWO,Suit.HEARTS,Rank.THREE,Suit.HEARTS,Rank.FOUR,Suit.HEARTS,Rank.FIVE,Suit.CLUBS,Rank.SEVEN,Suit.CLUBS);
+        player.setHandAdmin(Rank.ACE, Suit.HEARTS,Rank.TEN,Suit.HEARTS);
+        table.setCardsAdmin(Rank.KING,Suit.HEARTS,Rank.QUEEN,Suit.HEARTS,Rank.JACK,Suit.HEARTS,Rank.FIVE,Suit.CLUBS,Rank.SEVEN,Suit.CLUBS);
         table.printInfo();
         System.out.println(test.checkAndGetHandValue(player,table));
     }
