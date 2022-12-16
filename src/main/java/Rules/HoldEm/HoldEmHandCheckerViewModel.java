@@ -251,6 +251,7 @@ public class HoldEmHandCheckerViewModel {
         ArrayList<Rank> straightRanks = new ArrayList<>();
         for (int i = 0; i < (rankListWithoutDuplicates.size() - 4); i++) {
             int value = rankListWithoutDuplicates.get(i).getValue(true);
+            straightRanks.clear();
             straightRanks.add(rankListWithoutDuplicates.get(i));
             if ((rankListWithoutDuplicates.get(i + 1).getValue() == (value - 1)) || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 12)) {
                 straightRanks.add(rankListWithoutDuplicates.get(i+1));
@@ -260,46 +261,77 @@ public class HoldEmHandCheckerViewModel {
                         straightRanks.add(rankListWithoutDuplicates.get(i+3));
                         if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 9)) {
                             straightRanks.add(rankListWithoutDuplicates.get(i+4));
-                            int suitCounter = 0;
-                            if(idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i)).size() > 1) {
-                                for(Integer id:idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i))) {
-                                    Suit suit = integerSuitHashMap.get(id);
-                                    for(Rank rank:straightRanks) {
-                                        if(idsForRanksHashMaps.get(rank).size() > 1) {
-                                            for(Integer id2:idsForRanksHashMaps.get(rank)) {
-                                                if(integerSuitHashMap.get(id2)== suit) {
-                                                    suitCounter += 1;
-                                                }
-                                            }
-                                        } else {
-                                            if(integerSuitHashMap.get(idsForRanksHashMaps.get(rank).get(0)) == suit) {
-                                                suitCounter += 1;
-                                            }
-                                        }
-                                    }
-                                }
-                                if(suitCounter == 5) {
-                                    return value;
-                                }
-                            } else {
-                                Suit suit = integerSuitHashMap.get(idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i)).get(0));
-                                for (Rank rank : straightRanks) {
-                                    if (idsForRanksHashMaps.get(rank).size() > 1) {
-                                        for(Integer id:idsForRanksHashMaps.get(rank)) {
-                                            if(integerSuitHashMap.get(id) == suit) {
-                                                suitCounter += 1;
-                                            }
-                                        }
-                                    } else {
-                                        if(integerSuitHashMap.get(idsForRanksHashMaps.get(rank).get(0)) == suit) {
+                            System.out.println("Straight detected.");
+                            int suitCounter;
+                            Suit suit;
+                            System.out.println();
+                            Rank initialRank = straightRanks.get(0);
+                            straightRanks.remove(0);
+                            for(Integer id:idsForRanksHashMaps.get(initialRank)) {
+                                suitCounter = 0;
+                                suit = integerSuitHashMap.get(id);
+                                System.out.println("Checking "+suit);
+                                for(Rank rank:straightRanks) {
+                                    System.out.println("Checking Rank "+rank);
+                                    for(Integer id2:idsForRanksHashMaps.get(rank)) {
+                                        System.out.println("Checking Suit of "+id2);
+                                        if(integerSuitHashMap.get(id2) == suit) {
+                                            System.out.println("Suit fits");
                                             suitCounter += 1;
+                                            System.out.println("SuitCounter = "+suitCounter);
                                         }
                                     }
                                 }
-                                if(suitCounter == 5) {
+                                if(suitCounter == 4) {
                                     return value;
                                 }
                             }
+//                            if(idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i)).size() > 1) {
+//                                System.out.println("Duplicate starting card Path.");
+//                                for(Integer id:idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i))) {
+//                                    Suit suit = integerSuitHashMap.get(id);
+//                                    for(Rank rank:straightRanks) {
+//                                        System.out.println("Checking Rank "+rank.getValue());
+//                                        if(idsForRanksHashMaps.get(rank).size() > 1) {
+//                                            for(Integer id2:idsForRanksHashMaps.get(rank)) {
+//                                                if(integerSuitHashMap.get(id2)== suit) {
+//                                                    suitCounter += 1;
+//                                                    System.out.println(suitCounter+"Path 1");
+//                                                }
+//                                            }
+//                                        } else {
+//                                            if(integerSuitHashMap.get(idsForRanksHashMaps.get(rank).get(0)) == suit) {
+//                                                suitCounter += 1;
+//                                                System.out.println(suitCounter+"Path 2");
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                                if(suitCounter == 4) {
+//                                    return value;
+//                                }
+//                            }
+//                            else {
+//                                System.out.println("Non-Duplicate starting card Path.");
+//                                Suit suit = integerSuitHashMap.get(idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i)).get(0));
+//                                for (Rank rank : straightRanks) {
+//                                    if (idsForRanksHashMaps.get(rank).size() > 1) {
+//                                        for(Integer id:idsForRanksHashMaps.get(rank)) {
+//                                            if(integerSuitHashMap.get(id) == suit) {
+//                                                suitCounter += 1;
+//                                                System.out.println(suitCounter+"Path 3");
+//                                            }
+//                                        }
+//                                    } else {
+//                                        if(integerSuitHashMap.get(idsForRanksHashMaps.get(rank).get(0)) == suit) {
+//                                            suitCounter += 1;
+//                                            System.out.println(suitCounter+"Path 4");
+//                                        }
+//                                    }
+//                                }
+//                                if(suitCounter == 5) {
+//                                    return value;
+//                                }
                         }
                     }
                 }
