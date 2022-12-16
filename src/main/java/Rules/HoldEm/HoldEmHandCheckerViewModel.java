@@ -286,52 +286,6 @@ public class HoldEmHandCheckerViewModel {
                                     return value;
                                 }
                             }
-//                            if(idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i)).size() > 1) {
-//                                System.out.println("Duplicate starting card Path.");
-//                                for(Integer id:idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i))) {
-//                                    Suit suit = integerSuitHashMap.get(id);
-//                                    for(Rank rank:straightRanks) {
-//                                        System.out.println("Checking Rank "+rank.getValue());
-//                                        if(idsForRanksHashMaps.get(rank).size() > 1) {
-//                                            for(Integer id2:idsForRanksHashMaps.get(rank)) {
-//                                                if(integerSuitHashMap.get(id2)== suit) {
-//                                                    suitCounter += 1;
-//                                                    System.out.println(suitCounter+"Path 1");
-//                                                }
-//                                            }
-//                                        } else {
-//                                            if(integerSuitHashMap.get(idsForRanksHashMaps.get(rank).get(0)) == suit) {
-//                                                suitCounter += 1;
-//                                                System.out.println(suitCounter+"Path 2");
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                                if(suitCounter == 4) {
-//                                    return value;
-//                                }
-//                            }
-//                            else {
-//                                System.out.println("Non-Duplicate starting card Path.");
-//                                Suit suit = integerSuitHashMap.get(idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i)).get(0));
-//                                for (Rank rank : straightRanks) {
-//                                    if (idsForRanksHashMaps.get(rank).size() > 1) {
-//                                        for(Integer id:idsForRanksHashMaps.get(rank)) {
-//                                            if(integerSuitHashMap.get(id) == suit) {
-//                                                suitCounter += 1;
-//                                                System.out.println(suitCounter+"Path 3");
-//                                            }
-//                                        }
-//                                    } else {
-//                                        if(integerSuitHashMap.get(idsForRanksHashMaps.get(rank).get(0)) == suit) {
-//                                            suitCounter += 1;
-//                                            System.out.println(suitCounter+"Path 4");
-//                                        }
-//                                    }
-//                                }
-//                                if(suitCounter == 5) {
-//                                    return value;
-//                                }
                         }
                     }
                 }
