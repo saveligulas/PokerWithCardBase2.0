@@ -25,6 +25,10 @@ public class HoldEmHandCheckerViewModel {
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
         int value = 0;
+        value = checkForStraightFlush();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.STRAIGHT_FLUSH);
+        }
         value = checkForFourOfAKind();
         if(value != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.FOUR_OF_A_KIND);
@@ -70,9 +74,12 @@ public class HoldEmHandCheckerViewModel {
             if(idsForRanksHashMaps.containsKey(card.getRank())) {
                 idsForRanksHashMaps.get(card.getRank()).add(id);
             } else {
-                idsForRanksHashMaps.put(card.getRank(),new ArrayList<>(id));
+                idsForRanksHashMaps.put(card.getRank(),new ArrayList<>());
+                idsForRanksHashMaps.get(card.getRank()).add(id);
             }
         }
+        System.out.println(integerSuitHashMap);
+        System.out.println(idsForRanksHashMaps);
         Set<Rank> rankSetList = new HashSet<>(rankList);
         rankListWithoutDuplicates.clear();
         rankListWithoutDuplicates.addAll(rankSetList);
@@ -241,41 +248,42 @@ public class HoldEmHandCheckerViewModel {
     }
 
     public int checkForStraightFlush() {
-        if(checkForFlush() != 0 && checkForStraight() != 0) {
-            ArrayList<Rank> straightRanks = new ArrayList<>();
-            for (int i = 0; i < (rankListWithoutDuplicates.size() - 4); i++) {
-                int value = rankListWithoutDuplicates.get(i).getValue(true);
-                straightRanks.add(rankListWithoutDuplicates.get(i));
-                if ((rankListWithoutDuplicates.get(i + 1).getValue() == (value - 1)) || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 12)) {
-                    straightRanks.add(rankListWithoutDuplicates.get(i+1));
-                    if (rankListWithoutDuplicates.get(i + 2).getValue() == value - 2 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 11)) {
-                        straightRanks.add(rankListWithoutDuplicates.get(i+2));
-                        if (rankListWithoutDuplicates.get(i + 3).getValue() == value - 3 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 10)) {
-                            straightRanks.add(rankListWithoutDuplicates.get(i+3));
-                            if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 9)) {
-                                straightRanks.add(rankListWithoutDuplicates.get(i+4));
-                                int suitCounter = 0;
-                                if(idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i)).size() > 1) {
-                                    for(Integer id:idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i))) {
-                                        Suit suit = integerSuitHashMap.get(id);
-
-                                        for(Rank rank:straightRanks) {
-                                            if(idsForRanksHashMaps.get(rank).size() > 1) {
-                                                for(Integer id2:idsForRanksHashMaps.get(rank)) {
-
-                                                }
-                                            } else {
-
-                                            }
+        ArrayList<Rank> straightRanks = new ArrayList<>();
+        for (int i = 0; i < (rankListWithoutDuplicates.size() - 4); i++) {
+            int value = rankListWithoutDuplicates.get(i).getValue(true);
+            straightRanks.clear();
+            straightRanks.add(rankListWithoutDuplicates.get(i));
+            if ((rankListWithoutDuplicates.get(i + 1).getValue() == (value - 1)) || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 12)) {
+                straightRanks.add(rankListWithoutDuplicates.get(i+1));
+                if (rankListWithoutDuplicates.get(i + 2).getValue() == value - 2 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 11)) {
+                    straightRanks.add(rankListWithoutDuplicates.get(i+2));
+                    if (rankListWithoutDuplicates.get(i + 3).getValue() == value - 3 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 10)) {
+                        straightRanks.add(rankListWithoutDuplicates.get(i+3));
+                        if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 9)) {
+                            straightRanks.add(rankListWithoutDuplicates.get(i+4));
+                            System.out.println("Straight detected.");
+                            int suitCounter;
+                            Suit suit;
+                            System.out.println();
+                            Rank initialRank = straightRanks.get(0);
+                            straightRanks.remove(0);
+                            for(Integer id:idsForRanksHashMaps.get(initialRank)) {
+                                suitCounter = 0;
+                                suit = integerSuitHashMap.get(id);
+                                System.out.println("Checking "+suit);
+                                for(Rank rank:straightRanks) {
+                                    System.out.println("Checking Rank "+rank);
+                                    for(Integer id2:idsForRanksHashMaps.get(rank)) {
+                                        System.out.println("Checking Suit of "+id2);
+                                        if(integerSuitHashMap.get(id2) == suit) {
+                                            System.out.println("Suit fits");
+                                            suitCounter += 1;
+                                            System.out.println("SuitCounter = "+suitCounter);
                                         }
                                     }
                                 }
-                                for(Rank rank:straightRanks) {
-                                    if(idsForRanksHashMaps.get(rank).size() > 1) {
-                                        for(rank)
-                                    } else {
-                                        return 0;
-                                    }
+                                if(suitCounter == 4) {
+                                    return value;
                                 }
                             }
                         }
@@ -283,6 +291,7 @@ public class HoldEmHandCheckerViewModel {
                 }
             }
         }
+
         return 0;
     }
 
