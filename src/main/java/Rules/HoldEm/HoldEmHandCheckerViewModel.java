@@ -258,23 +258,37 @@ public class HoldEmHandCheckerViewModel {
                                 if(idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i)).size() > 1) {
                                     for(Integer id:idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i))) {
                                         Suit suit = integerSuitHashMap.get(id);
-
                                         for(Rank rank:straightRanks) {
                                             if(idsForRanksHashMaps.get(rank).size() > 1) {
                                                 for(Integer id2:idsForRanksHashMaps.get(rank)) {
-
+                                                    if(integerSuitHashMap.get(id2)== suit) {
+                                                        suitCounter += 1;
+                                                    }
                                                 }
                                             } else {
-
+                                                if(integerSuitHashMap.get(idsForRanksHashMaps.get(rank).get(0)) == suit) {
+                                                    suitCounter += 1;
+                                                }
                                             }
                                         }
                                     }
-                                }
-                                for(Rank rank:straightRanks) {
-                                    if(idsForRanksHashMaps.get(rank).size() > 1) {
-                                        for(rank)
-                                    } else {
-                                        return 0;
+                                    if(suitCounter == 5) {
+                                        return value;
+                                    }
+                                } else {
+                                    Suit suit = integerSuitHashMap.get(idsForRanksHashMaps.get(rankListWithoutDuplicates.get(i)).get(0));
+                                    for (Rank rank : straightRanks) {
+                                        if (idsForRanksHashMaps.get(rank).size() > 1) {
+                                            for(Integer id:idsForRanksHashMaps.get(rank)) {
+                                                if(integerSuitHashMap.get(id) == suit) {
+                                                    suitCounter += 1;
+                                                }
+                                            }
+                                        } else {
+                                            if(integerSuitHashMap.get(idsForRanksHashMaps.get(rank).get(0)) == suit) {
+
+                                            }
+                                        }
                                     }
                                 }
                             }
