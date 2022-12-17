@@ -265,7 +265,6 @@ public class HoldEmHandCheckerViewModel {
                         straightRanks.add(rankListWithoutDuplicates.get(i+3));
                         if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 9)) {
                             straightRanks.add(rankListWithoutDuplicates.get(i+4));
-                            System.out.println("Straight detected.");
                             int suitCounter;
                             Suit suit;
                             System.out.println();
@@ -274,15 +273,10 @@ public class HoldEmHandCheckerViewModel {
                             for(Integer id:idsForRanksHashMaps.get(initialRank)) {
                                 suitCounter = 0;
                                 suit = integerSuitHashMap.get(id);
-                                System.out.println("Checking "+suit);
                                 for(Rank rank:straightRanks) {
-                                    System.out.println("Checking Rank "+rank);
                                     for(Integer id2:idsForRanksHashMaps.get(rank)) {
-                                        System.out.println("Checking Suit of "+id2);
                                         if(integerSuitHashMap.get(id2) == suit) {
-                                            System.out.println("Suit fits");
                                             suitCounter += 1;
-                                            System.out.println("SuitCounter = "+suitCounter);
                                         }
                                     }
                                 }
@@ -315,7 +309,6 @@ public class HoldEmHandCheckerViewModel {
                         if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 9)) {
                             ArrayList<Rank> straightFlushRanks = new ArrayList<>();
                             straightRanks.add(rankListWithoutDuplicates.get(i+4));
-                            System.out.println("Straight detected.");
                             int suitCounter;
                             Suit suit;
                             System.out.println();
@@ -326,16 +319,11 @@ public class HoldEmHandCheckerViewModel {
                                 straightFlushRanks.clear();
                                 straightFlushRanks.add(initialRank);
                                 suit = integerSuitHashMap.get(id);
-                                System.out.println("Checking "+suit);
                                 for(Rank rank:straightRanks) {
-                                    System.out.println("Checking Rank "+rank);
                                     straightFlushRanks.add(rank);
                                     for(Integer id2:idsForRanksHashMaps.get(rank)) {
-                                        System.out.println("Checking Suit of "+id2);
                                         if(integerSuitHashMap.get(id2) == suit) {
-                                            System.out.println("Suit fits");
                                             suitCounter += 1;
-                                            System.out.println("SuitCounter = "+suitCounter);
                                         }
                                     }
                                 }
