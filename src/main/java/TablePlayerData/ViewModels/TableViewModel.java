@@ -1,10 +1,12 @@
 package TablePlayerData.ViewModels;
 
+import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import SuperClasses.Player;
 import SuperClasses.PrintMethods;
 import TablePlayerData.Models.TableCardsModel;
 import TablePlayerData.Models.TableModel;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class TableViewModel {
@@ -22,5 +24,12 @@ public class TableViewModel {
         }
     }
 
+    public ArrayList<Player> checkHandsAndWinnerList(TableModel Model, HoldEmHandCheckerViewModel HandChecker) {
+        ArrayList<Player> winnerList = new ArrayList<>();
+        for(Player player:Model.PlayerList()) {
+            player.setHandStrength(HandChecker);
+        }
 
+        return winnerList;
+    }
 }
