@@ -1,11 +1,15 @@
 package TablePlayerData.ViewModels;
 
+import Rules.HoldEm.HandStrengthEnum;
+import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import SuperClasses.Player;
 import SuperClasses.PrintMethods;
 import TablePlayerData.Models.TableCardsModel;
 import TablePlayerData.Models.TableModel;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class TableViewModel {
     public void shuffleDeck(TableCardsModel Model) {
@@ -22,5 +26,13 @@ public class TableViewModel {
         }
     }
 
-
+    public ArrayList<Player> checkHandsAndGetWinnerList(TableModel Model, HoldEmHandCheckerViewModel HandChecker) {
+        ArrayList<Player> winnerList = new ArrayList<>();
+        for(Player player:Model.PlayerList()) {
+            player.setHandStrength(HandChecker);
+        }
+        winnerList = Model.PlayerList();
+        winnerList.sort(Comparator.comparing(HandStrengthEnum::HandStrength));
+        return winnerList;
+    }
 }

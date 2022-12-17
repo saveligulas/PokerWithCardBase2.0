@@ -35,6 +35,7 @@ public class Table {
 
     public void addPlayer(Player player) {
         Model.PlayerList().add(player);
+        player.assignedTable = this;
     }
 
     public void startNewRound() {

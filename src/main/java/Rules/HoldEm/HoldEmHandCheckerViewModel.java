@@ -25,6 +25,10 @@ public class HoldEmHandCheckerViewModel {
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
         int value = 0;
+        value = checkForRoyalFlush();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.ROYAL_FLUSH);
+        }
         value = checkForStraightFlush();
         if(value != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.STRAIGHT_FLUSH);
@@ -261,7 +265,6 @@ public class HoldEmHandCheckerViewModel {
                         straightRanks.add(rankListWithoutDuplicates.get(i+3));
                         if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 9)) {
                             straightRanks.add(rankListWithoutDuplicates.get(i+4));
-                            System.out.println("Straight detected.");
                             int suitCounter;
                             Suit suit;
                             System.out.println();
@@ -270,15 +273,10 @@ public class HoldEmHandCheckerViewModel {
                             for(Integer id:idsForRanksHashMaps.get(initialRank)) {
                                 suitCounter = 0;
                                 suit = integerSuitHashMap.get(id);
-                                System.out.println("Checking "+suit);
                                 for(Rank rank:straightRanks) {
-                                    System.out.println("Checking Rank "+rank);
                                     for(Integer id2:idsForRanksHashMaps.get(rank)) {
-                                        System.out.println("Checking Suit of "+id2);
                                         if(integerSuitHashMap.get(id2) == suit) {
-                                            System.out.println("Suit fits");
                                             suitCounter += 1;
-                                            System.out.println("SuitCounter = "+suitCounter);
                                         }
                                     }
                                 }
@@ -295,8 +293,55 @@ public class HoldEmHandCheckerViewModel {
         return 0;
     }
 
-    public void checkForRoyalFlush() {
-
+    public int checkForRoyalFlush() {
+        ArrayList<Rank> straightRanks = new ArrayList<>();
+        Rank[] royalFlushRanks = new Rank[] {Rank.ACE,Rank.KING,Rank.QUEEN,Rank.JACK,Rank.TEN};
+        for (int i = 0; i < (rankListWithoutDuplicates.size() - 4); i++) {
+            int value = rankListWithoutDuplicates.get(i).getValue(true);
+            straightRanks.clear();
+            straightRanks.add(rankListWithoutDuplicates.get(i));
+            if ((rankListWithoutDuplicates.get(i + 1).getValue() == (value - 1)) || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 12)) {
+                straightRanks.add(rankListWithoutDuplicates.get(i+1));
+                if (rankListWithoutDuplicates.get(i + 2).getValue() == value - 2 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 11)) {
+                    straightRanks.add(rankListWithoutDuplicates.get(i+2));
+                    if (rankListWithoutDuplicates.get(i + 3).getValue() == value - 3 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 10)) {
+                        straightRanks.add(rankListWithoutDuplicates.get(i+3));
+                        if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 9)) {
+                            ArrayList<Rank> straightFlushRanks = new ArrayList<>();
+                            straightRanks.add(rankListWithoutDuplicates.get(i+4));
+                            int suitCounter;
+                            Suit suit;
+                            System.out.println();
+                            Rank initialRank = straightRanks.get(0);
+                            straightRanks.remove(0);
+                            for(Integer id:idsForRanksHashMaps.get(initialRank)) {
+                                suitCounter = 0;
+                                straightFlushRanks.clear();
+                                straightFlushRanks.add(initialRank);
+                                suit = integerSuitHashMap.get(id);
+                                for(Rank rank:straightRanks) {
+                                    straightFlushRanks.add(rank);
+                                    for(Integer id2:idsForRanksHashMaps.get(rank)) {
+                                        if(integerSuitHashMap.get(id2) == suit) {
+                                            suitCounter += 1;
+                                        }
+                                    }
+                                }
+                                Collections.sort(straightFlushRanks);
+                                Collections.reverse(straightFlushRanks);
+                                ArrayList<Rank> royalFlushRankArraylist = new ArrayList<>(List.of(royalFlushRanks));
+                                Collections.sort(royalFlushRankArraylist);
+                                Collections.reverse(royalFlushRankArraylist);
+                                System.out.println(straightFlushRanks);
+                                if(suitCounter == 4 && straightFlushRanks.equals(royalFlushRankArraylist)) {
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
     }
-
 }

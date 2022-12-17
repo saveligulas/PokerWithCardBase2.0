@@ -4,6 +4,8 @@ import CardBase.Card;
 import CardBase.Rank;
 import CardBase.Suit;
 import Casino.ID.IDCreator;
+import Rules.HoldEm.HandStrengthModel;
+import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import TablePlayerData.Models.PlayerHandModel;
 import TablePlayerData.Models.PlayerModel;
 import TablePlayerData.ViewModels.PlayerHandViewModel;
@@ -17,6 +19,7 @@ public class Player {
     public final PlayerHandModel HandModel;
     private final PlayerHandViewModel HandViewModel;
     public Table assignedTable;
+    public HandStrengthModel HandStrength;
 
     public Player(String Name, int Stack) {
         Model = new PlayerModel(Name,Stack, IDCreator.getUniquePlayerID());
@@ -53,5 +56,9 @@ public class Player {
 
     public void setHandAdmin(Rank rank, Suit suit,Rank rank2, Suit suit2) {
         HandViewModel.setCard(new Card[]{new Card(rank,suit),new Card(rank2,suit2)},HandModel);
+    }
+
+    public void setHandStrength(HoldEmHandCheckerViewModel ViewModel) {
+        HandStrength = ViewModel.checkAndGetHandValue(this,assignedTable);
     }
 }
