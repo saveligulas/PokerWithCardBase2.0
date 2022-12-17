@@ -25,6 +25,10 @@ public class HoldEmHandCheckerViewModel {
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
         int value = 0;
+        value = checkForRoyalFlush();
+        if(value != 0) {
+            return new HandStrengthModel(value,HandStrengthEnum.ROYAL_FLUSH);
+        }
         value = checkForStraightFlush();
         if(value != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.STRAIGHT_FLUSH);
