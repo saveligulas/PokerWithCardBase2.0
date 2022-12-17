@@ -24,7 +24,7 @@ public class TableViewModel {
         }
     }
 
-    public ArrayList<Player> checkHandsAndWinnerList(TableModel Model, HoldEmHandCheckerViewModel HandChecker) {
+    public ArrayList<Player> checkHandsAndGetWinnerList(TableModel Model, HoldEmHandCheckerViewModel HandChecker) {
         ArrayList<Player> winnerList = new ArrayList<>();
         for(Player player:Model.PlayerList()) {
             player.setHandStrength(HandChecker);
