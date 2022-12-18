@@ -1,6 +1,5 @@
 package TablePlayerData.ViewModels;
 
-import Rules.HoldEm.HandStrengthEnum;
 import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import SuperClasses.Player;
 import SuperClasses.PrintMethods;
@@ -9,7 +8,6 @@ import TablePlayerData.Models.TableModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 public class TableViewModel {
     public void shuffleDeck(TableCardsModel Model) {
@@ -32,7 +30,7 @@ public class TableViewModel {
             player.setHandStrength(HandChecker);
         }
         winnerList = Model.PlayerList();
-        winnerList.sort(Comparator.comparing(HandStrengthEnum::HandStrength));
+        winnerList.sort();
         return winnerList;
     }
 }
