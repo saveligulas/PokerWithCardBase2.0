@@ -51,7 +51,7 @@ public class Table {
     }
 
     public void checkForWinner() {
-
+        System.out.println(ViewModel.checkHandsAndGetWinnerList(Model,HandCheckerViewModel));
 
     }
     public ArrayList<Card> getAllCards() {
