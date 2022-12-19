@@ -53,6 +53,7 @@ public class Table {
     public void checkForWinner() {
         ArrayList<Player> list = ViewModel.checkHandsAndGetWinnerList(Model,HandCheckerViewModel);
         for(Player player:list) {
+            System.out.println(player.getName());
             System.out.println(player.HandStrength);
         }
     }
