@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public final class CustomObjectSort {
-    public static ArrayList<Player> sortByName(ArrayList<Player> playerList) {
+    public static ArrayList<Player> sortByHandStrength(ArrayList<Player> playerList) {
 
         playerList.sort(new Comparator<Player>() {
 

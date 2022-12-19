@@ -24,47 +24,61 @@ public class HoldEmHandCheckerViewModel {
 
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
-        int value = 0;
-        value = checkForRoyalFlush();
-        if(value != 0) {
+        int[] value = new int[1];
+        value[0] = checkForRoyalFlush();
+        if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.ROYAL_FLUSH);
         }
-        value = checkForStraightFlush();
-        if(value != 0) {
+        value[0] = checkForStraightFlush();
+        if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.STRAIGHT_FLUSH);
         }
         value = checkForFourOfAKind();
-        if(value != 0) {
+        if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.FOUR_OF_A_KIND);
         }
         value = checkForFullHouse();
-        if(value != 0) {
+        if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.FULL_HOUSE);
         }
-        value = checkForFlush();
-        if(value != 0) {
+        value[0] = checkForFlush();
+        if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.FLUSH);
         }
-        value = checkForStraight();
-        if(value != 0) {
+        value[0] = checkForStraight();
+        if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.STRAIGHT);
         }
         value = checkForThreeOfAKind();
-        if(value != 0) {
+        if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.THREE_OF_A_KIND);
         }
         value = checkForTwoPair();
-        if(value != 0) {
+        if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.TWO_PAIR);
         }
         value = checkForPair();
-        if(value != 0) {
+        if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.PAIR);
         }
-        return new HandStrengthModel(rankList.get(0).getValue(true),HandStrengthEnum.HIGH_CARD);
+        return new HandStrengthModel(new int[] {rankList.get(0).getValue(true)},HandStrengthEnum.HIGH_CARD);
+    }
+
+    public void clearAllLists() {
+        cardList.clear();
+        rankList.clear();
+        suitList.clear();
+        rankListWithoutDuplicates.clear();
+        integerCardHashMap.clear();
+        cardIntegerHashMap.clear();
+        integerRankHashMap.clear();
+        integerSuitHashMap.clear();
+        atomicInteger = new AtomicInteger(100);
+        idsForRanksHashMaps.clear();
     }
 
     public void getHandAndInitializeLists(Player player, Table table) {
+        clearAllLists();
         cardList = table.getAllCards();
         cardList.addAll(player.getHand());
         for(Card card:cardList) {
@@ -82,8 +96,6 @@ public class HoldEmHandCheckerViewModel {
                 idsForRanksHashMaps.get(card.getRank()).add(id);
             }
         }
-        System.out.println(integerSuitHashMap);
-        System.out.println(idsForRanksHashMaps);
         Set<Rank> rankSetList = new HashSet<>(rankList);
         rankListWithoutDuplicates.clear();
         rankListWithoutDuplicates.addAll(rankSetList);
@@ -96,44 +108,53 @@ public class HoldEmHandCheckerViewModel {
         }
         Collections.sort(rankList);
         Collections.reverse(rankList);
-        System.out.println(rankList);
         Collections.sort(suitList);
-        System.out.println(suitList);
-        System.out.println(rankListWithoutDuplicates);
     }
 
-    public int checkForPair() {
+    public int[] checkForPair() {
         Rank placeholder = rankList.get(0);
         int counter = 0;
         for(Rank rank:rankList) {
             if(rank.getValue() == placeholder.getValue() && counter!= 0) {
-                return rank.getValue(true);
+                int[] values = new int[4];
+                values[0] = placeholder.getValue(true);
+                for(int i = 0; i<3; i++) {
+                    int value = rankListWithoutDuplicates.get(i).getValue(true);
+                    if(value != values[0]) {
+                        values[i+1] = value;
+                    }
+                }
             }
             counter += 1;
             placeholder = rank;
         }
-        return 0;
+        return new int[] {0};
     }
 
-    public int checkForTwoPair() {
+    public int[] checkForTwoPair() {
         Rank placeholder = rankList.get(0);
         int counter = 0;
         int PairCounter = 0;
         int highestPairValue = 0;
+        int secondPairValue = 0;
         for(Rank rank: rankList) {
             if(rank.getValue() == placeholder.getValue() && counter!= 0) {
-                if(PairCounter == 0) {
+                PairCounter += 1;
+                if(PairCounter == 1) {
                     highestPairValue = rank.getValue(true);
                 }
-                PairCounter += 1;
+
                 if(PairCounter == 2) {
-                    return highestPairValue;
+                    secondPairValue = rank.getValue(true);
+                }
+                if(PairCounter == 2) {
+                    return new int[] {highestPairValue,secondPairValue};
                 }
             }
             counter += 1;
             placeholder = rank;
         }
-        return 0;
+        return new int[] {0};
     }
 
     public int checkForThreeOfAKind() {
@@ -237,15 +258,11 @@ public class HoldEmHandCheckerViewModel {
     }
 
     public int checkForFourOfAKind() {
-        Rank placeholder = rankList.get(0);
-        int counter = 0;
-        for(int i = 0; i<rankList.size(); i++) {
-            if(counter != rankList.size()-1) {
-                if (rankList.get(i).getValue(true) == placeholder.getValue(true) && counter != 0 && rankList.get(i + 1).getValue(true) == placeholder.getValue(true) && rankList.get(i+2).getValue(true) == placeholder.getValue(true)) {
-                    return rankList.get(i).getValue(true);
-                }
-                counter += 1;
-                placeholder = rankList.get(i);
+        Rank placeholder;
+        for(int i = 0; i<rankList.size()-3; i++) {
+            placeholder = rankList.get(i);
+            if (rankList.get(i + 1).getValue(true) == placeholder.getValue(true) && rankList.get(i+2).getValue(true) == placeholder.getValue(true) && rankList.get(i+3).getValue(true) == placeholder.getValue(true)) {
+                return rankList.get(i).getValue(true);
             }
         }
         return 0;
@@ -267,7 +284,6 @@ public class HoldEmHandCheckerViewModel {
                             straightRanks.add(rankListWithoutDuplicates.get(i+4));
                             int suitCounter;
                             Suit suit;
-                            System.out.println();
                             Rank initialRank = straightRanks.get(0);
                             straightRanks.remove(0);
                             for(Integer id:idsForRanksHashMaps.get(initialRank)) {
@@ -311,7 +327,6 @@ public class HoldEmHandCheckerViewModel {
                             straightRanks.add(rankListWithoutDuplicates.get(i+4));
                             int suitCounter;
                             Suit suit;
-                            System.out.println();
                             Rank initialRank = straightRanks.get(0);
                             straightRanks.remove(0);
                             for(Integer id:idsForRanksHashMaps.get(initialRank)) {
@@ -332,7 +347,6 @@ public class HoldEmHandCheckerViewModel {
                                 ArrayList<Rank> royalFlushRankArraylist = new ArrayList<>(List.of(royalFlushRanks));
                                 Collections.sort(royalFlushRankArraylist);
                                 Collections.reverse(royalFlushRankArraylist);
-                                System.out.println(straightFlushRanks);
                                 if(suitCounter == 4 && straightFlushRanks.equals(royalFlushRankArraylist)) {
                                     return value;
                                 }
