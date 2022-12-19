@@ -82,8 +82,6 @@ public class HoldEmHandCheckerViewModel {
                 idsForRanksHashMaps.get(card.getRank()).add(id);
             }
         }
-        System.out.println(integerSuitHashMap);
-        System.out.println(idsForRanksHashMaps);
         Set<Rank> rankSetList = new HashSet<>(rankList);
         rankListWithoutDuplicates.clear();
         rankListWithoutDuplicates.addAll(rankSetList);
@@ -311,7 +309,6 @@ public class HoldEmHandCheckerViewModel {
                             straightRanks.add(rankListWithoutDuplicates.get(i+4));
                             int suitCounter;
                             Suit suit;
-                            System.out.println();
                             Rank initialRank = straightRanks.get(0);
                             straightRanks.remove(0);
                             for(Integer id:idsForRanksHashMaps.get(initialRank)) {
@@ -332,7 +329,6 @@ public class HoldEmHandCheckerViewModel {
                                 ArrayList<Rank> royalFlushRankArraylist = new ArrayList<>(List.of(royalFlushRanks));
                                 Collections.sort(royalFlushRankArraylist);
                                 Collections.reverse(royalFlushRankArraylist);
-                                System.out.println(straightFlushRanks);
                                 if(suitCounter == 4 && straightFlushRanks.equals(royalFlushRankArraylist)) {
                                     return value;
                                 }
