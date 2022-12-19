@@ -51,8 +51,10 @@ public class Table {
     }
 
     public void checkForWinner() {
-        System.out.println(ViewModel.checkHandsAndGetWinnerList(Model,HandCheckerViewModel));
-
+        ArrayList<Player> list = ViewModel.checkHandsAndGetWinnerList(Model,HandCheckerViewModel);
+        for(Player player:list) {
+            System.out.println(player.HandStrength);
+        }
     }
     public ArrayList<Card> getAllCards() {
         ArrayList<Card> placeholder = new ArrayList<>(Arrays.asList(CardsModel.Flop()));

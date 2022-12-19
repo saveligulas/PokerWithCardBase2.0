@@ -1,6 +1,3 @@
-import CardBase.Rank;
-import CardBase.Suit;
-import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import SuperClasses.Player;
 import SuperClasses.Table;
 
@@ -13,13 +10,14 @@ public class MainCasino {
 //        casino.startNewRoundAtAllTables();
 //        casino.printInfo();
         Table table = new Table(5);
-        Player player = new Player("Iva",5000);
-        table.addPlayer(player);
+        Player player1 = new Player("Iva",5000);
+        Player player2 = new Player("Saveli",5000);
+        Player player3 = new Player("Marfa",5000);
+        table.addPlayer(player1);
+        table.addPlayer(player2);
+        table.addPlayer(player3);
         table.startNewRound();
-        HoldEmHandCheckerViewModel test = new HoldEmHandCheckerViewModel();
-        player.setHandAdmin(Rank.ACE, Suit.HEARTS,Rank.TEN,Suit.HEARTS);
-        table.setCardsAdmin(Rank.KING,Suit.HEARTS,Rank.QUEEN,Suit.HEARTS,Rank.JACK,Suit.HEARTS,Rank.FIVE,Suit.CLUBS,Rank.SEVEN,Suit.CLUBS);
         table.printInfo();
-        System.out.println(test.checkAndGetHandValue(player,table));
+        table.checkForWinner();
     }
 }
