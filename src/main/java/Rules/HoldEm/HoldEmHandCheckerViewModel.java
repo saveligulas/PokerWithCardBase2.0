@@ -94,10 +94,7 @@ public class HoldEmHandCheckerViewModel {
         }
         Collections.sort(rankList);
         Collections.reverse(rankList);
-        System.out.println(rankList);
         Collections.sort(suitList);
-        System.out.println(suitList);
-        System.out.println(rankListWithoutDuplicates);
     }
 
     public int checkForPair() {
@@ -235,15 +232,11 @@ public class HoldEmHandCheckerViewModel {
     }
 
     public int checkForFourOfAKind() {
-        Rank placeholder = rankList.get(0);
-        int counter = 0;
-        for(int i = 0; i<rankList.size(); i++) {
-            if(counter != rankList.size()-1) {
-                if (rankList.get(i).getValue(true) == placeholder.getValue(true) && counter != 0 && rankList.get(i + 1).getValue(true) == placeholder.getValue(true) && rankList.get(i+2).getValue(true) == placeholder.getValue(true)) {
-                    return rankList.get(i).getValue(true);
-                }
-                counter += 1;
-                placeholder = rankList.get(i);
+        Rank placeholder;
+        for(int i = 0; i<rankList.size()-3; i++) {
+            placeholder = rankList.get(i);
+            if (rankList.get(i + 1).getValue(true) == placeholder.getValue(true) && rankList.get(i+2).getValue(true) == placeholder.getValue(true) && rankList.get(i+3).getValue(true) == placeholder.getValue(true)) {
+                return rankList.get(i).getValue(true);
             }
         }
         return 0;
@@ -265,7 +258,6 @@ public class HoldEmHandCheckerViewModel {
                             straightRanks.add(rankListWithoutDuplicates.get(i+4));
                             int suitCounter;
                             Suit suit;
-                            System.out.println();
                             Rank initialRank = straightRanks.get(0);
                             straightRanks.remove(0);
                             for(Integer id:idsForRanksHashMaps.get(initialRank)) {
