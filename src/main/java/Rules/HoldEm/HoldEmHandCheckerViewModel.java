@@ -111,24 +111,37 @@ public class HoldEmHandCheckerViewModel {
         Collections.sort(suitList);
     }
 
-    public int[] checkForPair() {
+    private ArrayList<Integer> getRankListOfBestRemainingCards(ArrayList<Rank> usedCards, int remainingSlots) {
+        ArrayList<Integer> placeholderList = new ArrayList<>();
+        for(Rank rank:rankList) {
+            if(!usedCards.contains(rank)) {
+                placeholderList.add(rank.getValue(true));
+            } else {
+                usedCards.remove(rank);
+            }
+        }
+        for(int i = rankList.size(); i>remainingSlots; --i) {
+            placeholderList.remove(i-1);
+        }
+        return placeholderList;
+    }
+
+    public Integer[] checkForPair() {
         Rank placeholder = rankList.get(0);
         int counter = 0;
         for(Rank rank:rankList) {
             if(rank.getValue() == placeholder.getValue() && counter!= 0) {
-                int[] values = new int[4];
-                values[0] = placeholder.getValue(true);
-                for(int i = 0; i<3; i++) {
-                    int value = rankListWithoutDuplicates.get(i).getValue(true);
-                    if(value != values[0]) {
-                        values[i+1] = value;
-                    }
+                ArrayList<Integer> values = new ArrayList<>();
+                values.add(rank.getValue(true));
+                for (Integer value : getRankListOfBestRemainingCards(new ArrayList<>(List.of(rank)), 4)) {
+                    values.add(value);
                 }
+                return values.toArray(new Integer[0]);
             }
             counter += 1;
             placeholder = rank;
         }
-        return new int[] {0};
+        return new Integer[] {0};
     }
 
     public int[] checkForTwoPair() {
