@@ -120,7 +120,9 @@ public class HoldEmHandCheckerViewModel {
                 usedCards.remove(rank);
             }
         }
-        for(int i = rankList.size();i)
+        for(int i = rankList.size(); i>remainingSlots; --i) {
+            placeholderList.remove(i-1);
+        }
         return placeholderList;
     }
 
