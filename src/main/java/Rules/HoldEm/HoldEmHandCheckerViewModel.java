@@ -126,18 +126,22 @@ public class HoldEmHandCheckerViewModel {
         return placeholderList;
     }
 
-    public int[] checkForPair() {
+    public Integer[] checkForPair() {
         Rank placeholder = rankList.get(0);
         int counter = 0;
         for(Rank rank:rankList) {
             if(rank.getValue() == placeholder.getValue() && counter!= 0) {
                 ArrayList<Integer> values = new ArrayList<>();
-                values.add()
+                values.add(rank.getValue(true));
+                for (Integer value : getRankListOfBestRemainingCards(new ArrayList<>(List.of(rank)), 4)) {
+                    values.add(value);
+                }
+                return values.toArray(new Integer[0]);
             }
             counter += 1;
             placeholder = rank;
         }
-        return new int[] {0};
+        return new Integer[] {0};
     }
 
     public int[] checkForTwoPair() {
