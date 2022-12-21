@@ -111,9 +111,11 @@ public class HoldEmHandCheckerViewModel {
         Collections.sort(suitList);
     }
 
-    private ArrayList<Integer> getRankListOfBestRemainingCards(ArrayList<Rank> usedCards, int remainingSlots, int bestHandValue) {
+    private ArrayList<Integer> getRankListOfBestRemainingCards(ArrayList<Rank> usedCards, int remainingSlots, int[] bestHandValue) {
         ArrayList<Integer> placeholderList = new ArrayList<>();
-        placeholderList.add(bestHandValue);
+        for(int integer:bestHandValue) {
+            placeholderList.add(integer);
+        }
         for (Rank rank : rankList) {
             if (!usedCards.contains(rank) && placeholderList.size()<remainingSlots+1) {
                 placeholderList.add(rank.getValue(true));
@@ -132,7 +134,7 @@ public class HoldEmHandCheckerViewModel {
                 ArrayList<Rank> usedCards = new ArrayList<>() {{
                     add(rank);
                 }};
-                return getRankListOfBestRemainingCards(usedCards,4,rank.getValue(true)).toArray(new Integer[0]);
+                return getRankListOfBestRemainingCards(usedCards,4,new int[] {rank.getValue(true)}).toArray(new Integer[0]);
             }
             counter += 1;
             placeholder = rank;
@@ -140,30 +142,33 @@ public class HoldEmHandCheckerViewModel {
         return new Integer[] {0};
     }
 
-    public int[] checkForTwoPair() {
+    public Integer[] checkForTwoPair() {
         Rank placeholder = rankList.get(0);
         int counter = 0;
         int PairCounter = 0;
         int highestPairValue = 0;
         int secondPairValue = 0;
+        ArrayList<Rank> usedCards = new ArrayList<>();
         for(Rank rank: rankList) {
             if(rank.getValue() == placeholder.getValue() && counter!= 0) {
                 PairCounter += 1;
                 if(PairCounter == 1) {
                     highestPairValue = rank.getValue(true);
+                    usedCards.add(rank);
                 }
 
                 if(PairCounter == 2) {
                     secondPairValue = rank.getValue(true);
+                    usedCards.add(rank);
                 }
                 if(PairCounter == 2) {
-                    return new int[] {highestPairValue,secondPairValue};
+                    return getRankListOfBestRemainingCards(usedCards,1,new int[]{highestPairValue,secondPairValue}).toArray(new Integer[0]);
                 }
             }
             counter += 1;
             placeholder = rank;
         }
-        return new int[] {0};
+        return new Integer[] {0};
     }
 
     public int checkForThreeOfAKind() {
