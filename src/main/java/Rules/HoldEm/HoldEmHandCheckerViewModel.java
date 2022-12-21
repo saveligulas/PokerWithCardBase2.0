@@ -24,8 +24,8 @@ public class HoldEmHandCheckerViewModel {
 
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
-        int[] value = new int[1];
-        value[0] = checkForRoyalFlush();
+        int[] value;
+        value = checkForRoyalFlush();
         if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.ROYAL_FLUSH);
         }
@@ -111,17 +111,15 @@ public class HoldEmHandCheckerViewModel {
         Collections.sort(suitList);
     }
 
-    private ArrayList<Integer> getRankListOfBestRemainingCards(ArrayList<Rank> usedCards, int remainingSlots) {
+    private ArrayList<Integer> getRankListOfBestRemainingCards(ArrayList<Rank> usedCards, int remainingSlots, int bestHandValue) {
         ArrayList<Integer> placeholderList = new ArrayList<>();
-        for(Rank rank:rankList) {
-            if(!usedCards.contains(rank)) {
+        placeholderList.add(bestHandValue);
+        for (Rank rank : rankList) {
+            if (!usedCards.contains(rank) && placeholderList.size()<remainingSlots+1) {
                 placeholderList.add(rank.getValue(true));
             } else {
                 usedCards.remove(rank);
             }
-        }
-        for(int i = rankList.size(); i>remainingSlots; --i) {
-            placeholderList.remove(i-1);
         }
         return placeholderList;
     }
@@ -131,12 +129,10 @@ public class HoldEmHandCheckerViewModel {
         int counter = 0;
         for(Rank rank:rankList) {
             if(rank.getValue() == placeholder.getValue() && counter!= 0) {
-                ArrayList<Integer> values = new ArrayList<>();
-                values.add(rank.getValue(true));
-                for (Integer value : getRankListOfBestRemainingCards(new ArrayList<>(List.of(rank)), 4)) {
-                    values.add(value);
-                }
-                return values.toArray(new Integer[0]);
+                ArrayList<Rank> usedCards = new ArrayList<>() {{
+                    add(rank);
+                }};
+                return getRankListOfBestRemainingCards(usedCards,4,rank.getValue(true)).toArray(new Integer[0]);
             }
             counter += 1;
             placeholder = rank;
