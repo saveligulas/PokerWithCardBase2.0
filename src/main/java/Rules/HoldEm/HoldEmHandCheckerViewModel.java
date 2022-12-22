@@ -191,7 +191,7 @@ public class HoldEmHandCheckerViewModel {
         return new Integer[] {0};
     }
 
-    public int checkForStraight() {
+    public Integer[] checkForStraight() {
         if(rankListWithoutDuplicates.size()>=5) {
             for (int i = 0; i < (rankListWithoutDuplicates.size() - 4); i++) {
                 int value = rankListWithoutDuplicates.get(i).getValue(true);
@@ -199,14 +199,14 @@ public class HoldEmHandCheckerViewModel {
                     if (rankListWithoutDuplicates.get(i + 2).getValue() == value - 2 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 11)) {
                         if (rankListWithoutDuplicates.get(i + 3).getValue() == value - 3 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 10)) {
                             if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 9)) {
-                                return value;
+                                return getRankListOfBestRemainingCards(new ArrayList<Rank>(),0,new int[value]).toArray(new Integer[0]);
                             }
                         }
                     }
                 }
             }
         }
-        return 0;
+        return new Integer[] {0};
     }
 
     public int checkForFlush() {
