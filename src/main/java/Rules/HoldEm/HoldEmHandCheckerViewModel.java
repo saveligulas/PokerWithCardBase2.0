@@ -256,15 +256,15 @@ public class HoldEmHandCheckerViewModel {
         return new Integer[] {0};
     }
 
-    public int checkForFourOfAKind() {
+    public Integer[] checkForFourOfAKind() {
         Rank placeholder;
         for(int i = 0; i<rankList.size()-3; i++) {
             placeholder = rankList.get(i);
             if (rankList.get(i + 1).getValue(true) == placeholder.getValue(true) && rankList.get(i+2).getValue(true) == placeholder.getValue(true) && rankList.get(i+3).getValue(true) == placeholder.getValue(true)) {
-                return rankList.get(i).getValue(true);
+                return new Integer[] {rankList.get(i).getValue(true)};
             }
         }
-        return 0;
+        return new Integer[] {0};
     }
 
     public int checkForStraightFlush() {
