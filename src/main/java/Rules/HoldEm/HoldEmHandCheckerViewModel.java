@@ -267,7 +267,7 @@ public class HoldEmHandCheckerViewModel {
         return new Integer[] {0};
     }
 
-    public int checkForStraightFlush() {
+    public Integer[] checkForStraightFlush() {
         ArrayList<Rank> straightRanks = new ArrayList<>();
         for (int i = 0; i < (rankListWithoutDuplicates.size() - 4); i++) {
             int value = rankListWithoutDuplicates.get(i).getValue(true);
@@ -296,7 +296,7 @@ public class HoldEmHandCheckerViewModel {
                                     }
                                 }
                                 if(suitCounter == 4) {
-                                    return value;
+                                    return new Integer[] {value};
                                 }
                             }
                         }
@@ -305,7 +305,7 @@ public class HoldEmHandCheckerViewModel {
             }
         }
 
-        return 0;
+        return new Integer[] {0};
     }
 
     public int checkForRoyalFlush() {
