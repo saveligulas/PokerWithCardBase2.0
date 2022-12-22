@@ -230,50 +230,30 @@ public class HoldEmHandCheckerViewModel {
             }
 
         }
-        return 0;
+        return new Integer[] {0};
     }
 
-    public int checkForFullHouseValueWithTwos() {
+
+    public Integer[] checkForFullHouse() {
         ArrayList<Rank> placeholder = new ArrayList<>();
-        if(checkForThreeOfAKind() != 0) {
-            int value = checkForThreeOfAKind();
+        if(checkForThreeOfAKind()[0] != 0) {
+            int value = checkForThreeOfAKind()[0];
             for(int i = 0; i<3; i++) {
                 placeholder.add(Rank.getEnum(value));
                 rankList.remove(Rank.getEnum(value));
             }
             rankList.remove(Rank.getEnum(value));
             System.out.println(rankList);
-            if(checkForPair() != 0) {
-                value += checkForPair();
+            if(checkForPair()[0] != 0) {
                 rankList.addAll(placeholder);
+                int secondValue = checkForPair()[0];
                 Collections.sort(rankList);
                 Collections.reverse(rankList);
                 System.out.println(rankList);
-                return value;
+                return new Integer[] {placeholder.get(0).getValue(true),secondValue};
             }
         }
-        return 0;
-    }
-
-    public int checkForFullHouse() {
-        ArrayList<Rank> placeholder = new ArrayList<>();
-        if(checkForThreeOfAKind() != 0) {
-            int value = checkForThreeOfAKind();
-            for(int i = 0; i<3; i++) {
-                placeholder.add(Rank.getEnum(value));
-                rankList.remove(Rank.getEnum(value));
-            }
-            rankList.remove(Rank.getEnum(value));
-            System.out.println(rankList);
-            if(checkForPair() != 0) {
-                rankList.addAll(placeholder);
-                Collections.sort(rankList);
-                Collections.reverse(rankList);
-                System.out.println(rankList);
-                return value;
-            }
-        }
-        return 0;
+        return new Integer[] {0};
     }
 
     public int checkForFourOfAKind() {
