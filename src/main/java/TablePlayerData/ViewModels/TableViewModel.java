@@ -1,7 +1,6 @@
 package TablePlayerData.ViewModels;
 
 import Rules.HoldEm.HoldEmHandCheckerViewModel;
-import SuperClasses.CustomObjectSort;
 import SuperClasses.Player;
 import SuperClasses.PrintMethods;
 import TablePlayerData.Models.TableCardsModel;
@@ -30,8 +29,17 @@ public class TableViewModel {
         for(Player player:Model.PlayerList()) {
             player.setHandStrength(HandChecker);
         }
-        winnerList = Model.PlayerList();
-        CustomObjectSort.sortByHandStrength(winnerList);
+        int currentHighestHandStrength = 0;
+        for(Player player: Model.PlayerList()) {
+            if(player.HandStrength.StrengthEnum().getValue() >= currentHighestHandStrength) {
+                if(player.HandStrength.StrengthEnum().getValue() == currentHighestHandStrength) {
+                    if()
+                } else {
+                    winnerList.clear();
+                    winnerList.add(player);
+                }
+            }
+        }
         return winnerList;
     }
 }
