@@ -199,7 +199,7 @@ public class HoldEmHandCheckerViewModel {
                     if (rankListWithoutDuplicates.get(i + 2).getValue() == value - 2 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 11)) {
                         if (rankListWithoutDuplicates.get(i + 3).getValue() == value - 3 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 10)) {
                             if (rankListWithoutDuplicates.get(i + 4).getValue() == value - 4 || rankListWithoutDuplicates.get(i + 1).getValue() == (value + 9)) {
-                                return getRankListOfBestRemainingCards(new ArrayList<Rank>(),0,new int[value]).toArray(new Integer[0]);
+                                return new Integer[] {value};
                             }
                         }
                     }
@@ -209,7 +209,7 @@ public class HoldEmHandCheckerViewModel {
         return new Integer[] {0};
     }
 
-    public int checkForFlush() {
+    public Integer[] checkForFlush() {
         int counter = 0;
         for(int i = 0; i<suitList.size()-4; i++) {
             Suit placeholder = suitList.get(i);
@@ -223,7 +223,7 @@ public class HoldEmHandCheckerViewModel {
                                     maxValue = card.getRank().getValue(true);
                                 }
                             }
-                            return maxValue;
+                            return new Integer[] {value};
                         }
                     }
                 }
