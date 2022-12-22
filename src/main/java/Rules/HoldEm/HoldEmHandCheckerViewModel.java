@@ -24,12 +24,12 @@ public class HoldEmHandCheckerViewModel {
 
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
-        int[] value;
+        Integer[] value;
         value = checkForRoyalFlush();
         if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.ROYAL_FLUSH);
         }
-        value[0] = checkForStraightFlush();
+        value = checkForStraightFlush();
         if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.STRAIGHT_FLUSH);
         }
@@ -41,11 +41,11 @@ public class HoldEmHandCheckerViewModel {
         if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.FULL_HOUSE);
         }
-        value[0] = checkForFlush();
+        value = checkForFlush();
         if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.FLUSH);
         }
-        value[0] = checkForStraight();
+        value = checkForStraight();
         if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.STRAIGHT);
         }
@@ -61,7 +61,7 @@ public class HoldEmHandCheckerViewModel {
         if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.PAIR);
         }
-        return new HandStrengthModel(new int[] {rankList.get(0).getValue(true)},HandStrengthEnum.HIGH_CARD);
+        return new HandStrengthModel(new Integer[] {rankList.get(0).getValue(true)},HandStrengthEnum.HIGH_CARD);
     }
 
     public void clearAllLists() {
@@ -308,7 +308,7 @@ public class HoldEmHandCheckerViewModel {
         return new Integer[] {0};
     }
 
-    public int checkForRoyalFlush() {
+    public Integer[] checkForRoyalFlush() {
         ArrayList<Rank> straightRanks = new ArrayList<>();
         Rank[] royalFlushRanks = new Rank[] {Rank.ACE,Rank.KING,Rank.QUEEN,Rank.JACK,Rank.TEN};
         for (int i = 0; i < (rankListWithoutDuplicates.size() - 4); i++) {
@@ -347,7 +347,7 @@ public class HoldEmHandCheckerViewModel {
                                 Collections.sort(royalFlushRankArraylist);
                                 Collections.reverse(royalFlushRankArraylist);
                                 if(suitCounter == 4 && straightFlushRanks.equals(royalFlushRankArraylist)) {
-                                    return value;
+                                    return new Integer[] {value};
                                 }
                             }
                         }
@@ -355,6 +355,6 @@ public class HoldEmHandCheckerViewModel {
                 }
             }
         }
-        return 0;
+        return new Integer[] {0};
     }
 }
