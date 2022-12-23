@@ -55,6 +55,9 @@ public class Table {
         for(Player player:list) {
             System.out.println(player.getName());
             System.out.println(player.HandStrength);
+            for(Integer i:player.HandStrength.Value()) {
+                System.out.println(i);
+            }
         }
     }
     public ArrayList<Card> getAllCards() {

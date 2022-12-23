@@ -33,8 +33,23 @@ public class TableViewModel {
         for(Player player: Model.PlayerList()) {
             if(player.HandStrength.StrengthEnum().getValue() >= currentHighestHandStrength) {
                 if(player.HandStrength.StrengthEnum().getValue() == currentHighestHandStrength) {
-                    if()
+                    if(player.HandStrength.Value()[0] > winnerList.get(0).HandStrength.Value()[0]) {
+                        winnerList.clear();
+                        winnerList.add(player);
+                    } else {
+                        for(int i = 1; i<player.HandStrength.Value().length; i++) {
+                            if(player.HandStrength.Value()[i] > winnerList.get(0).HandStrength.Value()[i]) {
+                                winnerList.clear();
+                                winnerList.add(player);
+                                break;
+                            }
+                            if(player.HandStrength.Value()[i] < winnerList.get(0).HandStrength.Value()[i]) {
+                                break;
+                            }
+                        }
+                    }
                 } else {
+                    currentHighestHandStrength = player.HandStrength.StrengthEnum().getValue();
                     winnerList.clear();
                     winnerList.add(player);
                 }

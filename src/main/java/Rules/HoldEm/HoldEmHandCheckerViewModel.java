@@ -12,15 +12,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class HoldEmHandCheckerViewModel {
     private int value;
     private ArrayList<Card> cardList = new ArrayList<Card>();
-    private ArrayList<Rank> rankList = new ArrayList<>();
-    private ArrayList<Suit> suitList = new ArrayList<Suit>();
-    private ArrayList<Rank> rankListWithoutDuplicates = new ArrayList<>();
-    private HashMap<Integer, Card> integerCardHashMap = new HashMap<>();
-    private HashMap<Card,Integer> cardIntegerHashMap = new HashMap<>();
-    private HashMap<Integer,Rank> integerRankHashMap = new HashMap<>();
-    private HashMap<Integer,Suit> integerSuitHashMap = new HashMap<>();
+    private final ArrayList<Rank> rankList = new ArrayList<>();
+    private final ArrayList<Suit> suitList = new ArrayList<Suit>();
+    private final ArrayList<Rank> rankListWithoutDuplicates = new ArrayList<>();
+    private final HashMap<Integer, Card> integerCardHashMap = new HashMap<>();
+    private final HashMap<Card,Integer> cardIntegerHashMap = new HashMap<>();
+    private final HashMap<Integer,Rank> integerRankHashMap = new HashMap<>();
+    private final HashMap<Integer,Suit> integerSuitHashMap = new HashMap<>();
     private AtomicInteger atomicInteger = new AtomicInteger(100);
-    private HashMap<Rank,ArrayList<Integer>> idsForRanksHashMaps = new HashMap<>();
+    private final HashMap<Rank,ArrayList<Integer>> idsForRanksHashMaps = new HashMap<>();
 
     public HandStrengthModel checkAndGetHandValue(Player player, Table table) {
         getHandAndInitializeLists(player,table);
@@ -61,7 +61,7 @@ public class HoldEmHandCheckerViewModel {
         if(value[0] != 0) {
             return new HandStrengthModel(value,HandStrengthEnum.PAIR);
         }
-        return new HandStrengthModel(new Integer[] {rankList.get(0).getValue(true)},HandStrengthEnum.HIGH_CARD);
+        return new HandStrengthModel(getRankListOfBestRemainingCards(new ArrayList<Rank>(Collections.singletonList(rankList.get(0))),4,new int[] {rankList.get(0).getValue(true)}).toArray(new Integer[0]),HandStrengthEnum.HIGH_CARD);
     }
 
     public void clearAllLists() {
@@ -116,8 +116,9 @@ public class HoldEmHandCheckerViewModel {
         for(int integer:bestHandValue) {
             placeholderList.add(integer);
         }
+        int finalSize = placeholderList.size() + remainingSlots;
         for (Rank rank : rankList) {
-            if (!usedCards.contains(rank) && placeholderList.size()<remainingSlots+1) {
+            if (!usedCards.contains(rank) && placeholderList.size()<finalSize) {
                 placeholderList.add(rank.getValue(true));
             } else {
                 usedCards.remove(rank);
@@ -210,7 +211,6 @@ public class HoldEmHandCheckerViewModel {
     }
 
     public Integer[] checkForFlush() {
-        int counter = 0;
         for(int i = 0; i<suitList.size()-4; i++) {
             Suit placeholder = suitList.get(i);
             if(suitList.get(i+1) == placeholder) {
@@ -243,13 +243,11 @@ public class HoldEmHandCheckerViewModel {
                 rankList.remove(Rank.getEnum(value));
             }
             rankList.remove(Rank.getEnum(value));
-            System.out.println(rankList);
             if(checkForPair()[0] != 0) {
                 rankList.addAll(placeholder);
                 int secondValue = checkForPair()[0];
                 Collections.sort(rankList);
                 Collections.reverse(rankList);
-                System.out.println(rankList);
                 return new Integer[] {placeholder.get(0).getValue(true),secondValue};
             }
         }
