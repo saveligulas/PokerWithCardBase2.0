@@ -49,6 +49,7 @@ public class TableViewModel {
                         }
                     }
                 } else {
+                    currentHighestHandStrength = player.HandStrength.StrengthEnum().getValue();
                     winnerList.clear();
                     winnerList.add(player);
                 }
