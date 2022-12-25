@@ -1,4 +1,8 @@
 package TablePlayerData.Models;
 
-public record StackModel(int[] Money, int[] CommittedMoney){
+public class StackModel {
+    int Money;
+    int CommittedMoney;
+    int TotalWinnings;
+    int PotId;
 }
