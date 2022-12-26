@@ -5,4 +5,7 @@ public class StackModel {
     int CommittedMoney;
     int TotalWinnings;
     int PotId;
+    public StackModel(int cash) {
+        Money = cash;
+    }
 }
