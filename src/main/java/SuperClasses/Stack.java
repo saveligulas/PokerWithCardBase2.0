@@ -10,4 +10,8 @@ public class Stack {
         Model = new StackModel(money);
         ViewModel = new StackViewModel();
     }
+
+    public int getMoney() {
+        return Model.Money;
+    }
 }
