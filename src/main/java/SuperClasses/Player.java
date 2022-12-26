@@ -21,8 +21,8 @@ public class Player {
     public Table assignedTable;
     public HandStrengthModel HandStrength;
 
-    public Player(String Name, int Stack) {
-        Model = new PlayerModel(Name,Stack, IDCreator.getUniquePlayerID());
+    public Player(String Name, int Money) {
+        Model = new PlayerModel(Name,new Stack(Money), IDCreator.getUniquePlayerID());
         HandModel = PlayerHandViewModel.getEmptyHand();
         HandViewModel = new PlayerHandViewModel();
         ViewModel = new PlayerViewModel();
@@ -33,7 +33,7 @@ public class Player {
     }
 
     public int getStack() {
-        return Model.Stack();
+        return Model.stack().getMoney();
     }
 
     public void printInfo() {
