@@ -1,7 +1,7 @@
 package TablePlayerData.Models;
 
 public class StackModel {
-    int Money;
+    public int Money;
     int CommittedMoney;
     int TotalWinnings;
     int PotId;
