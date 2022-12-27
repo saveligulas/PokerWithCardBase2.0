@@ -7,11 +7,11 @@ public class StackViewModel {
         Model.CommittedMoney += amount;
     }
 
-    public void updateTotalWinnings() {
-
+    public void updateTotalWinnings(StackModel Model, int amount) {
+        Model.TotalWinnings += amount;
     }
 
-    public void updateEnteredPot() {
-
+    public void updateEnteredPot(StackModel Model, int newId) {
+        Model
     }
 }
