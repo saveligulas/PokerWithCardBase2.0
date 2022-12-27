@@ -2,9 +2,9 @@ package TablePlayerData.Models;
 
 public class StackModel {
     public int Money;
-    int CommittedMoney;
-    int TotalWinnings;
-    int PotId;
+    public int CommittedMoney;
+    public int TotalWinnings;
+    public int PotId;
     public StackModel(int cash) {
         Money = cash;
     }
