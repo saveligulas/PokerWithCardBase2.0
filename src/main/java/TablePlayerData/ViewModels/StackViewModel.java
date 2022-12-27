@@ -12,6 +12,6 @@ public class StackViewModel {
     }
 
     public void updateEnteredPot(StackModel Model, int newId) {
-        Model
+        Model.PotId = newId;
     }
 }
