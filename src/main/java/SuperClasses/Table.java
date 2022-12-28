@@ -20,7 +20,7 @@ public class Table {
     private TableViewModel ViewModel;
     private TableCardsModel CardsModel;
     private TableCardsViewModel CardsViewModel;
-    private HoldEmHandCheckerViewModel HandCheckerViewModel;
+    public HoldEmHandCheckerViewModel HandCheckerViewModel;
     private HashMap<Integer,ArrayList<Player>> potIdPlayerHashMap = new HashMap<>();
     public Table(int Capacity) {
         Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity);
@@ -54,14 +54,7 @@ public class Table {
     }
 
     public void checkForWinner() {
-        ArrayList<Player> list = ViewModel.checkHandsAndGetWinnerList(Model,HandCheckerViewModel);
-        for(Player player:list) {
-            System.out.println(player.getName());
-            System.out.println(player.HandStrength);
-            for(Integer i:player.HandStrength.Value()) {
-                System.out.println(i);
-            }
-        }
+        ViewModel.checkForWinner(this);
     }
     public ArrayList<Card> getAllCards() {
         ArrayList<Card> placeholder = new ArrayList<>(Arrays.asList(CardsModel.Flop()));
