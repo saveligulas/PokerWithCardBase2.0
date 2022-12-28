@@ -41,6 +41,7 @@ public class Table {
     }
 
     public void startNewRound() {
+        ViewModel.setupPotIds(potIdPlayerHashMap,Model);
         CardsModel.TableDeck().shuffleDeck();
         CardsViewModel.dealTableCards(CardsModel);
         dealCardsToAllPlayers();
