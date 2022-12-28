@@ -13,6 +13,7 @@ import TablePlayerData.ViewModels.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Table {
     public TableModel Model;
@@ -20,6 +21,7 @@ public class Table {
     private TableCardsModel CardsModel;
     private TableCardsViewModel CardsViewModel;
     private HoldEmHandCheckerViewModel HandCheckerViewModel;
+    private HashMap<Integer,ArrayList<Player>> potIdPlayerHashMap = new HashMap<>();
     public Table(int Capacity) {
         Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity);
         ViewModel = new TableViewModel();
