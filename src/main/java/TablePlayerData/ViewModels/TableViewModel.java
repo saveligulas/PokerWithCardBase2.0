@@ -8,8 +8,11 @@ import TablePlayerData.Models.TableModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TableViewModel {
+    private AtomicInteger atomicInteger = new AtomicInteger(1000);
     public void shuffleDeck(TableCardsModel Model) {
         Collections.shuffle(Model.TableDeck().CardArrayList);
     }
@@ -56,5 +59,10 @@ public class TableViewModel {
             }
         }
         return winnerList;
+    }
+
+    public void setupPotIds(HashMap<Integer,ArrayList<Player>> hashMap,TableModel Model) {
+        hashMap.clear();
+        hashMap.put(atomicInteger.getAndIncrement(),Model.PlayerList());
     }
 }
