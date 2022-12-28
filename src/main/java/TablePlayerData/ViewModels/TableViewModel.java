@@ -3,6 +3,7 @@ package TablePlayerData.ViewModels;
 import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import SuperClasses.Player;
 import SuperClasses.PrintMethods;
+import SuperClasses.Table;
 import TablePlayerData.Models.TableCardsModel;
 import TablePlayerData.Models.TableModel;
 
@@ -64,5 +65,16 @@ public class TableViewModel {
     public void setupPotIds(HashMap<Integer,ArrayList<Player>> hashMap,TableModel Model) {
         hashMap.clear();
         hashMap.put(atomicInteger.getAndIncrement(),Model.PlayerList());
+    }
+
+    public void checkForWinner(Table table) {
+        ArrayList<Player> list = checkHandsAndGetWinnerList(table.Model,table.HandCheckerViewModel);
+        for(Player player:list) {
+            System.out.println(player.getName());
+            System.out.println(player.HandStrength);
+            for(Integer i:player.HandStrength.Value()) {
+                System.out.println(i);
+            }
+        }
     }
 }
