@@ -4,5 +4,5 @@ import SuperClasses.Player;
 
 import java.util.ArrayList;
 
-public record TableModel(ArrayList<Player> PlayerList, int TableID, int TableCapacity) {
+public record TableModel(ArrayList<Player> PlayerList, int TableID, int TableCapacity, Player[] smallAndBigBlind) {
 }
