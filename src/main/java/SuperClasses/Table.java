@@ -23,7 +23,7 @@ public class Table {
     public HoldEmHandCheckerViewModel HandCheckerViewModel;
     private HashMap<Integer,ArrayList<Player>> potIdPlayerHashMap = new HashMap<>();
     public Table(int Capacity) {
-        Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity);
+        Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity,new Player[2]);
         ViewModel = new TableViewModel();
         CardsViewModel = new TableCardsViewModel();
         CardsModel = new TableCardsModel(new Card[3],new Card[1],new Card[1],new Deck());
