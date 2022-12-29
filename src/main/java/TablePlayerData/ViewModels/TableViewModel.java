@@ -3,13 +3,17 @@ package TablePlayerData.ViewModels;
 import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import SuperClasses.Player;
 import SuperClasses.PrintMethods;
+import SuperClasses.Table;
 import TablePlayerData.Models.TableCardsModel;
 import TablePlayerData.Models.TableModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TableViewModel {
+    private AtomicInteger atomicInteger = new AtomicInteger(1000);
     public void shuffleDeck(TableCardsModel Model) {
         Collections.shuffle(Model.TableDeck().CardArrayList);
     }
@@ -56,5 +60,21 @@ public class TableViewModel {
             }
         }
         return winnerList;
+    }
+
+    public void setupPotIds(HashMap<Integer,ArrayList<Player>> hashMap,TableModel Model) {
+        hashMap.clear();
+        hashMap.put(atomicInteger.getAndIncrement(),Model.PlayerList());
+    }
+
+    public void checkForWinner(Table table) {
+        ArrayList<Player> list = checkHandsAndGetWinnerList(table.Model,table.HandCheckerViewModel);
+        for(Player player:list) {
+            System.out.println(player.getName());
+            System.out.println(player.HandStrength);
+            for(Integer i:player.HandStrength.Value()) {
+                System.out.println(i);
+            }
+        }
     }
 }

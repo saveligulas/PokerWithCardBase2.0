@@ -13,15 +13,17 @@ import TablePlayerData.ViewModels.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Table {
     public TableModel Model;
     private TableViewModel ViewModel;
     private TableCardsModel CardsModel;
     private TableCardsViewModel CardsViewModel;
-    private HoldEmHandCheckerViewModel HandCheckerViewModel;
+    public HoldEmHandCheckerViewModel HandCheckerViewModel;
+    private HashMap<Integer,ArrayList<Player>> potIdPlayerHashMap = new HashMap<>();
     public Table(int Capacity) {
-        Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity);
+        Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity,new Player[2]);
         ViewModel = new TableViewModel();
         CardsViewModel = new TableCardsViewModel();
         CardsModel = new TableCardsModel(new Card[3],new Card[1],new Card[1],new Deck());
@@ -39,6 +41,7 @@ public class Table {
     }
 
     public void startNewRound() {
+        ViewModel.setupPotIds(potIdPlayerHashMap,Model);
         CardsModel.TableDeck().shuffleDeck();
         CardsViewModel.dealTableCards(CardsModel);
         dealCardsToAllPlayers();
@@ -51,14 +54,7 @@ public class Table {
     }
 
     public void checkForWinner() {
-        ArrayList<Player> list = ViewModel.checkHandsAndGetWinnerList(Model,HandCheckerViewModel);
-        for(Player player:list) {
-            System.out.println(player.getName());
-            System.out.println(player.HandStrength);
-            for(Integer i:player.HandStrength.Value()) {
-                System.out.println(i);
-            }
-        }
+        ViewModel.checkForWinner(this);
     }
     public ArrayList<Card> getAllCards() {
         ArrayList<Card> placeholder = new ArrayList<>(Arrays.asList(CardsModel.Flop()));
