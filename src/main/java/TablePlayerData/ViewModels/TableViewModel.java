@@ -62,9 +62,9 @@ public class TableViewModel {
         return winnerList;
     }
 
-    public void setupPotIds(HashMap<Integer,ArrayList<Player>> hashMap,TableModel Model) {
+    public void setupPotIds(HashMap<Integer[], ArrayList<Player>> hashMap, TableModel Model) {
         hashMap.clear();
-        hashMap.put(atomicInteger.getAndIncrement(),Model.PlayerList());
+        hashMap.put(new Integer[] {atomicInteger.getAndIncrement(),0},Model.PlayerList());
     }
 
     public void checkForWinner(Table table) {
