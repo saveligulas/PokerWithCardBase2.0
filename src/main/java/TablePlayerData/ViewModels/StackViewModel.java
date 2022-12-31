@@ -7,6 +7,10 @@ public class StackViewModel {
         Model.CommittedMoney += amount;
     }
 
+    public void removeMoney(StackModel Model, int amount) {
+        Model.Money = Model.Money-amount;
+    }
+
     public void updateTotalWinnings(StackModel Model, int amount) {
         Model.TotalWinnings += amount;
     }
