@@ -14,4 +14,8 @@ public class Stack {
     public int getMoney() {
         return Model.Money;
     }
+
+    public void betCallMoney(int amount) {
+        ViewModel.removeMoney(Model,amount);
+    }
 }
