@@ -35,8 +35,8 @@ public class Card {
 
     public Card(boolean emptyCard) {
         ID = 0;
-        Rank = null;
-        Suit = null;
-        Name = null;
+        Rank = CardBase.Rank.EMPTY_RANK;
+        Suit = CardBase.Suit.EMPTY_SUIT;
+        Name = Rank.getValue()+" of Empty";
     }
 }
