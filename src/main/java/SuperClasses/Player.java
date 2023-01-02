@@ -58,4 +58,8 @@ public class Player {
     public void setHandStrength(HoldEmHandCheckerViewModel ViewModel) {
         HandStrength = ViewModel.checkAndGetHandValue(this,assignedTable);
     }
+
+    public void betMoney(Table table, int amount) {
+        ViewModel.betMoney(Model,table,amount);
+    }
 }
