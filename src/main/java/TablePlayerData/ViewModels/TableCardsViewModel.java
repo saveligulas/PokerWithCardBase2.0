@@ -25,6 +25,14 @@ public class TableCardsViewModel {
         dealRiver(Model);
     }
 
+    public void setAllTableCardsEmpty(TableCardsModel Model) {
+        for(int i = 0; i<Model.Flop().length; i++) {
+            Model.Flop()[i] = new Card(true);
+        }
+        Model.Turn()[0] = new Card(true);
+        Model.River()[0] = new Card(true);
+    }
+
     public  void dealFlop(TableCardsModel Model) {
         for(int i = 0; i<Model.Flop().length; i++) {
             Model.Flop()[i] = Model.TableDeck().drawTopCard();

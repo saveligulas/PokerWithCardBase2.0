@@ -99,6 +99,7 @@ public class HoldEmHandCheckerViewModel {
         Set<Rank> rankSetList = new HashSet<>(rankList);
         rankListWithoutDuplicates.clear();
         rankListWithoutDuplicates.addAll(rankSetList);
+        rankListWithoutDuplicates.removeIf(rank -> rank.getValue() <= 0);
         Collections.sort(rankListWithoutDuplicates);
         Collections.reverse(rankListWithoutDuplicates);
         if(rankListWithoutDuplicates.contains(Rank.ACE)) {
@@ -109,9 +110,15 @@ public class HoldEmHandCheckerViewModel {
         Collections.sort(rankList);
         Collections.reverse(rankList);
         Collections.sort(suitList);
+
     }
 
     private ArrayList<Integer> getRankListOfBestRemainingCards(ArrayList<Rank> usedCards, int remainingSlots, int[] bestHandValue) {
+        for(Rank rank:rankList) {
+            if(rank.getValue() < 0) {
+                rankList.remove(rank);
+            }
+        }
         ArrayList<Integer> placeholderList = new ArrayList<>();
         for(int integer:bestHandValue) {
             placeholderList.add(integer);
@@ -124,6 +131,7 @@ public class HoldEmHandCheckerViewModel {
                 usedCards.remove(rank);
             }
         }
+        placeholderList.removeIf(integer -> integer <= 0);
         return placeholderList;
     }
 
