@@ -43,7 +43,7 @@ public class Table {
     public void startNewRound() {
         ViewModel.setupPotIds(potIdPlayerHashMap,Model);
         CardsModel.TableDeck().shuffleDeck();
-        CardsViewModel.dealTableCards(CardsModel);
+        CardsViewModel.dealAllTableCards(CardsModel);
         dealCardsToAllPlayers();
     }
 
@@ -67,15 +67,15 @@ public class Table {
         CardsViewModel.setTableCards(new Card[]{new Card(rank1,suit1),new Card(rank2,suit2),new Card(rank3,suit3),new Card(rank4,suit4),new Card(rank5,suit5)},CardsModel);
     }
 
-    public void playerChooseAction(Player player, int amount, int action) {
-        switch(action) {
-            case 1: {
-
-                break;
-            }
-            default: {
-                break;
-            }
-        }
-    }
+//    public void playerChooseAction(Player player, int amount, int action) {
+//        switch(action) {
+//            case 1: {
+//
+//                break;
+//            }
+//            default: {
+//                break;
+//            }
+//        }
+//    }
 }

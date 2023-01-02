@@ -19,11 +19,25 @@ public class TableCardsViewModel {
         System.out.println(Model.River()[0].getName());
     }
 
-    public void dealTableCards(TableCardsModel Model) {
+    public void dealAllTableCards(TableCardsModel Model) {
+        dealFlop(Model);
+        dealTurn(Model);
+        dealRiver(Model);
+    }
+
+    public  void dealFlop(TableCardsModel Model) {
         for(int i = 0; i<Model.Flop().length; i++) {
             Model.Flop()[i] = Model.TableDeck().drawTopCard();
         }
+        Model.Turn()[0] = new Card(true);
+        Model.River()[0] = new Card(true);
+    }
+
+    public  void dealTurn(TableCardsModel Model) {
         Model.Turn()[0] = Model.TableDeck().drawTopCard();
+    }
+
+    public void dealRiver(TableCardsModel Model) {
         Model.River()[0] = Model.TableDeck().drawTopCard();
     }
 
