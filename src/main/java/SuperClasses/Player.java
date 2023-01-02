@@ -37,10 +37,7 @@ public class Player {
     }
 
     public void printInfo() {
-        PrintMethods.printFiller(25,"-");
-        System.out.println();
-        System.out.println(ViewModel.getInfo(Model));
-        System.out.println(HandViewModel.getHand(HandModel));
+        ViewModel.printInfo(Model,HandViewModel,HandModel);
     }
 
     public void setHand(Card[] DealtHand) {
@@ -60,5 +57,9 @@ public class Player {
 
     public void setHandStrength(HoldEmHandCheckerViewModel ViewModel) {
         HandStrength = ViewModel.checkAndGetHandValue(this,assignedTable);
+    }
+
+    public void betMoney(Table table, int amount) {
+        ViewModel.betMoney(Model,table,amount);
     }
 }

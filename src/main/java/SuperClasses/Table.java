@@ -43,7 +43,7 @@ public class Table {
     public void startNewRound() {
         ViewModel.setupPotIds(potIdPlayerHashMap,Model);
         CardsModel.TableDeck().shuffleDeck();
-        CardsViewModel.dealTableCards(CardsModel);
+        CardsViewModel.dealAllTableCards(CardsModel);
         dealCardsToAllPlayers();
     }
 
@@ -66,4 +66,16 @@ public class Table {
     public void setCardsAdmin(Rank rank1, Suit suit1, Rank rank2, Suit suit2, Rank rank3, Suit suit3, Rank rank4, Suit suit4, Rank rank5, Suit suit5) {
         CardsViewModel.setTableCards(new Card[]{new Card(rank1,suit1),new Card(rank2,suit2),new Card(rank3,suit3),new Card(rank4,suit4),new Card(rank5,suit5)},CardsModel);
     }
+
+//    public void playerChooseAction(Player player, int amount, int action) {
+//        switch(action) {
+//            case 1: {
+//
+//                break;
+//            }
+//            default: {
+//                break;
+//            }
+//        }
+//    }
 }

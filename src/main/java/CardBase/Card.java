@@ -32,4 +32,11 @@ public class Card {
         this.Suit = CardBase.Suit.SPADES;
         Name = Rank.getName(CardBase.Rank.ACE)+" of "+CardBase.Suit.SPADES.getSuitName();
     }
+
+    public Card(boolean emptyCard) {
+        ID = 0;
+        Rank = null;
+        Suit = null;
+        Name = null;
+    }
 }
