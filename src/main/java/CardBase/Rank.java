@@ -1,13 +1,21 @@
 package CardBase;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public enum Rank {
     TWO(2),THREE(3),FOUR(4),FIVE(5),
     SIX(6),SEVEN(7),EIGHT(8),NINE(9),
-    TEN(10),JACK(11),QUEEN(12),KING(13),ACE(1);
+    TEN(10),JACK(11),QUEEN(12),KING(13),
+    ACE(1), EMPTY_RANK(0);
 
     private final Integer cardValue;
+    private AtomicInteger atomicInteger = new AtomicInteger(-1);
     private Rank(Integer cardValue) {
-        this.cardValue = cardValue;
+        if(cardValue == 0) {
+            this.cardValue = atomicInteger.getAndDecrement();
+        } else {
+            this.cardValue = cardValue;
+        }
     }
 
     public static Rank getEnum(int value) {
