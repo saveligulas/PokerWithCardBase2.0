@@ -22,6 +22,8 @@ public class Table {
     private TableCardsViewModel CardsViewModel;
     public HoldEmHandCheckerViewModel HandCheckerViewModel;
     private HashMap<Integer[],ArrayList<Player>> potIdPlayerHashMap = new HashMap<>();
+    public ArrayList<Player> currentRoundPlayers = new ArrayList<>();
+
     public Table(int Capacity) {
         Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity,new Player[2]);
         ViewModel = new TableViewModel();
@@ -43,7 +45,9 @@ public class Table {
     public void startNewRound() {
         ViewModel.setupPotIds(potIdPlayerHashMap,Model);
         CardsModel.TableDeck().shuffleDeck();
-        CardsViewModel.dealAllTableCards(CardsModel);
+        CardsViewModel.dealFlop(CardsModel);
+        CardsViewModel.dealTurn(CardsModel);
+        CardsViewModel.dealRiver(CardsModel);
         dealCardsToAllPlayers();
     }
 
@@ -67,15 +71,9 @@ public class Table {
         CardsViewModel.setTableCards(new Card[]{new Card(rank1,suit1),new Card(rank2,suit2),new Card(rank3,suit3),new Card(rank4,suit4),new Card(rank5,suit5)},CardsModel);
     }
 
-//    public void playerChooseAction(Player player, int amount, int action) {
-//        switch(action) {
-//            case 1: {
-//
-//                break;
-//            }
-//            default: {
-//                break;
-//            }
-//        }
-//    }
+    public void updateAssignedTableOnPlayers() {
+        for(Player player:Model.PlayerList()) {
+            player.assignedTable = this;
+        }
+    }
 }

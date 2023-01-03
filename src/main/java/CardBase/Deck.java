@@ -6,8 +6,16 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Deck {
-    private final Suit[] Suits = Suit.values();
-    private final Rank[] Ranks = Rank.values();
+    private Suit[] Suits = new Suit[4];
+    private Rank[] Ranks = new Rank[13];
+    {
+        for(int i = 0; i<Suit.values().length-1; i++) {
+            Suits[i] = Suit.values()[i];
+        }
+        for(int j = 1; j<Rank.values().length; j++) {
+            Ranks[j-1] = Rank.values()[j];
+        }
+    }
     public final ArrayList<Card> CardArrayList = new ArrayList<Card>();
     HashMap<Rank,AtomicInteger> atomicIntegerHashMap = new HashMap<>();
     {
