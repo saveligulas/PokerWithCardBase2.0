@@ -22,6 +22,8 @@ public class Table {
     private TableCardsViewModel CardsViewModel;
     public HoldEmHandCheckerViewModel HandCheckerViewModel;
     private HashMap<Integer[],ArrayList<Player>> potIdPlayerHashMap = new HashMap<>();
+    public ArrayList<Player> currentRoundPlayers = new ArrayList<>();
+
     public Table(int Capacity) {
         Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity,new Player[2]);
         ViewModel = new TableViewModel();
