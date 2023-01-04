@@ -64,5 +64,6 @@ public class Player {
     }
 
     public boolean performAction() {
+        return true;
     }
 }
