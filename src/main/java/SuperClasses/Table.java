@@ -79,6 +79,14 @@ public class Table {
     }
 
     public void takeTurn() {
+        int currentBet = 0;
+        for(Player player:currentRoundPlayers) {
+            if(player.performAction()) {
 
+            }
+            if(currentBet != 0) {
+
+            }
+        }
     }
 }
