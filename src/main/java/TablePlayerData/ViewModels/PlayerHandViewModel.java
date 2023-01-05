@@ -17,7 +17,7 @@ public class PlayerHandViewModel {
     }
 
     public void setCard(Card[] cards,PlayerHandModel Model) {
-                           Model.Hand()[0] = cards[0];
+        Model.Hand()[0] = cards[0];
         Model.Hand()[1] = cards[1];
     }
 }
