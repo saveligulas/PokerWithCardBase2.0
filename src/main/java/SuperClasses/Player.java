@@ -62,4 +62,8 @@ public class Player {
     public void betMoney(Table table, int amount) {
         ViewModel.betMoney(Model,table,amount);
     }
+
+    public boolean performAction() {
+        return true;
+    }
 }

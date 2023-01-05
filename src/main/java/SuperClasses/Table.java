@@ -45,6 +45,7 @@ public class Table {
     public void startNewRound() {
         ViewModel.setupPotIds(potIdPlayerHashMap,Model);
         CardsModel.TableDeck().shuffleDeck();
+        currentRoundPlayers = Model.PlayerList();
         CardsViewModel.dealFlop(CardsModel);
         CardsViewModel.dealTurn(CardsModel);
         CardsViewModel.dealRiver(CardsModel);
@@ -74,6 +75,18 @@ public class Table {
     public void updateAssignedTableOnPlayers() {
         for(Player player:Model.PlayerList()) {
             player.assignedTable = this;
+        }
+    }
+
+    public void takeTurn() {
+        int currentBet = 0;
+        for(Player player:currentRoundPlayers) {
+            if(player.performAction()) {
+
+            }
+            if(currentBet != 0) {
+
+            }
         }
     }
 }
