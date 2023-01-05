@@ -6,6 +6,7 @@ import TablePlayerData.Models.PlayerHandModel;
 import TablePlayerData.Models.PlayerModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PlayerViewModel {
     private ArrayList<Boolean> chanceArrayList = new ArrayList<>();
@@ -27,7 +28,13 @@ public class PlayerViewModel {
     }
 
     public boolean wantsToBet() {
+        updateChanceArrayList(33);
+        return chanceArrayList.get(0);
+    }
 
+    public boolean wantsToCall() {
+        updateChanceArrayList(66);
+        return chanceArrayList.get(0);
     }
 
     public void updateChanceArrayList(int chance) {
@@ -38,5 +45,6 @@ public class PlayerViewModel {
         for(int j = 0; j<100-chance; j++) {
             chanceArrayList.add(false);
         }
+        Collections.shuffle(chanceArrayList);
     }
 }
