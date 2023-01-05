@@ -80,10 +80,25 @@ public class TableViewModel {
 
     public void takeTurn(Table table) {
         int currentBet = 0;
+        int moneyCommit = 0;
+        Player playerWhoBet = null;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
         for(Player player:table.currentRoundPlayers) {
             if(player.performAction(currentActionEnum)) {
-                int moneyCommit = player.getMoneyAction();
+                moneyCommit = player.getMoneyAction(currentActionEnum);
+                if(currentActionEnum == ActionEnum.CAN_CHECK_OR_BET && moneyCommit != 0) {
+                    currentBet += moneyCommit;
+                    playerWhoBet = player;
+                    currentActionEnum = ActionEnum.HAS_TO_CALL;
+                    break;
+                }
+            }
+        }
+        if(currentBet != 0 && currentActionEnum == ActionEnum.HAS_TO_CALL) {
+            for(Player player: table.currentRoundPlayers) {
+                if(player != playerWhoBet) {
+
+                }
             }
         }
     }
