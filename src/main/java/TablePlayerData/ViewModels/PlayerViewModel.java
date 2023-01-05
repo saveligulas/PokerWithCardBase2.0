@@ -1,7 +1,6 @@
 package TablePlayerData.ViewModels;
 
 import SuperClasses.PrintMethods;
-import SuperClasses.Table;
 import TablePlayerData.Models.PlayerHandModel;
 import TablePlayerData.Models.PlayerModel;
 
@@ -14,7 +13,7 @@ public class PlayerViewModel {
        return Model.Name()+" | Stack: "+Model.stack().getMoney()+"£ | ID: "+Model.ID();
     }
 
-    public void betMoney(PlayerModel Model, Table table, int amount) {
+    public void betMoney(PlayerModel Model, int amount) {
         if(amount <= Model.stack().getMoney()) {
             Model.stack().betCallMoney(amount);
         }
