@@ -4,6 +4,7 @@ import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import SuperClasses.Player;
 import SuperClasses.PrintMethods;
 import SuperClasses.Table;
+import TablePlayerData.Enums.ActionEnum;
 import TablePlayerData.Models.TableCardsModel;
 import TablePlayerData.Models.TableModel;
 
@@ -74,6 +75,16 @@ public class TableViewModel {
             System.out.println(player.HandStrength);
             for(Integer i:player.HandStrength.Value()) {
                 System.out.println(i);
+            }
+        }
+    }
+
+    public void takeTurn(Table table) {
+        int currentBet = 0;
+        ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
+        for(Player player:table.currentRoundPlayers) {
+            if(player.performAction(currentActionEnum)) {
+                int moneyCommit = player.getMoneyAction();
             }
         }
     }
