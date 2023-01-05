@@ -5,7 +5,10 @@ import SuperClasses.Table;
 import TablePlayerData.Models.PlayerHandModel;
 import TablePlayerData.Models.PlayerModel;
 
+import java.util.ArrayList;
+
 public class PlayerViewModel {
+    private ArrayList<Boolean> chanceArrayList = new ArrayList<>();
     public String getInfo(PlayerModel Model) {
        return Model.Name()+" | Stack: "+Model.stack().getMoney()+"£ | ID: "+Model.ID();
     }
@@ -21,5 +24,19 @@ public class PlayerViewModel {
         System.out.println();
         System.out.println(getInfo(Model));
         System.out.println(HandViewModel.getHand(HandModel));
+    }
+
+    public boolean wantsToBet() {
+
+    }
+
+    public void updateChanceArrayList(int chance) {
+        chanceArrayList.clear();
+        for(int i = 0; i<chance; i++) {
+            chanceArrayList.add(true);
+        }
+        for(int j = 0; j<100-chance; j++) {
+            chanceArrayList.add(false);
+        }
     }
 }
