@@ -6,6 +6,7 @@ import CardBase.Suit;
 import Casino.ID.IDCreator;
 import Rules.HoldEm.HandStrengthModel;
 import Rules.HoldEm.HoldEmHandCheckerViewModel;
+import TablePlayerData.Enums.ActionEnum;
 import TablePlayerData.Models.PlayerHandModel;
 import TablePlayerData.Models.PlayerModel;
 import TablePlayerData.ViewModels.PlayerHandViewModel;
@@ -59,11 +60,21 @@ public class Player {
         HandStrength = ViewModel.checkAndGetHandValue(this,assignedTable);
     }
 
-    public void betMoney(Table table, int amount) {
-        ViewModel.betMoney(Model,table,amount);
+    public boolean performAction(ActionEnum actionEnum) {
+        if(actionEnum == ActionEnum.CAN_CHECK_OR_BET) {
+            return ViewModel.wantsToBet();
+        }
+        if(actionEnum == ActionEnum.HAS_TO_CALL) {
+            return ViewModel.wantsToCall();
+        }
     }
 
-    public boolean performAction() {
-        return true;
+    public int getMoneyAction(ActionEnum actionEnum) {
+        if(actionEnum == ActionEnum.CAN_CHECK_OR_BET) {
+
+        }
+        if(actionEnum == ActionEnum.HAS_TO_CALL) {
+
+        }
     }
 }
