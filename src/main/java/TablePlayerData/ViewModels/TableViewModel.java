@@ -2,14 +2,15 @@ package TablePlayerData.ViewModels;
 
 import Rules.HoldEm.HoldEmHandCheckerViewModel;
 import SuperClasses.Player;
+import SuperClasses.Pot;
 import SuperClasses.PrintMethods;
 import SuperClasses.Table;
+import TablePlayerData.Enums.ActionEnum;
 import TablePlayerData.Models.TableCardsModel;
 import TablePlayerData.Models.TableModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TableViewModel {
@@ -62,9 +63,8 @@ public class TableViewModel {
         return winnerList;
     }
 
-    public void setupPotIds(HashMap<Integer[], ArrayList<Player>> hashMap, TableModel Model) {
-        hashMap.clear();
-        hashMap.put(new Integer[] {atomicInteger.getAndIncrement(),0},Model.PlayerList());
+    public void setupPot(TableModel Model, Pot pot) {
+        pot.cleanse();
     }
 
     public void checkForWinner(Table table) {
@@ -74,6 +74,31 @@ public class TableViewModel {
             System.out.println(player.HandStrength);
             for(Integer i:player.HandStrength.Value()) {
                 System.out.println(i);
+            }
+        }
+    }
+
+    public void takeTurn(Table table) {
+        int currentBet = 0;
+        int moneyCommit = 0;
+        Player playerWhoBet = null;
+        ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
+        for(Player player:table.currentRoundPlayers) {
+            if(player.performAction(currentActionEnum)) {
+                moneyCommit = player.getMoneyAction(currentActionEnum);
+                if(currentActionEnum == ActionEnum.CAN_CHECK_OR_BET && moneyCommit != 0) {
+                    currentBet += moneyCommit;
+                    playerWhoBet = player;
+                    currentActionEnum = ActionEnum.HAS_TO_CALL;
+                    break;
+                }
+            }
+        }
+        if(currentBet != 0 && currentActionEnum == ActionEnum.HAS_TO_CALL) {
+            for(Player player: table.currentRoundPlayers) {
+                if(player != playerWhoBet) {
+
+                }
             }
         }
     }

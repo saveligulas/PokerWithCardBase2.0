@@ -13,7 +13,6 @@ import TablePlayerData.ViewModels.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class Table {
     public TableModel Model;
@@ -21,8 +20,8 @@ public class Table {
     private TableCardsModel CardsModel;
     private TableCardsViewModel CardsViewModel;
     public HoldEmHandCheckerViewModel HandCheckerViewModel;
-    private HashMap<Integer[],ArrayList<Player>> potIdPlayerHashMap = new HashMap<>();
     public ArrayList<Player> currentRoundPlayers = new ArrayList<>();
+    private final Pot pot = new Pot();
 
     public Table(int Capacity) {
         Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity,new Player[2]);
@@ -43,7 +42,7 @@ public class Table {
     }
 
     public void startNewRound() {
-        ViewModel.setupPotIds(potIdPlayerHashMap,Model);
+        ViewModel.setupPot(Model,pot);
         CardsModel.TableDeck().shuffleDeck();
         currentRoundPlayers = Model.PlayerList();
         CardsViewModel.dealFlop(CardsModel);
@@ -79,14 +78,6 @@ public class Table {
     }
 
     public void takeTurn() {
-        int currentBet = 0;
-        for(Player player:currentRoundPlayers) {
-            if(player.performAction()) {
-
-            }
-            if(currentBet != 0) {
-
-            }
-        }
+        ViewModel.takeTurn(this);
     }
 }
