@@ -77,4 +77,8 @@ public class Player {
         ViewModel.betMoney(Model,amount);
         return amount;
     }
+
+    public void callAction(int amount) {
+        ViewModel.betMoney(Model,amount);
+    }
 }
