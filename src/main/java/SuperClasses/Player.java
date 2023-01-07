@@ -13,6 +13,7 @@ import TablePlayerData.ViewModels.PlayerHandViewModel;
 import TablePlayerData.ViewModels.PlayerViewModel;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
     private final PlayerModel Model;
@@ -67,14 +68,16 @@ public class Player {
         if(actionEnum == ActionEnum.HAS_TO_CALL) {
             return ViewModel.wantsToCall();
         }
+        return false;
     }
 
-    public int getMoneyAction(ActionEnum actionEnum) {
-        if(actionEnum == ActionEnum.CAN_CHECK_OR_BET) {
-
-        }
-        if(actionEnum == ActionEnum.HAS_TO_CALL) {
-
-        }
+    public int getBetAction() {
+        Random random = new Random();
+        return random.nextInt(Model.stack().getMoney());
     }
+
+    public int getCallActionMoney() {
+        Random random = new Random();
+    }
+
 }
