@@ -85,10 +85,11 @@ public class TableViewModel {
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
         for(Player player:table.currentRoundPlayers) {
             if(player.performAction(currentActionEnum)) {
-                moneyCommit = player.getMoneyAction(currentActionEnum);
+                moneyCommit = player.getBetAction();
                 if(currentActionEnum == ActionEnum.CAN_CHECK_OR_BET && moneyCommit != 0) {
                     currentBet += moneyCommit;
                     playerWhoBet = player;
+                    table.pot.currentPotSize += moneyCommit;
                     currentActionEnum = ActionEnum.HAS_TO_CALL;
                     break;
                 }
@@ -96,8 +97,14 @@ public class TableViewModel {
         }
         if(currentBet != 0 && currentActionEnum == ActionEnum.HAS_TO_CALL) {
             for(Player player: table.currentRoundPlayers) {
-                if(player != playerWhoBet && player.performAction(currentActionEnum)) {
-
+                if(player != playerWhoBet) {
+                    if(player.performAction(currentActionEnum)) {
+                        player.callAction(moneyCommit);
+                        table.pot.currentPotSize += moneyCommit;
+                    }
+                    else {
+                        table.currentRoundPlayers.remove(player);
+                    }
                 }
             }
         }
