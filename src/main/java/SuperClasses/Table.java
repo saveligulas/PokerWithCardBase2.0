@@ -21,7 +21,7 @@ public class Table {
     private TableCardsViewModel CardsViewModel;
     public HoldEmHandCheckerViewModel HandCheckerViewModel;
     public ArrayList<Player> currentRoundPlayers = new ArrayList<>();
-    private final Pot pot = new Pot();
+    public final Pot pot = new Pot();
 
     public Table(int Capacity) {
         Model = new TableModel(new ArrayList<>(), IDCreator.getUniqueTableID(),Capacity,new Player[2]);
