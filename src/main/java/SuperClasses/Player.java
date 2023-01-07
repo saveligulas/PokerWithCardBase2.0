@@ -73,11 +73,8 @@ public class Player {
 
     public int getBetAction() {
         Random random = new Random();
-        return random.nextInt(Model.stack().getMoney());
+        int amount = random.nextInt(Model.stack().getMoney());
+        ViewModel.betMoney(Model,amount);
+        return amount;
     }
-
-    public int getCallActionMoney() {
-        Random random = new Random();
-    }
-
 }
