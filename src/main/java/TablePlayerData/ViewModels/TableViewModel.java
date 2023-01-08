@@ -29,13 +29,13 @@ public class TableViewModel {
         }
     }
 
-    public ArrayList<Player> checkHandsAndGetWinnerList(TableModel Model, HoldEmHandCheckerViewModel HandChecker) {
+    public ArrayList<Player> checkHandsAndGetWinnerList(ArrayList<Player> playerList, HoldEmHandCheckerViewModel HandChecker) {
         ArrayList<Player> winnerList = new ArrayList<>();
-        for(Player player:Model.PlayerList()) {
+        for(Player player:playerList) {
             player.setHandStrength(HandChecker);
         }
         int currentHighestHandStrength = 0;
-        for(Player player: Model.PlayerList()) {
+        for(Player player: playerList) {
             if(player.HandStrength.StrengthEnum().getValue() >= currentHighestHandStrength) {
                 if(player.HandStrength.StrengthEnum().getValue() == currentHighestHandStrength) {
                     if(player.HandStrength.Value()[0] > winnerList.get(0).HandStrength.Value()[0]) {
@@ -68,7 +68,7 @@ public class TableViewModel {
     }
 
     public void checkForWinner(Table table) {
-        ArrayList<Player> list = checkHandsAndGetWinnerList(table.Model,table.HandCheckerViewModel);
+        ArrayList<Player> list = checkHandsAndGetWinnerList(table.currentRoundPlayers,table.HandCheckerViewModel);
         for(Player player:list) {
             System.out.println(player.getName());
             System.out.println(player.HandStrength);
