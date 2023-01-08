@@ -46,8 +46,11 @@ public class Table {
         CardsModel.TableDeck().shuffleDeck();
         currentRoundPlayers = Model.PlayerList();
         CardsViewModel.dealFlop(CardsModel);
+        takeTurn();
         CardsViewModel.dealTurn(CardsModel);
+        takeTurn();
         CardsViewModel.dealRiver(CardsModel);
+        takeTurn();
         dealCardsToAllPlayers();
     }
 
