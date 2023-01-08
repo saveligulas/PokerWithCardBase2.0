@@ -99,7 +99,7 @@ public class TableViewModel {
             }
         }
         if(currentBet != 0 && currentActionEnum == ActionEnum.HAS_TO_CALL) {
-            for(Player player: table.currentRoundPlayers) {
+            for(Player player: playersWhoNeedToAct) {
                 if(player != playerWhoBet) {
                     if(player.performAction(currentActionEnum)) {
                         player.callAction(moneyCommit);
