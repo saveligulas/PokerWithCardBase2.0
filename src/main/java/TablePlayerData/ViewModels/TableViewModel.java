@@ -98,16 +98,14 @@ public class TableViewModel {
                 }
             }
         }
-        if(currentBet != 0 && currentActionEnum == ActionEnum.HAS_TO_CALL) {
+        if(currentBet != 0 && currentActionEnum == ActionEnum.HAS_TO_CALL && !playersWhoNeedToAct.isEmpty()) {
             for(Player player: playersWhoNeedToAct) {
-                if(player != playerWhoBet) {
-                    if(player.performAction(currentActionEnum)) {
-                        player.callAction(moneyCommit);
-                        table.pot.currentPotSize += moneyCommit;
-                    }
-                    else {
-                        table.currentRoundPlayers.remove(player);
-                    }
+                if(player.performAction(currentActionEnum)) {
+                    player.callAction(moneyCommit);
+                    table.pot.currentPotSize += moneyCommit;
+                }
+                else {
+                    table.currentRoundPlayers.remove(player);
                 }
             }
         }
