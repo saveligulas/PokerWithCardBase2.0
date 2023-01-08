@@ -29,13 +29,13 @@ public class TableViewModel {
         }
     }
 
-    public ArrayList<Player> checkHandsAndGetWinnerList(TableModel Model, HoldEmHandCheckerViewModel HandChecker) {
+    public ArrayList<Player> checkHandsAndGetWinnerList(ArrayList<Player> playerList, HoldEmHandCheckerViewModel HandChecker) {
         ArrayList<Player> winnerList = new ArrayList<>();
-        for(Player player:Model.PlayerList()) {
+        for(Player player:playerList) {
             player.setHandStrength(HandChecker);
         }
         int currentHighestHandStrength = 0;
-        for(Player player: Model.PlayerList()) {
+        for(Player player: playerList) {
             if(player.HandStrength.StrengthEnum().getValue() >= currentHighestHandStrength) {
                 if(player.HandStrength.StrengthEnum().getValue() == currentHighestHandStrength) {
                     if(player.HandStrength.Value()[0] > winnerList.get(0).HandStrength.Value()[0]) {
@@ -68,7 +68,7 @@ public class TableViewModel {
     }
 
     public void checkForWinner(Table table) {
-        ArrayList<Player> list = checkHandsAndGetWinnerList(table.Model,table.HandCheckerViewModel);
+        ArrayList<Player> list = checkHandsAndGetWinnerList(table.currentRoundPlayers,table.HandCheckerViewModel);
         for(Player player:list) {
             System.out.println(player.getName());
             System.out.println(player.HandStrength);
@@ -83,6 +83,7 @@ public class TableViewModel {
         int moneyCommit = 0;
         Player playerWhoBet = null;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
+        ArrayList<Player> playersWhoNeedToAct = new ArrayList<>();
         for(Player player:table.currentRoundPlayers) {
             if(player.performAction(currentActionEnum)) {
                 moneyCommit = player.getBetAction();
@@ -90,21 +91,21 @@ public class TableViewModel {
                     currentBet += moneyCommit;
                     playerWhoBet = player;
                     table.pot.currentPotSize += moneyCommit;
+                    playersWhoNeedToAct = table.currentRoundPlayers;
+                    playersWhoNeedToAct.remove(player);
                     currentActionEnum = ActionEnum.HAS_TO_CALL;
                     break;
                 }
             }
         }
-        if(currentBet != 0 && currentActionEnum == ActionEnum.HAS_TO_CALL) {
-            for(Player player: table.currentRoundPlayers) {
-                if(player != playerWhoBet) {
-                    if(player.performAction(currentActionEnum)) {
-                        player.callAction(moneyCommit);
-                        table.pot.currentPotSize += moneyCommit;
-                    }
-                    else {
-                        table.currentRoundPlayers.remove(player);
-                    }
+        if(currentBet != 0 && currentActionEnum == ActionEnum.HAS_TO_CALL && !playersWhoNeedToAct.isEmpty()) {
+            for(Player player: playersWhoNeedToAct) {
+                if(player.performAction(currentActionEnum)) {
+                    player.callAction(moneyCommit);
+                    table.pot.currentPotSize += moneyCommit;
+                }
+                else {
+                    table.currentRoundPlayers.remove(player);
                 }
             }
         }

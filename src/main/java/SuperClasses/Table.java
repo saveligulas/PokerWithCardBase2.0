@@ -45,10 +45,13 @@ public class Table {
         ViewModel.setupPot(Model,pot);
         CardsModel.TableDeck().shuffleDeck();
         currentRoundPlayers = Model.PlayerList();
-        CardsViewModel.dealFlop(CardsModel);
-        CardsViewModel.dealTurn(CardsModel);
-        CardsViewModel.dealRiver(CardsModel);
         dealCardsToAllPlayers();
+        CardsViewModel.dealFlop(CardsModel);
+        takeTurn();
+        CardsViewModel.dealTurn(CardsModel);
+        takeTurn();
+        CardsViewModel.dealRiver(CardsModel);
+        takeTurn();
     }
 
     public void dealCardsToAllPlayers() {

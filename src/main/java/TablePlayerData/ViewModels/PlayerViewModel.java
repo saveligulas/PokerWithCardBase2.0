@@ -24,6 +24,7 @@ public class PlayerViewModel {
         System.out.println();
         System.out.println(getInfo(Model));
         System.out.println(HandViewModel.getHand(HandModel));
+        System.out.println(Model.stack().getMoney());
     }
 
     public boolean wantsToBet() {

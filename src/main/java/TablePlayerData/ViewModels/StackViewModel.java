@@ -14,8 +14,4 @@ public class StackViewModel {
     public void updateTotalWinnings(StackModel Model, int amount) {
         Model.TotalWinnings += amount;
     }
-
-    public void updateEnteredPot(StackModel Model, int newId) {
-        Model.PotId = newId;
-    }
 }
