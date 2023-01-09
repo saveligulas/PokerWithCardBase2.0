@@ -83,7 +83,6 @@ public class TableViewModel {
         int currentBet = 0;
         int moneyCommit = 0;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
-        List<Player> playersWhoNeedToAct = new ArrayList<>();
         if(table.currentRoundPlayers.size() > 1) {
             for(int i = 0; i<table.currentRoundPlayers.size(); i++) {
                 if(table.currentRoundPlayers.get(i).performAction(currentActionEnum)) {
@@ -92,6 +91,7 @@ public class TableViewModel {
                         System.out.println(table.currentRoundPlayers.get(i).getName()+" bet "+moneyCommit);
                         currentBet += moneyCommit;
                         table.pot.currentPotSize += moneyCommit;
+                        ArrayList<Player> placeholderArrayList = new ArrayList<>();
                         if(i == 0 || i == table.currentRoundPlayers.size()-1) {
                             playersWhoNeedToAct = table.currentRoundPlayers;
                             playersWhoNeedToAct.remove(table.currentRoundPlayers.get(i));
@@ -105,7 +105,7 @@ public class TableViewModel {
                     }
                 }
             }
-            if(currentBet != 0 && playersWhoNeedToAct.size() > 0) {
+            if(currentBet != 0) {
                 for(Player player: playersWhoNeedToAct) {
                     if(player.performAction(currentActionEnum)) {
                         System.out.println(player.getName()+" called.");
