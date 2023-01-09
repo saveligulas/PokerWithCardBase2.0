@@ -11,6 +11,7 @@ import TablePlayerData.Models.TableModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TableViewModel {
@@ -82,7 +83,7 @@ public class TableViewModel {
         int currentBet = 0;
         int moneyCommit = 0;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
-        ArrayList<Player> playersWhoNeedToAct = new ArrayList<>();
+        List<Player> playersWhoNeedToAct = new ArrayList<>();
         if(table.currentRoundPlayers.size() > 1) {
             for(int i = 0; i<table.currentRoundPlayers.size(); i++) {
                 if(table.currentRoundPlayers.get(i).performAction(currentActionEnum)) {
@@ -91,13 +92,13 @@ public class TableViewModel {
                         System.out.println(table.currentRoundPlayers.get(i).getName()+" bet "+moneyCommit);
                         currentBet += moneyCommit;
                         table.pot.currentPotSize += moneyCommit;
-                        if(i == 0 && i == table.currentRoundPlayers.size()) {
+                        if(i == 0 || i == table.currentRoundPlayers.size()-1) {
                             playersWhoNeedToAct = table.currentRoundPlayers;
                             playersWhoNeedToAct.remove(table.currentRoundPlayers.get(i));
                         }
                         else {
-                            playersWhoNeedToAct = (ArrayList<Player>) table.currentRoundPlayers.subList(0,i-1);
-                            playersWhoNeedToAct.add((Player) table.currentRoundPlayers.subList(i+1,table.currentRoundPlayers.size()));
+                            playersWhoNeedToAct = table.currentRoundPlayers.subList(0,i-1);
+                            playersWhoNeedToAct.addAll(table.currentRoundPlayers.subList(i+1,table.currentRoundPlayers.size()-1));
                         }
                         currentActionEnum = ActionEnum.HAS_TO_CALL;
                         break;
