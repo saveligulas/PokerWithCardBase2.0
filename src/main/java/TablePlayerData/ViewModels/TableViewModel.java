@@ -83,36 +83,38 @@ public class TableViewModel {
         int moneyCommit = 0;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
         ArrayList<Player> playersWhoNeedToAct = new ArrayList<>();
-        for(int i = 0; i<table.currentRoundPlayers.size(); i++) {
-            if(table.currentRoundPlayers.get(i).performAction(currentActionEnum)) {
-                moneyCommit = table.currentRoundPlayers.get(i).getBetAction();
-                if(moneyCommit != 0) {
-                    System.out.println(table.currentRoundPlayers.get(i).getName()+" bet "+moneyCommit);
-                    currentBet += moneyCommit;
-                    table.pot.currentPotSize += moneyCommit;
-                    if(i == 0 && i == table.currentRoundPlayers.size()) {
-                        playersWhoNeedToAct = table.currentRoundPlayers;
-                        playersWhoNeedToAct.remove(table.currentRoundPlayers.get(i));
+        if(table.currentRoundPlayers.size() > 1) {
+            for(int i = 0; i<table.currentRoundPlayers.size(); i++) {
+                if(table.currentRoundPlayers.get(i).performAction(currentActionEnum)) {
+                    moneyCommit = table.currentRoundPlayers.get(i).getBetAction();
+                    if(moneyCommit != 0) {
+                        System.out.println(table.currentRoundPlayers.get(i).getName()+" bet "+moneyCommit);
+                        currentBet += moneyCommit;
+                        table.pot.currentPotSize += moneyCommit;
+                        if(i == 0 && i == table.currentRoundPlayers.size()) {
+                            playersWhoNeedToAct = table.currentRoundPlayers;
+                            playersWhoNeedToAct.remove(table.currentRoundPlayers.get(i));
+                        }
+                        else {
+                            playersWhoNeedToAct = (ArrayList<Player>) table.currentRoundPlayers.subList(0,i-1);
+                            playersWhoNeedToAct.add((Player) table.currentRoundPlayers.subList(i+1,table.currentRoundPlayers.size()));
+                        }
+                        currentActionEnum = ActionEnum.HAS_TO_CALL;
+                        break;
                     }
-                    else {
-                        playersWhoNeedToAct = (ArrayList<Player>) table.currentRoundPlayers.subList(0,i-1);
-                        playersWhoNeedToAct.add((Player) table.currentRoundPlayers.subList(i+1,table.currentRoundPlayers.size()));
-                    }
-                    currentActionEnum = ActionEnum.HAS_TO_CALL;
-                    break;
                 }
             }
-        }
-        if(currentBet != 0 && playersWhoNeedToAct.size() > 0) {
-            for(Player player: playersWhoNeedToAct) {
-                if(player.performAction(currentActionEnum)) {
-                    System.out.println(player.getName()+" called.");
-                    player.callAction(moneyCommit);
-                    table.pot.currentPotSize += moneyCommit;
-                }
-                else {
-                    System.out.println(player.getName()+" folded.");
-                    table.currentRoundPlayers.remove(player);
+            if(currentBet != 0 && playersWhoNeedToAct.size() > 0) {
+                for(Player player: playersWhoNeedToAct) {
+                    if(player.performAction(currentActionEnum)) {
+                        System.out.println(player.getName()+" called.");
+                        player.callAction(moneyCommit);
+                        table.pot.currentPotSize += moneyCommit;
+                    }
+                    else {
+                        System.out.println(player.getName()+" folded.");
+                        table.currentRoundPlayers.remove(player);
+                    }
                 }
             }
         }
