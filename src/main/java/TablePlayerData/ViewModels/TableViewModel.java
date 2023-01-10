@@ -11,6 +11,7 @@ import TablePlayerData.Models.TableModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TableViewModel {
@@ -81,31 +82,52 @@ public class TableViewModel {
     public void takeTurn(Table table) {
         int currentBet = 0;
         int moneyCommit = 0;
+        int index = 0;
         Player playerWhoBet = null;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
-        ArrayList<Player> playersWhoNeedToAct = new ArrayList<>();
-        for(Player player:table.currentRoundPlayers) {
-            if(player.performAction(currentActionEnum)) {
-                moneyCommit = player.getBetAction();
-                if(currentActionEnum == ActionEnum.CAN_CHECK_OR_BET && moneyCommit != 0) {
-                    currentBet += moneyCommit;
-                    playerWhoBet = player;
-                    table.pot.currentPotSize += moneyCommit;
-                    playersWhoNeedToAct = table.currentRoundPlayers;
-                    playersWhoNeedToAct.remove(player);
-                    currentActionEnum = ActionEnum.HAS_TO_CALL;
-                    break;
+        List<Player> placeholderArrayList = new ArrayList<>();
+        if(table.currentRoundPlayers.size() > 1) {
+            for(int i = 0; i<table.currentRoundPlayers.size(); i++) {
+                if(table.currentRoundPlayers.get(i).performAction(currentActionEnum)) {
+                    moneyCommit = table.currentRoundPlayers.get(i).getBetAction();
+                    if(moneyCommit != 0) {
+                        System.out.println(table.currentRoundPlayers.get(i).getName()+" bet "+moneyCommit);
+                        currentBet += moneyCommit;
+                        table.pot.currentPotSize += moneyCommit;
+                        if(i == 0 || i == table.currentRoundPlayers.size()-1) {
+                            placeholderArrayList = table.currentRoundPlayers;
+                            placeholderArrayList.remove(table.currentRoundPlayers.get(i));
+                        }
+                        else {
+                            placeholderArrayList = table.currentRoundPlayers.subList(0,i-1);
+                            placeholderArrayList.addAll(table.currentRoundPlayers.subList(i+1,table.currentRoundPlayers.size()-1));
+                        }
+                        currentActionEnum = ActionEnum.HAS_TO_CALL;
+                        playerWhoBet = table.currentRoundPlayers.get(i);
+                        index = i;
+                        break;
+                    }
                 }
             }
-        }
-        if(currentBet != 0 && currentActionEnum == ActionEnum.HAS_TO_CALL && !playersWhoNeedToAct.isEmpty()) {
-            for(Player player: playersWhoNeedToAct) {
-                if(player.performAction(currentActionEnum)) {
-                    player.callAction(moneyCommit);
-                    table.pot.currentPotSize += moneyCommit;
+            if(currentBet != 0) {
+                ArrayList<Player> foldedPlayersList = new ArrayList<>();
+                for(Player player:placeholderArrayList) {
+                    if(player.performAction(currentActionEnum)) {
+                        System.out.println(player.getName()+" called.");
+                        player.callAction(moneyCommit);
+                        table.pot.currentPotSize += moneyCommit;
+                    }
+                    else {
+                        System.out.println(player.getName()+" folded.");
+                        foldedPlayersList.add(player);
+                    }
                 }
-                else {
-                    table.currentRoundPlayers.remove(player);
+                table.currentRoundPlayers.clear();
+                for(int j = 0; j<placeholderArrayList.size(); j++) {
+                    if(j == index) {
+                        table.currentRoundPlayers.add(playerWhoBet);
+                    }
+                    table.currentRoundPlayers.add(placeholderArrayList.get(j));
                 }
             }
         }
