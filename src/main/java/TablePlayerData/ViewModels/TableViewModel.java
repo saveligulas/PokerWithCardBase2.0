@@ -91,14 +91,14 @@ public class TableViewModel {
                         System.out.println(table.currentRoundPlayers.get(i).getName()+" bet "+moneyCommit);
                         currentBet += moneyCommit;
                         table.pot.currentPotSize += moneyCommit;
-                        ArrayList<Player> placeholderArrayList = new ArrayList<>();
+                        List<Player> placeholderArrayList = new ArrayList<>();
                         if(i == 0 || i == table.currentRoundPlayers.size()-1) {
                             placeholderArrayList = table.currentRoundPlayers;
                             placeholderArrayList.remove(table.currentRoundPlayers.get(i));
                         }
                         else {
-                            playersWhoNeedToAct = table.currentRoundPlayers.subList(0,i-1);
-                            playersWhoNeedToAct.addAll(table.currentRoundPlayers.subList(i+1,table.currentRoundPlayers.size()-1));
+                            placeholderArrayList = table.currentRoundPlayers.subList(0,i-1);
+                            placeholderArrayList.addAll(table.currentRoundPlayers.subList(i+1,table.currentRoundPlayers.size()-1));
                         }
                         currentActionEnum = ActionEnum.HAS_TO_CALL;
                         break;
