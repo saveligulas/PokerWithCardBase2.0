@@ -82,6 +82,7 @@ public class TableViewModel {
     public void takeTurn(Table table) {
         int currentBet = 0;
         int moneyCommit = 0;
+        int index = 0;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
         List<Player> placeholderArrayList = new ArrayList<>();
         if(table.currentRoundPlayers.size() > 1) {
@@ -92,7 +93,6 @@ public class TableViewModel {
                         System.out.println(table.currentRoundPlayers.get(i).getName()+" bet "+moneyCommit);
                         currentBet += moneyCommit;
                         table.pot.currentPotSize += moneyCommit;
-
                         if(i == 0 || i == table.currentRoundPlayers.size()-1) {
                             placeholderArrayList = table.currentRoundPlayers;
                             placeholderArrayList.remove(table.currentRoundPlayers.get(i));
@@ -103,11 +103,13 @@ public class TableViewModel {
                         }
                         currentActionEnum = ActionEnum.HAS_TO_CALL;
                         Player playerWhoBet = table.currentRoundPlayers.get(i);
+                        index = i;
                         break;
                     }
                 }
             }
             if(currentBet != 0) {
+                ArrayList<Player> foldedPlayersList = new ArrayList<>();
                 for(Player player:placeholderArrayList) {
                     if(player.performAction(currentActionEnum)) {
                         System.out.println(player.getName()+" called.");
@@ -116,10 +118,14 @@ public class TableViewModel {
                     }
                     else {
                         System.out.println(player.getName()+" folded.");
-                        table.currentRoundPlayers.remove(player);
+                        foldedPlayersList.add(player);
                     }
                 }
+                for(int j = 0; j<placeholderArrayList.size(); j++) {
+
+                }
             }
+
         }
     }
 }
