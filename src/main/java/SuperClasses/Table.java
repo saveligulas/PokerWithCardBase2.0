@@ -48,10 +48,13 @@ public class Table {
         dealCardsToAllPlayers();
         CardsViewModel.dealFlop(CardsModel);
         takeTurn();
+        System.out.println("Post Flop");
         CardsViewModel.dealTurn(CardsModel);
         takeTurn();
+        System.out.println("Post Turn");
         CardsViewModel.dealRiver(CardsModel);
         takeTurn();
+        System.out.println("Post River");
     }
 
     public void dealCardsToAllPlayers() {
