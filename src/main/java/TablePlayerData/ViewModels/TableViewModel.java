@@ -93,8 +93,8 @@ public class TableViewModel {
                         table.pot.currentPotSize += moneyCommit;
                         ArrayList<Player> placeholderArrayList = new ArrayList<>();
                         if(i == 0 || i == table.currentRoundPlayers.size()-1) {
-                            playersWhoNeedToAct = table.currentRoundPlayers;
-                            playersWhoNeedToAct.remove(table.currentRoundPlayers.get(i));
+                            placeholderArrayList = table.currentRoundPlayers;
+                            placeholderArrayList.remove(table.currentRoundPlayers.get(i));
                         }
                         else {
                             playersWhoNeedToAct = table.currentRoundPlayers.subList(0,i-1);
