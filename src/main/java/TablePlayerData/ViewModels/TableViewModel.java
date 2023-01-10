@@ -83,6 +83,7 @@ public class TableViewModel {
         int currentBet = 0;
         int moneyCommit = 0;
         int index = 0;
+        Player playerWhoBet = null;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
         List<Player> placeholderArrayList = new ArrayList<>();
         if(table.currentRoundPlayers.size() > 1) {
@@ -102,7 +103,7 @@ public class TableViewModel {
                             placeholderArrayList.addAll(table.currentRoundPlayers.subList(i+1,table.currentRoundPlayers.size()-1));
                         }
                         currentActionEnum = ActionEnum.HAS_TO_CALL;
-                        Player playerWhoBet = table.currentRoundPlayers.get(i);
+                        playerWhoBet = table.currentRoundPlayers.get(i);
                         index = i;
                         break;
                     }
@@ -121,11 +122,14 @@ public class TableViewModel {
                         foldedPlayersList.add(player);
                     }
                 }
+                table.currentRoundPlayers.clear();
                 for(int j = 0; j<placeholderArrayList.size(); j++) {
-
+                    if(j == index) {
+                        table.currentRoundPlayers.add(playerWhoBet);
+                    }
+                    table.currentRoundPlayers.add(placeholderArrayList.get(j));
                 }
             }
-
         }
     }
 }
