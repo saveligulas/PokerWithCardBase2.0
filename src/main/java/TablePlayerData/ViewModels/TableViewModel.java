@@ -32,35 +32,39 @@ public class TableViewModel {
 
     public ArrayList<Player> checkHandsAndGetWinnerList(ArrayList<Player> playerList, HoldEmHandCheckerViewModel HandChecker) {
         ArrayList<Player> winnerList = new ArrayList<>();
-        for(Player player:playerList) {
-            player.setHandStrength(HandChecker);
-        }
-        int currentHighestHandStrength = 0;
-        for(Player player: playerList) {
-            if(player.HandStrength.StrengthEnum().getValue() >= currentHighestHandStrength) {
-                if(player.HandStrength.StrengthEnum().getValue() == currentHighestHandStrength) {
-                    if(player.HandStrength.Value()[0] > winnerList.get(0).HandStrength.Value()[0]) {
-                        winnerList.clear();
-                        winnerList.add(player);
-                    } else {
-                        for(int i = 1; i<player.HandStrength.Value().length; i++) {
-                            if(player.HandStrength.Value()[i] > winnerList.get(0).HandStrength.Value()[i]) {
-                                winnerList.clear();
-                                winnerList.add(player);
-                                break;
-                            }
-                            if(player.HandStrength.Value()[i] < winnerList.get(0).HandStrength.Value()[i]) {
-                                break;
+        if(playerList.size() != 1) {
+            for(Player player:playerList) {
+                player.setHandStrength(HandChecker);
+            }
+            int currentHighestHandStrength = 0;
+            for(Player player: playerList) {
+                if(player.HandStrength.StrengthEnum().getValue() >= currentHighestHandStrength) {
+                    if(player.HandStrength.StrengthEnum().getValue() == currentHighestHandStrength) {
+                        if(player.HandStrength.Value()[0] > winnerList.get(0).HandStrength.Value()[0]) {
+                            winnerList.clear();
+                            winnerList.add(player);
+                        } else {
+                            for(int i = 1; i<player.HandStrength.Value().length; i++) {
+                                if(player.HandStrength.Value()[i] > winnerList.get(0).HandStrength.Value()[i]) {
+                                    winnerList.clear();
+                                    winnerList.add(player);
+                                    break;
+                                }
+                                if(player.HandStrength.Value()[i] < winnerList.get(0).HandStrength.Value()[i]) {
+                                    break;
+                                }
                             }
                         }
+                    } else {
+                        currentHighestHandStrength = player.HandStrength.StrengthEnum().getValue();
+                        winnerList.clear();
+                        winnerList.add(player);
                     }
-                } else {
-                    currentHighestHandStrength = player.HandStrength.StrengthEnum().getValue();
-                    winnerList.clear();
-                    winnerList.add(player);
                 }
             }
+            return winnerList;
         }
+        winnerList.add(playerList.get(0));
         return winnerList;
     }
 
