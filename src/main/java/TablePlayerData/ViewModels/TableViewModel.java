@@ -133,6 +133,9 @@ public class TableViewModel {
                     }
                     table.currentRoundPlayers.add(placeholderArrayList.get(j));
                 }
+                for(Player player: table.currentRoundPlayers) {
+
+                }
             }
         }
     }
