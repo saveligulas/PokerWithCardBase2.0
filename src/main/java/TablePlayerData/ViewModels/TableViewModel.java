@@ -109,12 +109,12 @@ public class TableViewModel {
                         currentActionEnum = ActionEnum.HAS_TO_CALL;
                         playerWhoBet = table.currentRoundPlayers.get(i);
                         index = i;
+                        System.out.println(placeholderArrayList);
                         break;
                     }
                 }
             }
             if(currentBet != 0) {
-                ArrayList<Player> foldedPlayersList = new ArrayList<>();
                 for(Player player:placeholderArrayList) {
                     if(player.performAction(currentActionEnum)) {
                         System.out.println(player.getName()+" called.");
@@ -123,7 +123,7 @@ public class TableViewModel {
                     }
                     else {
                         System.out.println(player.getName()+" folded.");
-                        foldedPlayersList.add(player);
+                        placeholderArrayList.remove(player);
                     }
                 }
                 table.currentRoundPlayers.clear();
@@ -132,9 +132,6 @@ public class TableViewModel {
                         table.currentRoundPlayers.add(playerWhoBet);
                     }
                     table.currentRoundPlayers.add(placeholderArrayList.get(j));
-                }
-                for(Player player: table.currentRoundPlayers) {
-
                 }
             }
         }
