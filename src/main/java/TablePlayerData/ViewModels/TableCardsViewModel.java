@@ -47,6 +47,7 @@ public class TableCardsViewModel {
 
     public void dealRiver(TableCardsModel Model) {
         Model.River()[0] = Model.TableDeck().drawTopCard();
+        Model.TableDeck().resetDeck();
     }
 
     public Card[] dealCards(TableCardsModel cardsModel, Player player) {
