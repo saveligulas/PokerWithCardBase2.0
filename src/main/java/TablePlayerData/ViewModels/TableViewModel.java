@@ -100,6 +100,8 @@ public class TableViewModel {
                     moneyCommit = table.Model.PlayerList().get(i).getBetAction();
                     if(moneyCommit != 0) {
                         System.out.println(table.Model.PlayerList().get(i).getName()+" bet "+moneyCommit);
+                        playerWhoBet = table.Model.PlayerList().get(i);
+                        idOfPlayerWhoBet = table.Model.PlayerList().get(i).getID();
                         currentBet += moneyCommit;
                         table.pot.currentPotSize += moneyCommit;
                         if(i == 0 || i == table.Model.PlayerList().size()-1) {
@@ -111,8 +113,6 @@ public class TableViewModel {
                             placeholderArrayList.addAll(table.Model.PlayerList().subList(i+1,table.Model.PlayerList().size()-1));
                         }
                         currentActionEnum = ActionEnum.HAS_TO_CALL;
-                        playerWhoBet = table.Model.PlayerList().get(i);
-                        idOfPlayerWhoBet = table.Model.PlayerList().get(i).getID();
                         System.out.println(placeholderArrayList);
                         break;
                     }
