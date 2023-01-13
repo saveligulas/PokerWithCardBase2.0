@@ -16,7 +16,7 @@ public class Deck {
             Ranks[j-1] = Rank.values()[j];
         }
     }
-    public final ArrayList<Card> CardArrayList = new ArrayList<Card>();
+    public ArrayList<Card> CardArrayList = new ArrayList<Card>();
     HashMap<Rank,AtomicInteger> atomicIntegerHashMap = new HashMap<>();
     {
         for (Rank rank : Ranks) {
@@ -31,6 +31,17 @@ public class Deck {
 
     public Deck() {
         initializeStandardDeck();
+    }
+
+    public void resetDeck(){
+        CardArrayList.clear();
+        for(Suit suit:Suits) {
+            for(Rank rank:Ranks) {
+                Card card = new Card(rank,suit);
+                assignID(card);
+                CardArrayList.add(card);
+            }
+        }
     }
 
     private void initializeStandardDeck(){
