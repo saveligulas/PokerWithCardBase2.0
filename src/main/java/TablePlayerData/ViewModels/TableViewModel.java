@@ -124,12 +124,12 @@ public class TableViewModel {
                     table.Model.PlayerList().add(value);
                 }
                 for(Player player:table.Model.PlayerList()) {
-                    if(player.performAction(currentActionEnum)) {
+                    if(player.performAction(currentActionEnum) && player.getID() != idOfPlayerWhoBet ) {
                         System.out.println(player.getName()+" called.");
                         player.callAction(moneyCommit);
                         table.pot.currentPotSize += moneyCommit;
                     }
-                    else {
+                    if(player.getID() != idOfPlayerWhoBet) {
                         System.out.println(player.getName()+" folded.");
                         placeholderArrayList.remove(player);
                     }
