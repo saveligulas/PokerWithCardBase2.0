@@ -94,8 +94,7 @@ public class TableViewModel {
         ArrayList<Player> placeholderArrayList = new ArrayList<>();
         HashMap<Integer,Integer> IDForIndexHashMap = new HashMap<>();
         table.currentRoundPlayers = table.Model.PlayerList();
-        boolean test = false;
-        if(table.Model.PlayerList().size() > 1 && test) {
+        if(table.Model.PlayerList().size() > 1) {
             for(int i = 0; i<table.Model.PlayerList().size(); i++) {
                 if(table.Model.PlayerList().get(i).performAction(currentActionEnum)) {
                     moneyCommit = table.Model.PlayerList().get(i).getBetAction();
@@ -122,6 +121,7 @@ public class TableViewModel {
             }
             System.out.println(placeholderArrayList);
             System.out.println("Betting Loop over.");
+            Player[] placeholderArray = (Player[]) placeholderArrayList.toArray();
             if(currentBet != 0) {
                 table.Model.PlayerList().clear();
                 System.out.println("PlayerList cleared.");
