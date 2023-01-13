@@ -59,6 +59,7 @@ public class Table {
     public void dealCardsToAllPlayers() {
         for(Player player:Model.PlayerList()) {
             player.setHand(CardsViewModel.dealCards(CardsModel,player));
+            player.printInfo();
         }
     }
 
