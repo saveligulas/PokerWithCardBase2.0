@@ -112,17 +112,19 @@ public class TableViewModel {
                             placeholderArrayList = table.Model.PlayerList().subList(0,i-1);
                             placeholderArrayList.addAll(table.Model.PlayerList().subList(i+1,table.Model.PlayerList().size()-1));
                         }
+
                         currentActionEnum = ActionEnum.HAS_TO_CALL;
-                        System.out.println(placeholderArrayList);
                         break;
                     }
                 }
             }
+            System.out.println(placeholderArrayList);
+            System.out.println("Betting Loop over.");
             if(currentBet != 0) {
                 table.Model.PlayerList().clear();
-                for(Player value : placeholderArrayList) {
-                    table.Model.PlayerList().add(value);
-                }
+                System.out.println("PlayerList cleared.");
+                table.Model.PlayerList().addAll(placeholderArrayList);
+                System.out.println(table.Model.PlayerList());
                 for(Player player:table.Model.PlayerList()) {
                     if(player.performAction(currentActionEnum) && player.getID() != idOfPlayerWhoBet ) {
                         System.out.println(player.getName()+" called.");
