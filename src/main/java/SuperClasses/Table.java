@@ -44,7 +44,6 @@ public class Table {
     public void startNewRound() {
         ViewModel.setupPot(Model,pot);
         CardsModel.TableDeck().shuffleDeck();
-        currentRoundPlayers = Model.PlayerList();
         dealCardsToAllPlayers();
         CardsViewModel.dealFlop(CardsModel);
         takeTurn();

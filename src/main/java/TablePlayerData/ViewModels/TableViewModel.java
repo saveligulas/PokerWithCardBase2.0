@@ -90,7 +90,8 @@ public class TableViewModel {
         Player playerWhoBet = null;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
         List<Player> placeholderArrayList = new ArrayList<>();
-        if(table.currentRoundPlayers.size() > 1) {
+        table.currentRoundPlayers = table.Model.PlayerList();
+        if(table.Model.PlayerList().size() > 1) {
             for(int i = 0; i<table.currentRoundPlayers.size(); i++) {
                 if(table.currentRoundPlayers.get(i).performAction(currentActionEnum)) {
                     moneyCommit = table.currentRoundPlayers.get(i).getBetAction();
