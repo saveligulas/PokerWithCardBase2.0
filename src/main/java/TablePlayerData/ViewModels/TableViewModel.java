@@ -12,7 +12,6 @@ import TablePlayerData.Models.TableModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TableViewModel {
@@ -91,7 +90,7 @@ public class TableViewModel {
         int idOfPlayerWhoBet = 0;
         Player playerWhoBet = null;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
-        List<Player> placeholderArrayList = new ArrayList<>();
+        ArrayList<Player> placeholderArrayList = new ArrayList<>();
         HashMap<Integer,Integer> IDForIndexHashMap = new HashMap<>();
         table.currentRoundPlayers = table.Model.PlayerList();
         if(table.Model.PlayerList().size() > 1) {
@@ -109,7 +108,7 @@ public class TableViewModel {
                             placeholderArrayList.remove(table.Model.PlayerList().get(i));
                         }
                         else {
-                            placeholderArrayList = table.Model.PlayerList().subList(0,i-1);
+                            placeholderArrayList = (ArrayList<Player>) table.Model.PlayerList().subList(0,i-1);
                             placeholderArrayList.addAll(table.Model.PlayerList().subList(i+1,table.Model.PlayerList().size()-1));
                         }
 
@@ -123,7 +122,9 @@ public class TableViewModel {
             if(currentBet != 0) {
                 table.Model.PlayerList().clear();
                 System.out.println("PlayerList cleared.");
-                table.Model.PlayerList().addAll(placeholderArrayList);
+                for(Player player1 : placeholderArrayList) {
+                    table.addPlayer(player1);
+                }
                 System.out.println(table.Model.PlayerList());
                 for(Player player:table.Model.PlayerList()) {
                     if(player.performAction(currentActionEnum) && player.getID() != idOfPlayerWhoBet ) {
@@ -135,13 +136,6 @@ public class TableViewModel {
                         System.out.println(player.getName()+" folded.");
                         placeholderArrayList.remove(player);
                     }
-                }
-                table.currentRoundPlayers.clear();
-                for(int j = 0; j<placeholderArrayList.size(); j++) {
-                    if(j == index) {
-                        table.currentRoundPlayers.add(playerWhoBet);
-                    }
-                    table.currentRoundPlayers.add(placeholderArrayList.get(j));
                 }
             }
         }
