@@ -11,6 +11,7 @@ import TablePlayerData.Models.TableModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -87,36 +88,42 @@ public class TableViewModel {
         int currentBet = 0;
         int moneyCommit = 0;
         int index = 0;
+        int idOfPlayerWhoBet = 0;
         Player playerWhoBet = null;
         ActionEnum currentActionEnum = ActionEnum.CAN_CHECK_OR_BET;
         List<Player> placeholderArrayList = new ArrayList<>();
+        HashMap<Integer,Integer> IDForIndexHashMap = new HashMap<>();
         table.currentRoundPlayers = table.Model.PlayerList();
         if(table.Model.PlayerList().size() > 1) {
-            for(int i = 0; i<table.currentRoundPlayers.size(); i++) {
-                if(table.currentRoundPlayers.get(i).performAction(currentActionEnum)) {
-                    moneyCommit = table.currentRoundPlayers.get(i).getBetAction();
+            for(int i = 0; i<table.Model.PlayerList().size(); i++) {
+                if(table.Model.PlayerList().get(i).performAction(currentActionEnum)) {
+                    moneyCommit = table.Model.PlayerList().get(i).getBetAction();
                     if(moneyCommit != 0) {
-                        System.out.println(table.currentRoundPlayers.get(i).getName()+" bet "+moneyCommit);
+                        System.out.println(table.Model.PlayerList().get(i).getName()+" bet "+moneyCommit);
                         currentBet += moneyCommit;
                         table.pot.currentPotSize += moneyCommit;
-                        if(i == 0 || i == table.currentRoundPlayers.size()-1) {
-                            placeholderArrayList = table.currentRoundPlayers;
-                            placeholderArrayList.remove(table.currentRoundPlayers.get(i));
+                        if(i == 0 || i == table.Model.PlayerList().size()-1) {
+                            placeholderArrayList = table.Model.PlayerList();
+                            placeholderArrayList.remove(table.Model.PlayerList().get(i));
                         }
                         else {
-                            placeholderArrayList = table.currentRoundPlayers.subList(0,i-1);
-                            placeholderArrayList.addAll(table.currentRoundPlayers.subList(i+1,table.currentRoundPlayers.size()-1));
+                            placeholderArrayList = table.Model.PlayerList().subList(0,i-1);
+                            placeholderArrayList.addAll(table.Model.PlayerList().subList(i+1,table.Model.PlayerList().size()-1));
                         }
                         currentActionEnum = ActionEnum.HAS_TO_CALL;
-                        playerWhoBet = table.currentRoundPlayers.get(i);
-                        index = i;
+                        playerWhoBet = table.Model.PlayerList().get(i);
+                        idOfPlayerWhoBet = table.Model.PlayerList().get(i).getID();
                         System.out.println(placeholderArrayList);
                         break;
                     }
                 }
             }
             if(currentBet != 0) {
-                for(Player player:placeholderArrayList) {
+                table.Model.PlayerList().clear();
+                for(Player value : placeholderArrayList) {
+                    table.Model.PlayerList().add(value);
+                }
+                for(Player player:table.Model.PlayerList()) {
                     if(player.performAction(currentActionEnum)) {
                         System.out.println(player.getName()+" called.");
                         player.callAction(moneyCommit);
