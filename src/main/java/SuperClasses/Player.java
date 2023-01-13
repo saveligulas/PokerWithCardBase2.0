@@ -81,4 +81,8 @@ public class Player {
     public void callAction(int amount) {
         ViewModel.betMoney(Model,amount);
     }
+
+    public int getID() {
+        return Model.ID();
+    }
 }
