@@ -12,6 +12,7 @@ import TablePlayerData.Models.TableModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TableViewModel {
@@ -73,7 +74,7 @@ public class TableViewModel {
     }
 
     public void checkForWinner(Table table) {
-        ArrayList<Player> list = checkHandsAndGetWinnerList(table.currentRoundPlayers,table.HandCheckerViewModel);
+        ArrayList<Player> list = checkHandsAndGetWinnerList(table.Model.PlayerList(), table.HandCheckerViewModel);
         for(Player player:list) {
             System.out.println(player.getName());
             System.out.println(player.HandStrength);
@@ -93,7 +94,8 @@ public class TableViewModel {
         ArrayList<Player> placeholderArrayList = new ArrayList<>();
         HashMap<Integer,Integer> IDForIndexHashMap = new HashMap<>();
         table.currentRoundPlayers = table.Model.PlayerList();
-        if(table.Model.PlayerList().size() > 1) {
+        boolean test = false;
+        if(table.Model.PlayerList().size() > 1 && test) {
             for(int i = 0; i<table.Model.PlayerList().size(); i++) {
                 if(table.Model.PlayerList().get(i).performAction(currentActionEnum)) {
                     moneyCommit = table.Model.PlayerList().get(i).getBetAction();
@@ -108,7 +110,8 @@ public class TableViewModel {
                             placeholderArrayList.remove(table.Model.PlayerList().get(i));
                         }
                         else {
-                            placeholderArrayList = (ArrayList<Player>) table.Model.PlayerList().subList(0,i-1);
+                            List<Player> placeholderList = table.Model.PlayerList().subList(0,i-1);
+                            placeholderArrayList.addAll(placeholderList);
                             placeholderArrayList.addAll(table.Model.PlayerList().subList(i+1,table.Model.PlayerList().size()-1));
                         }
 

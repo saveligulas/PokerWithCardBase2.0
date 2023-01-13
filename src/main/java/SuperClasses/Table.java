@@ -46,14 +46,14 @@ public class Table {
         CardsModel.TableDeck().shuffleDeck();
         dealCardsToAllPlayers();
         CardsViewModel.dealFlop(CardsModel);
-        takeTurn();
         System.out.println("Post Flop");
+        takeTurn();
         CardsViewModel.dealTurn(CardsModel);
-        takeTurn();
         System.out.println("Post Turn");
-        CardsViewModel.dealRiver(CardsModel);
         takeTurn();
+        CardsViewModel.dealRiver(CardsModel);
         System.out.println("Post River");
+        takeTurn();
     }
 
     public void dealCardsToAllPlayers() {
